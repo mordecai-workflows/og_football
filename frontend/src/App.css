@@ -1,6 +1,4 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+:root{  
+  --button-theme: rgb(4, 194, 4);
+  --button-theme-hover: rgb(5, 158, 5);
 }
