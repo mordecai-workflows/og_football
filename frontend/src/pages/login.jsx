@@ -29,21 +29,27 @@ export default function LoginPage() {
         <div className="container-form">
           <span className="container-title">Login</span>
           <form action="" method="post">
-            <label htmlFor="email">Email</label>
-            <input
-              type="text"
-              name="email"
-              id="email"
-              placeholder="Enter email address"
-            />
+            <div className="login-fields">
+              <div>
+                <label htmlFor="email">Email</label>
+                <input
+                  type="text"
+                  name="email"
+                  id="email"
+                  placeholder="Enter email address"
+                />
+              </div>
 
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="Enter password"
-            />
+              <div>
+                <label htmlFor="password">Password</label>
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  placeholder="Enter password"
+                />
+              </div>
+            </div>
 
             <Link to="/forgot" className="forgot-link">
               Forgot password?
