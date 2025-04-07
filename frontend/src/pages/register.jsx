@@ -2,19 +2,18 @@ import "./layout.css";
 import "./register.css";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // Helper function for email validation
 const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 const API_URL = import.meta.env.VITE_API_URL;
-console.log(API_URL)
-
-
+console.log(API_URL);
 
 export default function RegisterPage() {
   const [step, setStep] = useState(1);
   const [selectedRole, setSelectedRole] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [first_name, setFirstName] = useState("");
+  const [last_name, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [dob, setDob] = useState("");
@@ -26,6 +25,11 @@ export default function RegisterPage() {
   const [county, setCounty] = useState("");
   const [organization, setOrganization] = useState("");
   const [experience, setExperience] = useState("");
+
+  const [loading, setLoading] = useState(false); // To track loading state
+  const [successMessage, setSuccessMessage] = useState(""); // For success message
+  const [errorMessage, setErrorMessage] = useState(""); // For error message
+  const navigate = useNavigate();
 
   const counties = [
     "Mombasa",
@@ -77,11 +81,11 @@ export default function RegisterPage() {
     "Nairobi",
   ];
 
-  const roles = ["Player", "Scout"];
+  const roles = ["player", "scout"];
 
   const [errors, setErrors] = useState({
-    firstName: "",
-    lastName: "",
+    first_name: "",
+    last_name: "",
     email: "",
     password: "",
     role: "",
@@ -100,8 +104,8 @@ export default function RegisterPage() {
     e.preventDefault();
     let formErrors = {};
 
-    if (!firstName) formErrors.firstName = "First Name is required";
-    if (!lastName) formErrors.lastName = "Last Name is required";
+    if (!first_name) formErrors.first_name = "First Name is required";
+    if (!last_name) formErrors.last_name = "Last Name is required";
     if (!email) formErrors.email = "Email is required";
     if (email) {
       if (!isValidEmail(email)) formErrors.email = "Invalid Email Address";
@@ -125,7 +129,7 @@ export default function RegisterPage() {
     e.preventDefault();
     let step2Errors = {};
 
-    if (selectedRole === "Player") {
+    if (selectedRole === "player") {
       if (!dob) step2Errors.dob = "Date of Birth is required";
       if (!height) step2Errors.height = "Height is required";
       if (!weight) step2Errors.weight = "Weight is required";
@@ -136,20 +140,20 @@ export default function RegisterPage() {
       if (!county) step2Errors.county = "County is required";
     }
 
-    if (selectedRole === "Scout") {
+    if (selectedRole === "scout") {
       if (!organization) step2Errors.organization = "Organization is required";
       if (!experience) step2Errors.experience = "Experience is required";
     }
 
     if (Object.keys(step2Errors).length === 0) {
       const payload = {
-        firstName,
-        lastName,
+        first_name,
+        last_name,
         email,
         password,
-        role: selectedRole,
-        ...(selectedRole === "Player" && {
-          dob,
+        user_type: selectedRole,
+        ...(selectedRole === "player" && {
+          yob: dob,
           height,
           weight,
           preferred_foot,
@@ -157,10 +161,11 @@ export default function RegisterPage() {
           position,
           county,
         }),
-        ...(selectedRole === "Scout" && { organization, experience }),
+        ...(selectedRole === "scout" && { organization, experience }),
       };
       console.log("Registration submitted:", payload);
       setErrors({});
+      setLoading(true);
 
       try {
         const response = await fetch(`${API_URL}/api/register`, {
@@ -170,17 +175,28 @@ export default function RegisterPage() {
           },
           body: JSON.stringify(payload),
         });
-    
+
         if (response.ok) {
           const data = await response.json();
           console.log("Success:", data);
-          // Optional: redirect or show success message
+          setLoading(false); // Stop loading
+          setSuccessMessage("Registration successful!"); // Show success message
+          setErrorMessage("");
+          setTimeout(() => {
+            navigate("/login");
+          }, 2000);
         } else {
           const errorData = await response.json();
           console.error("Error:", errorData);
+          setLoading(false); // Stop loading
+          setErrorMessage("Registration failed: " + errorData.message); // Show error message
+          setSuccessMessage("");
         }
       } catch (error) {
         console.error("Network Error:", error);
+        setLoading(false); // Stop loading
+        setErrorMessage("Network error, please try again later."); // Show error message
+        setSuccessMessage("");
       }
     } else {
       setErrors(step2Errors);
@@ -206,37 +222,37 @@ export default function RegisterPage() {
                 <>
                   <div
                     className={
-                      errors.firstName ? "input-field error" : "input-field"
+                      errors.first_name ? "input-field error" : "input-field"
                     }
                   >
-                    <label htmlFor="firstname">First Name</label>
+                    <label htmlFor="first_name">First Name</label>
                     <input
                       type="text"
-                      id="firstname"
-                      value={firstName}
+                      id="first_name"
+                      value={first_name}
                       onChange={(e) => setFirstName(e.target.value)}
                       placeholder="Enter First Name"
                     />
-                    {errors.firstName && (
-                      <small className="error-text">{errors.firstName}</small>
+                    {errors.first_name && (
+                      <small className="error-text">{errors.first_name}</small>
                     )}
                   </div>
 
                   <div
                     className={
-                      errors.lastName ? "input-field error" : "input-field"
+                      errors.last_name ? "input-field error" : "input-field"
                     }
                   >
-                    <label htmlFor="lastname">Last Name</label>
+                    <label htmlFor="last_name">Last Name</label>
                     <input
                       type="text"
-                      id="lastname"
-                      value={lastName}
+                      id="last_name"
+                      value={last_name}
                       onChange={(e) => setLastName(e.target.value)}
                       placeholder="Enter Last Name"
                     />
-                    {errors.lastName && (
-                      <small className="error-text">{errors.lastName}</small>
+                    {errors.last_name && (
+                      <small className="error-text">{errors.last_name}</small>
                     )}
                   </div>
 
@@ -304,7 +320,7 @@ export default function RegisterPage() {
                 </>
               )}
 
-              {step === 2 && selectedRole === "Player" && (
+              {step === 2 && selectedRole === "player" && (
                 <>
                   <div
                     className={errors.dob ? "input-field error" : "input-field"}
@@ -443,7 +459,7 @@ export default function RegisterPage() {
                 </>
               )}
 
-              {step === 2 && selectedRole === "Scout" && (
+              {step === 2 && selectedRole === "scout" && (
                 <>
                   <div
                     className={
@@ -516,6 +532,18 @@ export default function RegisterPage() {
                 </>
               )}
             </div>
+            {/* Show loading spinner if request is being processed */}
+            {loading && <div className="loading-spinner">Loading...</div>}
+
+            {/* Show success message if registration is successful */}
+            {successMessage && (
+              <div className="success-message">{successMessage}</div>
+            )}
+
+            {/* Show error message if registration fails */}
+            {errorMessage && (
+              <div className="error-message">{errorMessage}</div>
+            )}
           </form>
 
           <div className="container-footer">
