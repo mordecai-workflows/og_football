@@ -109,3 +109,29 @@ export async function registerUser(req, res) {
     res.status(500).json({ message: "Internal server error" });
   }
 }
+
+export async function loginUser(req, res) {
+  const { email, password } = req.body || {};
+
+  if (!email || !password) {
+    return res.status(400).json({ message: "Email and password are required" });
+  }
+
+  try {
+    // Find the user by email
+    const user = await User.findOne({ where: { email } });
+    if (!user ||!await bcryptjs.compare(password, user.password) ) {
+      return res.status(401).json({ message: "Invalid email or password" });
+    }
+
+    // Generate a JWT token
+    const token = jwt.sign({ id: user.id, user_type: user.user_type }, process.env.JWT_SECRET, {
+      expiresIn: "1h"
+    });
+
+    res.status(200).json({message:"Login Successful", token });
+  } catch (error) {
+    console.error("Error logging in:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+}
