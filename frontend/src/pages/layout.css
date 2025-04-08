@@ -1,6 +1,7 @@
 .main-container {
   display: flex;
-  height: 100vh;
+  flex-direction: row;
+  min-height: 100vh;
   width: 100%;
   font-family: "Poppins", sans-serif;
 }
@@ -53,7 +54,7 @@
 
 .container-form {
   width: 90%;
-  max-width: 380px;
+  /* max-width: 380px; */
 }
 
 .container-title {
@@ -124,36 +125,41 @@
 
 /* ==== Responsive Layout ==== */
 
-/* Tablet / small desktop */
+
 @media (max-width: 992px) {
   .main-container {
     flex-direction: column;
   }
+
   .column.left,
   .column.right {
     flex: none;
     width: 100%;
-  }
-  .column.left,
-  .column.right {
+    min-height: 40vh;
     padding: 1.5rem;
   }
 }
 
-/* Mobile */
+@media (max-width: 768px) {
+  .container-form {
+    width: 100%;
+    max-width: none;
+    padding: 0 1rem;
+  }
+  
+  .container-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .container-button {
+    font-size: 0.95rem;
+  }
+}
+
+
 @media (max-width: 576px) {
   .column.left h1 {
     font-size: 2rem;
-  }
-  .login-image img {
-    width: 100%;
-    max-width: 100%;
-  }
-  .login-text h2 {
-    font-size: 1.25rem;
-  }
-  .login-text p {
-    font-size: 0.9rem;
-    line-height: 1.4;
   }
 }
