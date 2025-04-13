@@ -28,6 +28,7 @@ export async function registerUser(req, res) {
     years_of_experience,
     associated_team
   } = req.body || {};
+  console.log(req.body)
 
   // Basic user details are mandatory
   if (!first_name || !last_name || !email || !password || !user_type) {
@@ -40,7 +41,7 @@ export async function registerUser(req, res) {
       return res.status(400).json({ message: "Player details are incomplete" });
     }
   } else if (user_type === "scout") {
-    if (!county || !years_of_experience || !associated_team) {
+    if ( !years_of_experience || !associated_team) {
       return res.status(400).json({ message: "Scout details are incomplete" });
     }
   } else {
@@ -118,26 +119,31 @@ export async function loginUser(req, res) {
   }
 
   try {
-    // Find the user by email
     const user = await User.findOne({ where: { email } });
-    if (!user ||!await bcryptjs.compare(password, user.password) ) {
+    if (!user || !await bcryptjs.compare(password, user.password)) {
       return res.status(401).json({ message: "Invalid email or password" });
     }
 
-    // Generate a JWT token
-    const token = jwt.sign({ id: user.id, user_type: user.user_type }, process.env.JWT_SECRET, {
-      expiresIn: "1h"
+    const token = jwt.sign(
+      { id: user.id, user_type: user.user_type },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+
+    res.cookie('accessToken', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'Lax',
+      path: '/',     
+      maxAge: 60 * 60 * 1000,
     });
 
-    res.status(200).json({message:"Login Successful", token });
+    res.status(200).json({ message: "Login Successful" });
   } catch (error) {
     console.error("Error logging in:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 }
-
-
-
 
 //Delete user account
 export const deleteUserAccount = async (req, res) => {

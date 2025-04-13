@@ -1,4 +1,4 @@
 :root{  
-  --button-theme: rgb(4, 194, 4);
-  --button-theme-hover: rgb(5, 158, 5);
+  --theme: rgb(4, 194, 4);
+  --theme-hover: rgb(5, 158, 5);
 }

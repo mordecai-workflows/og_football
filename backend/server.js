@@ -3,12 +3,18 @@ import dotenv from "dotenv";
 import { connectDB, disconnectDB, sequelize } from "./config/database.js";
 import api from "./routes/auth.js";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 const PORT = process.env.PORT || 5000;
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: true, // or your frontend origin
+  credentials: true
+}));
+
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

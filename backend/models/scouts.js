@@ -11,15 +11,7 @@ const Scout = sequelize.define("Scout", {
     associated_team: {
         type: DataTypes.STRING,
         allowNull: false,
-    },
-    county: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    
-    },
-
-
-
+    }
 });
 
 

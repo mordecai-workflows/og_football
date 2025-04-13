@@ -37,9 +37,6 @@ const Player = sequelize.define("Player", {
         allowNull: false,
     
     },
-
-
-
 });
 
 
