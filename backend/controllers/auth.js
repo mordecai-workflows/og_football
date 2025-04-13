@@ -28,7 +28,6 @@ export async function registerUser(req, res) {
     years_of_experience,
     associated_team
   } = req.body || {};
-  console.log(req.body)
 
   // Basic user details are mandatory
   if (!first_name || !last_name || !email || !password || !user_type) {
@@ -142,6 +141,69 @@ export async function loginUser(req, res) {
   } catch (error) {
     console.error("Error logging in:", error);
     res.status(500).json({ message: "Internal server error" });
+  }
+}
+
+export  async function forgot(req, res) {
+  const { email } = req.body;
+
+  try {
+    const user = await User.findOne({ where: { email } });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const resetToken = jwt.sign({ email: user.email }, JWT_SECRET, { expiresIn: '1h' });
+
+    user.resetToken = resetToken;
+    user.resetTokenExpiration = Date.now() + 3600000;
+    await user.save();
+
+    // Send reset email
+    // await sendEmail(user.email, resetToken);
+    console.log(`link: localhost:5173//reset?token=${resetToken}`)
+
+    res.status(200).json({ message: 'Password reset email sent' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Something went wrong' });
+  }
+}
+
+export async function reset(req, res) {
+  const { token, password, confirmPassword } = req.body;
+
+  try {
+  
+    if (password !== confirmPassword) {
+      return res.status(400).json({ message: 'Passwords do not match' });
+    }
+
+    const decoded = jwt.verify(token, JWT_SECRET);
+    const user = await User.findOne({
+      where: {
+        email: decoded.email,
+        resetToken: token,
+        resetTokenExpiration: { [Op.gt]: Date.now() },
+      },
+    });
+
+    if (!user) {
+      return res.status(400).json({ message: 'Invalid or expired reset token' });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    user.password = hashedPassword;
+    user.resetToken = null;
+    user.resetTokenExpiration = null;
+    await user.save();
+
+    res.status(200).json({ message: 'Password reset successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Something went wrong' });
   }
 }
 

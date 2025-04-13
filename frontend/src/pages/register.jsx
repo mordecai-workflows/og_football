@@ -1,5 +1,4 @@
-// src/pages/register.jsx
-import { useState, useEffect, useMemo } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -8,7 +7,7 @@ import { toast } from "react-toastify";
 import { registerSchema } from "../schemas/registerSchema";
 import Spinner from "../components/Spinner";
 import InputField from "../components/InputField";
-import { roles, counties, step1Fields, playerFields, scoutFields } from "../components/register";
+import { step1Fields, playerFields, scoutFields } from "../components/register";
 
 import "./layout.css";
 import "./register.css";
@@ -33,13 +32,6 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
   const [validating, setValidating] = useState(false);
 
-  // Redirect if already logged in
-  useEffect(() => {
-    if (localStorage.getItem("token")) {
-      navigate("/user/home", { replace: true });
-    }
-  }, [navigate]);
-
   const {
     register,
     handleSubmit,
@@ -48,7 +40,6 @@ export default function RegisterPage() {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(registerSchema),
-    mode: "onTouched",
   });
 
   const userType = watch("user_type");
@@ -74,48 +65,57 @@ export default function RegisterPage() {
   };
 
   const renderFields = (fields) =>
-    fields.map((fld) => (
-      <InputField
-        key={fld.id}
-        id={fld.id}
-        label={fld.label}
-        type={fld.type}
-        error={errors[fld.id]}
-        placeholder={fld.placeholder}
-        options={fld.options}
-        disabled={loading}
-        registerProps={{
-          ...register(fld.id),
-          ...(fld.autoFocus && { autoFocus: true }),
-        }}
-      />
-    ));
+    fields.map((fld) => {
+      const isSensitiveField =
+        fld.id === "password" || fld.id === "confirmPassword";
+      return (
+        <InputField
+          key={fld.id}
+          id={fld.id}
+          label={fld.label}
+          type={fld.type}
+          error={errors[fld.id]}
+          placeholder={fld.placeholder}
+          options={fld.options}
+          disabled={loading}
+          registerProps={{
+            ...register(fld.id),
+            ...(fld.autoFocus && { autoFocus: true }),
+            ...(isSensitiveField && {
+              onBlur: async () => await trigger(fld.id),
+            }),
+          }}
+        />
+      );
+    });
 
   return (
-    <div className="main-container">
+    <div className='main-container'>
       {/* Left Panel */}
-      <div className="column left">
+      <div className='column left'>
         <h1>Get started with O.G Football</h1>
         <p>Answer a couple of questions and we'll set up your account</p>
       </div>
 
       {/* Right Panel */}
-      <div className="column right">
-        <div className="container-form">
-          <span className="container-title">Register</span>
+      <div className='column right'>
+        <div className='container-form'>
+          <span className='container-title'>Register</span>
 
           <form onSubmit={handleSubmit(onSubmit)} noValidate>
-            <div className="register-fields">
+            <div className='register-fields'>
               {step === 1 && renderFields(step1Fields)}
-              {step === 2 && userType === "player" && renderFields(playerFields)}
+              {step === 2 &&
+                userType === "player" &&
+                renderFields(playerFields)}
               {step === 2 && userType === "scout" && renderFields(scoutFields)}
             </div>
 
-            <div className="button-group">
+            <div className='button-group'>
               {step === 1 ? (
                 <button
-                  type="button"
-                  className="container-button"
+                  type='button'
+                  className='container-button primary'
                   onClick={handleNext}
                   disabled={validating}
                 >
@@ -124,15 +124,15 @@ export default function RegisterPage() {
               ) : (
                 <>
                   <button
-                    type="button"
-                    className="container-button secondary"
+                    type='button'
+                    className='container-button secondary'
                     onClick={() => setStep(1)}
                   >
                     Previous
                   </button>
                   <button
-                    type="submit"
-                    className="container-button"
+                    type='submit'
+                    className='container-button'
                     disabled={loading}
                   >
                     {loading ? <Spinner /> : "Register"}
@@ -142,8 +142,8 @@ export default function RegisterPage() {
             </div>
           </form>
 
-          <div className="container-footer">
-            Have an account? <Link to="/login">Login</Link>
+          <div className='container-footer'>
+            Have an account? <Link to='/login'>Login</Link>
           </div>
         </div>
       </div>

@@ -1,13 +1,14 @@
-import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { forgotSchema } from "../schemas/forgotSchema"; 
+import { forgotSchema } from "../schemas/forgotSchema";
 import Spinner from "../components/Spinner";
 import InputField from "../components/InputField";
+import PlatformName from "../components/PlatformName";
+import "./resetlayout.css";
 import "./forgot.css";
-import "./layout.css";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
@@ -22,14 +23,13 @@ const formFields = [
 ];
 
 export default function ForgotPage() {
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(forgotSchema) }); // Assuming you've defined the schema
+  } = useForm({ resolver: yupResolver(forgotSchema) });
 
   const renderFields = (fields) =>
     fields.map((fld) => (
@@ -52,19 +52,19 @@ export default function ForgotPage() {
   const onSubmit = async (data) => {
     if (loading) return;
     setLoading(true);
+
     try {
       const res = await fetch(`${API_URL}/api/forgot`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
-        credentials: "include", // if needed
+        credentials: "include",
       });
 
       const result = await res.json();
-      if (!res.ok) throw new Error(result.message || "Email send failed");
+      if (!res.ok) throw new Error(result.message || "Failed to send reset email");
 
-      toast.success("Email sent successfully!");
-      setTimeout(() => navigate("/forgot/otp"), 1500);
+      toast.success("Reset link sent to your email.");
     } catch (err) {
       toast.error(err.message || "Network error");
     } finally {
@@ -73,38 +73,37 @@ export default function ForgotPage() {
   };
 
   return (
-    <div className="main-container">
-      {/* Left Panel */}
-      <div className="column left">
-        <h1>O.G Football</h1>
-        <div className="forgot-image">
-          <img src="/forgot_img.png" alt="forgot" />
-        </div>
-        <div className="forgot-text">
-          <h2>Forgot Password?</h2>
-          <p>
-            Please enter your email address to receive a password reset link.
-          </p>
-        </div>
+    <div className="container-layout">
+      <div className="go-back">
+        <Link to="/login" className="back-link">
+          <span className="arrow">←</span> Go back
+        </Link>
       </div>
 
-      {/* Right Panel */}
-      <div className="column right">
-        <div className="container-form">
-          <span className="container-title">Forgot Password</span>
-          <form onSubmit={handleSubmit(onSubmit)} noValidate>
-            <div className="forgot-fields">
-              {renderFields(formFields)}
-            </div>
+      <div className="credentials-box">
+        <div className="logo">
+          <PlatformName />
+        </div>
 
-            <button
-              type="submit"
-              className="container-button"
-              disabled={loading}
-            >
-              {loading ? <Spinner /> : "Send Reset Link"}
-            </button>
-          </form>
+        <div className="content">
+          <h2 className="page-title">FORGOT PASSWORD</h2>
+          <p className="page-subtext">
+            Kindly enter your email address to reset password
+          </p>
+
+          <div className="container-form">
+            <form onSubmit={handleSubmit(onSubmit)} noValidate>
+              <div className="page-fields">{renderFields(formFields)}</div>
+
+              <button
+                type="submit"
+                className="container-button"
+                disabled={loading}
+              >
+                {loading ? <Spinner /> : "Send Reset Link"}
+              </button>
+            </form>
+          </div>
 
           <div className="container-footer">
             Remembered your password? <Link to="/login">Login</Link>

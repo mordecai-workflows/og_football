@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import Cookies from 'js-cookie';
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -7,6 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "../schemas/loginSchema";
 import Spinner from "../components/Spinner";
 import InputField from "../components/InputField";
+import PlatformName from "../components/PlatformName";
 import "./layout.css";
 import "./login.css";
 
@@ -80,47 +80,47 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="main-container">
+    <div className='main-container'>
       {/* Left Panel */}
-      <div className="column left">
-        <h1>O.G Football</h1>
-        <div className="login-image">
-          <img src="/login_img.png" alt="login" />
+      <div className='column left'>
+        <div className='logo'>
+          <PlatformName />
         </div>
-        <div className="login-text">
+        <div className='login-image'>
+          <img src='/login_img.png' alt='login' />
+        </div>
+        <div className='login-text'>
           <h2>Opportunity Generator</h2>
           <p>
             Discover Africa’s rising football stars! Our platform connects
-            talent with scouts and sponsors, ensuring recognition, opportunities,
-            and success across the continent.
+            talent with scouts and sponsors, ensuring recognition,
+            opportunities, and success across the continent.
           </p>
         </div>
       </div>
 
       {/* Right Panel */}
-      <div className="column right">
-        <div className="container-form">
-          <span className="container-title">Login</span>
+      <div className='column right'>
+        <div className='container-form'>
+          <span className='container-title'>Login</span>
           <form onSubmit={handleSubmit(onSubmit)} noValidate>
-            <div className="login-fields">
-              {renderFields(formFields)}
-            </div>
+            <div className='login-fields'>{renderFields(formFields)}</div>
 
-            <Link to="/forgot" className="forgot-link">
+            <Link to='/forgot' className='forgot-link'>
               Forgot password?
             </Link>
 
             <button
-              type="submit"
-              className="container-button"
+              type='submit'
+              className='container-button'
               disabled={loading}
             >
               {loading ? <Spinner /> : "Login"}
             </button>
           </form>
 
-          <div className="container-footer">
-            New to O.G Football? <Link to="/register">Register</Link>
+          <div className='container-footer'>
+            New to O.G Football? <Link to='/register'>Register</Link>
           </div>
         </div>
       </div>

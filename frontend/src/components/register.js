@@ -77,6 +77,12 @@ const step1Fields = [
     placeholder: "Enter password",
   },
   {
+    id: "confirmPassword",
+    label: "Confirm Password",
+    type: "password",
+    placeholder: "Confirm Password",
+  },
+  {
     id: "user_type",
     label: "Role",
     type: "select",
@@ -86,7 +92,7 @@ const step1Fields = [
 ];
 
 const playerFields = [
-  { id: "dob", label: "Date of Birth", type: "date" },
+  { id: "yob", label: "Date of Birth", type: "date" },
   { id: "height", label: "Height", type: "text", placeholder: "Enter Height" },
   { id: "weight", label: "Weight", type: "text", placeholder: "Enter Weight" },
   {
