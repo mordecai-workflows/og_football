@@ -1,6 +1,8 @@
 import jwt from "jsonwebtoken";
 import bcryptjs from "bcryptjs";
 import dotenv from "dotenv";
+import nodemailer from "nodemailer";
+import { Op } from "sequelize";
 
 import { sequelize } from "../config/database.js";
 import User from "../models/user.js";
@@ -144,66 +146,107 @@ export async function loginUser(req, res) {
   }
 }
 
-export  async function forgot(req, res) {
+
+
+export async function forgot(req, res) {
   const { email } = req.body;
 
   try {
     const user = await User.findOne({ where: { email } });
 
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: "User not found" });
     }
 
-    const resetToken = jwt.sign({ email: user.email }, JWT_SECRET, { expiresIn: '1h' });
+    const resetToken = jwt.sign({ email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
     user.resetToken = resetToken;
-    user.resetTokenExpiration = Date.now() + 3600000;
+    user.resetTokenExpiration = Date.now() + 3600000; // 1 hour from now
     await user.save();
 
-    // Send reset email
-    // await sendEmail(user.email, resetToken);
-    console.log(`link: localhost:5173//reset?token=${resetToken}`)
+    // Create the reset link
+    const resetLink = `${process.env.FRONTEND_URL}/reset?token=${resetToken}`;
 
-    res.status(200).json({ message: 'Password reset email sent' });
+    // Configure nodemailer
+    const transporter = nodemailer.createTransport({
+      service: "gmail", // Use your email provider (e.g., Gmail, Outlook)
+      auth: {
+        user: process.env.EMAIL_USER, // Your email address
+        pass: process.env.EMAIL_PASS, // Your email password or app-specific password
+      },
+    });
+
+    // Email options
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: user.email,
+      subject: "Password Reset Request",
+      html: `
+        <p>You requested a password reset. Click the link below to reset your password:</p>
+        <a href="${resetLink}">${resetLink}</a>
+        <p>If you did not request this, please ignore this email.</p>
+      `,
+    };
+
+    // Send the email
+    await transporter.sendMail(mailOptions);
+
+    res.status(200).json({ message: "Password reset email sent" });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Something went wrong' });
+    console.error("Error sending reset email:", error);
+    res.status(500).json({ message: "Something went wrong" });
   }
 }
+
+
+
+
 
 export async function reset(req, res) {
   const { token, password, confirmPassword } = req.body;
 
   try {
-  
-    if (password !== confirmPassword) {
-      return res.status(400).json({ message: 'Passwords do not match' });
+    // Validate input
+    if (!token || !password || !confirmPassword) {
+      return res.status(400).json({ message: "All fields are required" });
     }
 
-    const decoded = jwt.verify(token, JWT_SECRET);
+    if (password !== confirmPassword) {
+      return res.status(400).json({ message: "Passwords do not match" });
+    }
+
+    // Verify the token
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    // Find the user by email and validate the token
     const user = await User.findOne({
       where: {
         email: decoded.email,
         resetToken: token,
-        resetTokenExpiration: { [Op.gt]: Date.now() },
+        resetTokenExpiration: { [Op.gt]: Date.now() }, // Ensure token is not expired
       },
     });
 
     if (!user) {
-      return res.status(400).json({ message: 'Invalid or expired reset token' });
+      return res.status(400).json({ message: "Invalid or expired reset token" });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    // Hash the new password
+    const hashedPassword = await bcryptjs.hash(password, 10);
 
+    // Update the user's password and clear the reset token
     user.password = hashedPassword;
     user.resetToken = null;
     user.resetTokenExpiration = null;
     await user.save();
 
-    res.status(200).json({ message: 'Password reset successfully' });
+    res.status(200).json({ message: "Password reset successfully" });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Something went wrong' });
+    console.error("Error resetting password:", error);
+    if (error.name === "TokenExpiredError") {
+      return res.status(400).json({ message: "Reset token has expired" });
+    }
+    res.status(500).json({ message: "Something went wrong" });
   }
 }
 
@@ -381,3 +424,5 @@ export const getPlayerProfile = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
+
