@@ -44,11 +44,9 @@ router.get("/auth/verify", (req, res) => {
 
 router.post("/validate-token", async (req, res) => {
   const { token } = req.body;
-  console.log(req.body);
-
   try {
     // Decode and validate token
-    const decoded = jwt.verify(token, JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     // Check if the token is valid
     const user = await User.findOne({
