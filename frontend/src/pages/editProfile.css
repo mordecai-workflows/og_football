@@ -1,0 +1,223 @@
+.container {
+    background-color: #fff;
+    width: 100%;
+    max-width: 1223px;
+    margin: 0 auto;
+  }
+  
+  .header {
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 76px;
+    display: flex;
+  }
+  
+  .navigation {
+    color: #000;
+    padding-left: 20px;
+    font-family:
+      Josefin Sans,
+      sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    position: relative;
+  }
+  
+  .userInfo {
+    align-items: center;
+    display: flex;
+  }
+  
+  .userDetails {
+    flex-direction: column;
+    align-items: flex-start;
+    display: flex;
+  }
+  
+  .userName {
+    color: #000;
+    font-family:
+      Fira Sans,
+      sans-serif;
+    font-size: 15px;
+  }
+  
+  .userCategory {
+    color: #aba7a7;
+    font-family:
+      Inria Sans,
+      sans-serif;
+    font-size: 12px;
+  }
+  
+  .dropdownIcon {
+    width: 11px;
+    height: 15px;
+    margin-left: 5px;
+  }
+  
+  .divider {
+    opacity: 0.28;
+    background-color: #847e7e;
+    width: 100%;
+    height: 1px;
+    margin: 0 76px;
+  }
+  
+  .content {
+    padding: 20px 76px;
+  }
+  
+  .sectionHeader {
+    align-items: center;
+    margin-bottom: 20px;
+    display: flex;
+  }
+  
+  .profileBadge {
+    color: #fff6f6;
+    background-color: #16f60e;
+    border-radius: 15px;
+    margin-right: 10px;
+    padding: 10px 20px;
+    font-family: Alexandria, sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+  }
+  
+  .profileCard {
+    background-color: #eeecec;
+    border-radius: 10px;
+    padding: 20px;
+  }
+  
+  .profileHeader {
+    align-items: center;
+    margin-bottom: 20px;
+    display: flex;
+  }
+  
+  .profileInfo {
+    flex-direction: column;
+    display: flex;
+  }
+  
+  .profileName {
+    color: #000;
+    margin-bottom: 5px;
+    font-family:
+      Josefin Sans,
+      sans-serif;
+    font-size: 20px;
+  }
+  
+  .profileCategory {
+    color: #000;
+    margin-bottom: 10px;
+    font-family:
+      Albert Sans,
+      sans-serif;
+    font-size: 12px;
+  }
+  
+  .changePhotoBtn {
+    color: #000;
+    background-color: #fff;
+    border: 1px solid #b3abab;
+    border-radius: 10px;
+    width: fit-content;
+    padding: 5px 10px;
+    font-family:
+      Josefin Sans,
+      sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  
+  .formGrid {
+    flex-wrap: wrap;
+    gap: 20px;
+    display: flex;
+  }
+  
+  .inputWrapper {
+    width: calc(50% - 20px);
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .inputLabel {
+    color: #000;
+    margin-bottom: 5px;
+    font-family:
+      Fira Sans,
+      sans-serif;
+    font-size: 18px;
+  }
+  
+  .input {
+    opacity: 0.26;
+    background-color: #fff;
+    border: 1px solid #847e7e;
+    border-radius: 10px;
+    width: 100%;
+    height: 33px;
+    padding: 5px;
+  }
+  
+  .submitButton {
+    color: #16f60e;
+    background-color: #0c0c0c;
+    border-radius: 10px;
+    width: 227px;
+    height: 36px;
+    margin-top: 20px;
+    font-family:
+      Fira Sans,
+      sans-serif;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  @media (width <= 991px) {
+    .header {
+      padding: 20px 40px;
+    }
+  
+    .content {
+      padding: 20px 40px;
+    }
+  
+    .inputWrapper {
+      width: 100%;
+    }
+  }
+  
+  @media (width <= 640px) {
+    .container {
+      max-width: 640px;
+    }
+  
+    .header {
+      padding: 20px;
+    }
+  
+    .userInfo {
+      flex-direction: column;
+      align-items: flex-end;
+    }
+  
+    .content {
+      padding: 20px;
+    }
+  
+    .inputWrapper {
+      width: 100%;
+    }
+  
+    .submitButton {
+      width: 100%;
+    }
+  }
+  
