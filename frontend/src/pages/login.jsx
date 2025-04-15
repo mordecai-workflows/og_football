@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -31,12 +31,39 @@ const formFields = [
 export default function LoginPage() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [isTokenValid, setIsTokenValid] = useState(false);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(loginSchema) });
+
+  // Check the validity of the token on page load
+  useEffect(() => {
+    const validateToken = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/api/auth/verify", {
+          method: "GET",
+          credentials: "include",
+        });
+
+        const result = await res.json();
+
+        if (res.ok && result.valid) {
+          setIsTokenValid(true);
+          toast.info("Already logged in.");
+          setTimeout(() => navigate("/user/home"), 1500);
+        } else {
+          setIsTokenValid(false);
+        }
+      } catch (err) {
+        setIsTokenValid(false);
+      }
+    };
+
+    validateToken();
+  }, [navigate]);
 
   const renderFields = (fields) =>
     fields.map((fld) => (
@@ -78,6 +105,15 @@ export default function LoginPage() {
       setLoading(false);
     }
   };
+
+  // Prevent flicker if already logged in
+  if (isTokenValid) {
+    return (
+      <div className='spinner-overlay'>
+        <Spinner />
+      </div>
+    );
+  }
 
   return (
     <div className='main-container'>

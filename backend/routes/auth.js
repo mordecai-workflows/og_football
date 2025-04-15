@@ -31,11 +31,11 @@ router.get("/auth/verify", (req, res) => {
   const token = req.cookies.accessToken;
 
   if (!token) {
-    return res.status(401).json({ message: "Not authenticated" });
+    return res.status(200).json({ valid: false});
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET); // use your secret
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     res.status(200).json({ valid: true, user: decoded });
   } catch (err) {
     res.status(401).json({ message: "Invalid token" });

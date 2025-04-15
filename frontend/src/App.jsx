@@ -1,8 +1,11 @@
 import "./App.css";
 import { Link } from "react-router-dom";
 import PlatformName from "./components/PlatformName";
+import { useState } from "react";
 
 function App() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <>
       <nav className='navbar'>
@@ -11,7 +14,13 @@ function App() {
             <PlatformName />
           </div>
 
-          <div className='parts'>
+          {/* Hamburger Icon */}
+          <div className='hamburger' onClick={() => setMenuOpen(!menuOpen)}>
+            ☰
+          </div>
+
+          {/* Navigation Links */}
+          <div className={`parts ${menuOpen ? 'show' : ''}`}>
             <Link to='#'>Features</Link>
             <Link to='#'>Contacts</Link>
             <Link to='#'>Why us</Link>
@@ -34,7 +43,9 @@ function App() {
           OG football offers football stakeholders a robust scouting tool to
           enhance their recruitment decisions for players in Africa.
         </p>
-        <button className='signup-button'><Link to='/register'>Sign up for free</Link></button>
+        <button className='signup-button'>
+          <Link to='/register'>Sign up for free</Link>
+        </button>
 
         <div className='hero-image-container'>
           <img
