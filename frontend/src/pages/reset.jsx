@@ -103,7 +103,7 @@ export default function ResetPage() {
     setLoading(true);
 
     try {
-      const res = await fetch(`${API_URL}/api/reset-password`, {
+      const res = await fetch(`${API_URL}/api/reset`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
