@@ -1,0 +1,9 @@
+.profile-icon-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-icon {
+  margin-right: 20px;
+}
