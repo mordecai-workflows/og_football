@@ -2,6 +2,8 @@
 import React from "react";
 import styles from "./editProfile.css";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
 const Logo = () => (
   <svg
     width="226"
