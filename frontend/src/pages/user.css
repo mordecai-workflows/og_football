@@ -45,7 +45,13 @@
     Helvetica,
     sans-serif;
   font-weight: 700;
-  margin: auto 0;
+  margin: 10px 0 0 250px;
+  transition: border-bottom 0.1s ease-in-out;
+}
+
+.nav-home:hover {
+  color: rgb(18, 227, 18);
+  text-decoration: underline;
 }
 
 .user-profile {
@@ -95,6 +101,7 @@
     sans-serif;
   font-weight: 400;
   align-self: self-end;
+  margin-left: -90px;
 }
 
 
@@ -110,7 +117,7 @@
   border-color: #847e7e;
   border-style: solid;
   border-width: 1px;
-  min-height: 2px;
+  min-height: 1px;
   margin-top: 16px;
   width: 100%;
 }
@@ -122,7 +129,7 @@
 }
 
 .content-grid {
-  gap: 20px;
+  gap: 150px;
   display: flex;
 }
 
@@ -139,7 +146,7 @@
 
 .player-list-secondary {
   width: 29%;
-  margin-top: 95px;
+  margin-top: 30px;
 }
 
 .filter-section {
@@ -157,6 +164,7 @@
     sans-serif;
   font-weight: 700;
   text-align: center;
+  margin-left: -70px;
 }
 
 @media (max-width: 991px) {

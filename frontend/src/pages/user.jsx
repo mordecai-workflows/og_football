@@ -18,7 +18,7 @@ const User = () => {
           <div className="header-content">
             <div className="logo-section">
               <PlatformName />
-              <div className="nav-home"><Link to='#'>Home</Link></div>
+              <div className="nav-home">Home</div>
             </div>
             <div className="user-profile">
               <div className="avatar">PN</div>
