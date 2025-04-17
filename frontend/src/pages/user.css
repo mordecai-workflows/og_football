@@ -1,85 +1,189 @@
-.navbar {
-  max-width: 100%;
-  background-color: #ffffff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid #ddd;
+.landing-page {
+  border-radius: 0;
 }
 
-.nav-container {
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  align-items: center;
-  padding: 1rem 2rem;
-}
-
-.logo {
+.landing-container {
+  border-radius: 6px;
+  background-color: #fff;
   display: flex;
-  align-items: center;
+  width: 100%;
+  padding: 14px 0 146px;
+  flex-direction: column;
+  align-items: stretch;
 }
 
-.parts {
-  display: flex;
-  gap: 2rem;
-  justify-content: center;
-}
-
-.parts a {
-  text-decoration: none;
-  color: #000;
-  font-weight: 500;
-  position: relative;
-}
-
-.parts a::after {
-  content: "";
-  position: absolute;
-  width: 0%;
-  height: 2px;
-  left: 0;
-  bottom: -3px;
-  background-color: limegreen;
-  transition: width 0.3s ease;
-}
-
-.parts a:hover::after {
+.landing-header {
   width: 100%;
 }
 
-button a {
-  text-decoration: none;
-  color: inherit;
-}
-
-.buttons {
+.header-content {
+  align-self: center;
   display: flex;
-  gap: 1rem;
-  justify-content: flex-end;
+  margin-left: 14px;
+  width: 100%;
+  max-width: 1099px;
+  align-items: start;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
-.spinner-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  min-width: 100%;
-  min-height: 100vh;
-  background: white; /* optional, or semi-transparent */
+.logo-section {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999; /* make sure it's above other content */
+  margin-top: 6px;
+  align-items: stretch;
+  gap: 40px 73px;
 }
 
-/* Responsive adjustments */
-@media (max-width: 900px) {
-  .nav-container {
-    grid-template-columns: 1fr;
-    row-gap: 1rem;
-    text-align: center;
+.nav-home {
+  color: #000;
+  font-size: 20px;
+  font-family:
+    "Josefin Sans",
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+  font-weight: 700;
+  margin: auto 0;
+}
+
+.user-profile {
+  display: flex;
+  align-items: stretch;
+  gap: 7px;
+}
+
+.avatar {
+  background-color: #d9d9d9;
+  border-radius: 50%;
+  padding: 4px 5px 6px;
+  font-family:
+    "Josefin Sans",
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+  font-size: 20px;
+  color: #fff;
+  font-weight: 700;
+  width: 39px;
+  height: 39px;
+  text-align: center;
+}
+
+.username {
+  color: #000;
+  font-size: 15px;
+  font-family:
+    "Fira Sans",
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+  font-weight: 400;
+  align-self: start;
+}
+.category {
+  color: #d2c4c4;
+  font-size: 13px;
+  font-family:
+    "Fira Sans",
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+  font-weight: 400;
+  align-self: self-end;
+}
+
+
+.dropdown-icon {
+  aspect-ratio: 0.73;
+  object-fit: contain;
+  object-position: center;
+  width: 11px;
+  margin: auto 0;
+}
+
+.header-divider {
+  border-color: #847e7e;
+  border-style: solid;
+  border-width: 1px;
+  min-height: 2px;
+  margin-top: 16px;
+  width: 100%;
+}
+
+.main-content {
+  margin: 36px 60px -29px;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.content-grid {
+  gap: 20px;
+  display: flex;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  line-height: normal;
+}
+
+.player-discovery {
+  width: 29%;
+}
+
+.player-list-secondary {
+  width: 29%;
+  margin-top: 95px;
+}
+
+.filter-section {
+  width: 42%;
+}
+
+.section-title {
+  color: #000;
+  font-size: 24px;
+  font-family:
+    "Fira Sans",
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+  font-weight: 700;
+  text-align: center;
+}
+
+@media (max-width: 991px) {
+  .landing-container {
+    max-width: 100%;
+    padding-bottom: 100px;
   }
 
-  .parts,
-  .buttons {
-    justify-content: center;
-    flex-wrap: nowrap;
+  .header-content {
+    max-width: 100%;
+  }
+
+  .content-grid {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .column {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .player-discovery,
+  .player-list-secondary,
+  .filter-section {
+    width: 100%;
+    margin-top: 40px;
   }
 }

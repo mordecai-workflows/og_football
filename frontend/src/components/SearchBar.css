@@ -1,0 +1,49 @@
+.search-container {
+  border-radius: 5px;
+  background-color: #fff;
+  align-self: end;
+  display: flex;
+  width: 247px;
+  max-width: 100%;
+  padding: 10px 12px 4px;
+  align-items: center;
+  gap: 20px;
+  font-family:
+    "Fira Sans",
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+  font-size: 15px;
+  color: #bfb8b8;
+  font-weight: 400;
+  justify-content: space-between;
+}
+
+.search-input {
+  border: none;
+  outline: none;
+  background: transparent;
+  width: 100%;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  padding: 0;
+}
+
+.search-input::placeholder {
+  color: #bfb8b8;
+}
+
+.search-icon {
+  width: 17px;
+  height: 17px;
+  color: #bfb8b8;
+  flex-shrink: 0;
+}
+
+@media (max-width: 991px) {
+  .search-container {
+    margin-right: 3px;
+  }
+}
