@@ -1,7 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import "./FilterSection.css";
 
 const FilterSection = () => {
+  const [filters, setFilters] = useState({
+    role: "",
+    ageRange: "",
+    county: "",
+    strongFoot: "",
+    matchesPlayed: 1,
+    height: { min: 105, max: 200 },
+  });
+
+  const handleFilterChange = (name, value) => {
+    setFilters((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
   return (
     <div className="filter-container">
       <div className="filter-header">
@@ -12,44 +28,60 @@ const FilterSection = () => {
       </div>
 
       <div className="filter-content">
-        <div className="filter-select">
-          <div className="select-text">Select Role</div>
-        </div>
+        <select
+          className="filter-select"
+          value={filters.role}
+          onChange={(e) => handleFilterChange("role", e.target.value)}
+        >
+          <option value="">Select Role</option>
+          <option value="ST">ST</option>          
+          <option value="RW">RW</option>
+          <option value="LW">LW</option>
+          <option value="CM">CM</option>
+          <option value="CDM">CDM</option>
+          <option value="CAM">CAM</option>
+          <option value="LWB">LWB</option>
+          <option value="RWB">RWB</option>
+          <option value="LB">LB</option>
+          <option value="RB">RB</option>          
+          <option value="CB">CB</option>
+          <option value="GK">GK</option>
+        </select>
 
-        <div className="filter-select">
-          <div className="select-text">Select age range</div>
-        </div>
+        <select
+          className="filter-select"
+          value={filters.ageRange}
+          onChange={(e) => handleFilterChange("ageRange", e.target.value)}
+        >
+          <option value="">Select age range</option>
+          <option value="16-18">16-18</option>
+          <option value="19-21">19-21</option>
+          <option value="22-25">22-25</option>
+          <option value="26+">26+</option>
+        </select>
 
-        <div className="filter-select">
-          <div className="select-text">Select county</div>
-        </div>
+        <select
+          className="filter-select"
+          value={filters.county}
+          onChange={(e) => handleFilterChange("county", e.target.value)}
+        >
+          <option value="">Select county</option>
+          <option value="county1">County 1</option>
+          <option value="county2">County 2</option>
+          <option value="county3">County 3</option>
+        </select>
 
-        <div className="filter-select">
-          <div className="select-text">Select strong foot</div>
-        </div>
+        <select
+          className="filter-select"
+          value={filters.strongFoot}
+          onChange={(e) => handleFilterChange("strongFoot", e.target.value)}
+        >
+          <option value="">Select strong foot</option>
+          <option value="left">Left</option>
+          <option value="right">Right</option>
+          <option value="both">Both</option>
+        </select>
 
-        <div className="matches-section">
-          <div className="matches-label">Minimum matches played</div>
-          <div className="slider-container">
-            <div className="slider-dot" />
-          </div>
-          <div className="slider-values">
-            <div className="value-container">
-              <div className="value-number">1</div>
-              <div className="value-label">Player height (cm)</div>
-            </div>
-            <div className="value-container">
-              <div className="value-number">26</div>
-              <div className="value-range">105 - 200</div>
-            </div>
-          </div>
-          <div className="range-slider">
-          </div>
-          <div className="range-values">
-            <div className="range-number">105</div>
-            <div className="range-number">200</div>
-          </div>
-        </div>
       </div>
     </div>
   );

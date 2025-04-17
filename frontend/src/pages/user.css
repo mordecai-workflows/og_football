@@ -45,13 +45,24 @@
     Helvetica,
     sans-serif;
   font-weight: 700;
-  margin: 10px 0 0 250px;
+  margin: 20px 0 0 250px;
   transition: border-bottom 0.1s ease-in-out;
+  position: relative;
 }
 
-.nav-home:hover {
-  color: rgb(18, 227, 18);
-  text-decoration: underline;
+.nav-home::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background-color: rgb(14, 219, 14);
+  transition: width 0.3s ease-in-out;
+}
+
+.nav-home:hover::after {
+  width: 100%;
 }
 
 .user-profile {
