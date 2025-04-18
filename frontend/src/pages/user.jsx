@@ -21,7 +21,7 @@ const User = () => {
               <div className="nav-home">Home</div>
             </div>
             <div className="user-profile">
-              <div className="avatar">PN</div>
+              <Link to="/profile" className="avatar">PN</Link>
               <div className="username">Player Name</div>
               <div className="category">Category</div>
             </div>

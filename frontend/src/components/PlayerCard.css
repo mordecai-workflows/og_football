@@ -12,14 +12,14 @@
   align-self: flex-end;
   display: flex;
   align-items: flex-start;
-  gap: 9px;
+  gap: 90px;
   margin-right: 0;
 }
 
 .player-avatar {
   background-color: #d9d9d9;
   border-radius: 50%;
-  padding: 12px 5px 6px;
+  padding: 12px 4px 6px;
   font-family:
     "Josefin Sans",
     -apple-system,
