@@ -7,8 +7,6 @@ const FilterSection = () => {
     ageRange: "",
     county: "",
     strongFoot: "",
-    matchesPlayed: 1,
-    height: { min: 105, max: 200 },
   });
 
   const handleFilterChange = (name, value) => {

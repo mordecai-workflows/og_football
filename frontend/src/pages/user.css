@@ -65,6 +65,10 @@
   width: 100%;
 }
 
+a {
+  text-decoration: none;
+}
+
 .user-profile {
   display: flex;
   align-items: stretch;
