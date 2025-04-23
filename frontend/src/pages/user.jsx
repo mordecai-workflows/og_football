@@ -35,7 +35,7 @@ const User = () => {
               <h2 className="section-title">Discover player</h2>
               <div className="player-list">
                 {[1, 2, 3, 4].map((index) => (
-                  <PlayerCard key={index} />
+                  <Link to=''><PlayerCard key={index} /></Link>
                 ))}
               </div>
             </div>
@@ -43,7 +43,7 @@ const User = () => {
             <div className="column player-list-secondary">
               <div className="player-list">
                 {[1, 2, 3, 4].map((index) => (
-                  <PlayerCard key={index} />
+                  <Link to=''><PlayerCard key={index} /></Link>
                 ))}
               </div>
             </div>
