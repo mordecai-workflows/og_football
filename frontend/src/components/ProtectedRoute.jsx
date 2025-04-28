@@ -1,56 +1,27 @@
-// src/components/ProtectedRoute.jsx
-import React, { useEffect, useState } from "react";
+import React, { useMemo } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import Spinner from "./Spinner";
+import FullScreenSpinner from "./FullScreenSpinner";
+import { useAuth } from "../context/AuthContext";
 
-const ProtectedRoute = ({ redirectTo = "/login" }) => {
-  const [loading, setLoading] = useState(true);
-  const [authenticated, setAuthenticated] = useState(false);
+export default function ProtectedRoute({
+  redirectTo = "/login",
+  allowedRoles = [],
+}) {
+  const { user, loading } = useAuth();
   const location = useLocation();
 
-  useEffect(() => {
-    let isMounted = true;
-
-    const verifyUser = async () => {
-      try {
-        const res = await fetch("http://localhost:5000/api/auth/verify", {
-          method: "GET",
-          credentials: "include",
-        });
-
-        const data = await res.json();
-
-        if (isMounted) {
-          setAuthenticated(data.valid === true);
-        }
-      } catch (err) {
-        console.error("Error verifying user:", err);
-        if (isMounted) setAuthenticated(false);
-      } finally {
-        if (isMounted) setLoading(false);
-      }
-    };
-
-    verifyUser();
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
+  const isAuthorized = useMemo(() => {
+    if (!user) return false;
+    return allowedRoles.length === 0 || allowedRoles.includes(user.user_type);
+  }, [user, allowedRoles]);
 
   if (loading) {
-    return (
-      <div className='spinner-overlay'>
-        <Spinner />
-      </div>
-    );
+    return <FullScreenSpinner />;
   }
 
-  return authenticated ? (
-    <Outlet />
-  ) : (
-    <Navigate to={redirectTo} state={{ from: location }} replace />
-  );
-};
+  if (!isAuthorized) {
+    return <Navigate to={redirectTo} state={{ from: location }} replace />;
+  }
 
-export default ProtectedRoute;
+  return <Outlet />;
+}
