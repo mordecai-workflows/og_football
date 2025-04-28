@@ -2,8 +2,8 @@
   .profile-edit-title {
     font-size: 24px;
     font-weight: 600;
-    color: #333;
-    margin-bottom: 24px;
+    color: #141313;
+    margin-bottom: 30px;
     text-align: center;
   }
 
@@ -112,12 +112,12 @@
 
 .profile-edit-button.cancel {
   background-color: transparent;
-  color: #666;
+  color: #000000;
   border: 1px solid #ddd;
 }
 
 .profile-edit-button.cancel:hover {
-  background-color: #f8f9fa;
+  background-color: #fb2e2e;
 }
 
 .profile-edit-error {

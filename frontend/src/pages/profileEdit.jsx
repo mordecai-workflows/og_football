@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import InputField from "../components/InputField";
+import PlatformName from "../components/PlatformName"; // Import the PlatformName component
 import "./profileEdit.css";
 
 const ProfileEdit = () => {
@@ -106,9 +107,11 @@ const ProfileEdit = () => {
 
   return (
     <div className="profile-edit-container">
-      <h1 className="profile-edit-title">Edit Profile</h1>
+      <PlatformName /> 
 
       {error && <div className="profile-edit-error">{error}</div>}
+      <h1 className="profile-edit-title">Edit Profile</h1>
+
 
       <form onSubmit={handleSubmit} className="profile-edit-form">
         <div className="profile-edit-field-group">
