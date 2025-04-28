@@ -21,7 +21,7 @@ const User = () => {
               <Link to='#' className="nav-home"> Home</Link>
             </div>
             <div className="user-profile">
-              <Link to="/profile" className="avatar">PN</Link>
+              <Link to="/profileEdit" className="avatar">PN</Link>
               <div className="username">Player Name</div>
               <div className="category">Category</div>
             </div>

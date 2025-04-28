@@ -17,7 +17,7 @@ function PlayerData() {
             </div>
           </div>
           <div className="profile-badge">
-            <div className="profile-initials">PN</div>
+            <Link to="/profileEdit" className="profile-initials">PN</Link>
             <div className="profile-name">Player Name</div>
           </div>
         </div>
