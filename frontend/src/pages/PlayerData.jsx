@@ -3,6 +3,7 @@ import PlatformName from "../components/PlatformName";
 import { Link, useNavigate } from "react-router-dom";
 import "./PlayerData.css";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 function PlayerData() {
   return (
