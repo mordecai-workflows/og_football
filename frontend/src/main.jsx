@@ -10,8 +10,9 @@ import LoginPage from "./pages/login.jsx";
 import RegisterPage from "./pages/register.jsx";
 import ForgotPage from "./pages/forgot.jsx";
 import UserHome from "./pages/user.jsx";
-import ProfilePage from "./pages/profile.jsx";
+import ProfilePage from "./pages/profileEdit.jsx";
 import ResetPage from "./pages/reset.jsx";
+import PlayerData from "./pages/PlayerData.jsx"
 
 import App from "./App.jsx";
 import "./index.css";
@@ -22,13 +23,14 @@ const router = createBrowserRouter([
   { path: "/register", element: <RegisterPage /> },
   { path: "/forgot", element: <ForgotPage /> },
   { path: "/reset", element: <ResetPage /> },
-  { path: "/profile", element: <ProfilePage /> },
+  { path: "/profileEdit", element: <ProfilePage /> },
+  { path: "/PlayerData", element: <PlayerData /> },
 
   {
     element: <ProtectedRoute />,
     children: [
       { path: "/user/home", element: <UserHome /> },
-      { path: "/user/profile", element: <ProfilePage /> },
+      { path: "/user/profileEdit", element: <ProfilePage /> },
     ],
   },
 ]);

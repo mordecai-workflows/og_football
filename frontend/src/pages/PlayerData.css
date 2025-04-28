@@ -1,0 +1,436 @@
+.player-data {
+  border-radius: 0;
+}
+
+.player-data-container {
+  border-radius: 6px;
+  background-color: #fff;
+  display: flex;
+  width: 100%;
+  padding: 12px 0 38px;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.header-section {
+  align-self: center;
+  display: flex;
+  margin-left: 14px;
+  width: 100%;
+  max-width: 1099px;
+  align-items: flex-start;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.brand-section {
+  display: flex;
+  margin-top: 8px;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.brand-container {
+  display: flex;
+  align-items: stretch;
+  gap: 20px;
+  font-family:
+    "Josefin Sans",
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+  font-weight: 700;
+  justify-content: space-between;
+}
+
+.brand-name {
+  color: #000;
+  text-shadow:
+    0px 1px 2px rgba(0, 0, 0, 0.3),
+    0px 1px 3px rgba(0, 0, 0, 0.15);
+  font-size: 36px;
+}
+
+.brand-dot {
+  color: #16f60e;
+}
+
+.nav-home {
+  color: #000;
+  font-size: 20px;
+  margin-left: 200px;
+}
+
+.brand-underline {
+  align-self: flex-start;
+  display: flex;
+  align-items: stretch;
+}
+
+.underline-black {
+  border-radius: 10px 0 0 10px;
+  background-color: #000;
+  width: 98px;
+  height: 4px;
+}
+
+.underline-green {
+  background-color: #16f60e;
+  width: 118px;
+  height: 4px;
+}
+
+.profile-badge {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.profile-initials {
+  background-color: #d9d9d9;
+  border-radius: 50%;
+  padding: 12px 5px 6px;
+  font-family:
+    "Josefin Sans",
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+  font-size: 20px;
+  color: #fff;
+  font-weight: 700;
+  width: 39px;
+  height: 39px;
+  text-align: center;
+}
+
+.profile-name {
+  color: #000;
+  font-size: 15px;
+  font-family:
+    "Fira Sans",
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+  font-weight: 400;
+}
+
+.dropdown-icon {
+  aspect-ratio: 0.73;
+  object-fit: contain;
+  width: 11px;
+}
+
+.divider {
+  border: 1px solid #847e7e;
+  min-height: 2px;
+  margin-top: 16px;
+  width: 100%;
+}
+
+.content-section {
+  display: flex;
+  margin-top: 22px;
+  width: 100%;
+  padding: 0 69px;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.player-info-card {
+  border-radius: 10px;
+  background-color: #eeecec;
+  margin-top: 30px;
+  width: 100%;
+  padding: 12px 19px;
+}
+
+.info-grid {
+  display: flex;
+  gap: 20px;
+}
+
+.profile-section {
+  width: 50%;
+}
+
+.profile-details {
+  display: flex;
+  gap: 20px;
+}
+
+.profile-photo-container {
+  width: 44%;
+}
+
+.profile-photo {
+  background-color: #fff;
+  border-radius: 50%;
+  padding: 69px 29px;
+  font-family:
+    "Josefin Sans",
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+  font-size: 20px;
+  color: #aba7a7;
+  font-weight: 400;
+  text-align: center;
+}
+
+.player-details {
+  width: 56%;
+}
+
+.details-container {
+  display: flex;
+  gap: 20px;
+  font-family:
+    "Albert Sans",
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+  font-size: 12px;
+  color: #000;
+  font-weight: 400;
+}
+
+.player-name {
+  font-size: 20px;
+  font-family:
+    "Josefin Sans",
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+}
+
+.details-row {
+  display: flex;
+  margin-top: 10px;
+  gap: 35px;
+}
+
+.detail-item {
+  margin-top: 7px;
+}
+
+.detail-nationality {
+  align-self: center;
+  margin-top: 10px;
+}
+
+.action-section {
+  width: 50%;
+}
+
+.action-container {
+  display: flex;
+  gap: 20px;
+}
+
+.action-image {
+  aspect-ratio: 0.7;
+  object-fit: contain;
+  width: 126px;
+  border-radius: 10px;
+}
+
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-family:
+    "Josefin Sans",
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+  font-size: 20px;
+  color: #fff6f6;
+  font-weight: 400;
+}
+
+.share-button {
+  border-radius: 15px;
+  background-color: #e41a1a;
+  display: flex;
+  padding: 6px 8px;
+  align-items: center;
+  gap: 4px;
+}
+
+.share-icon {
+  aspect-ratio: 1.05;
+  object-fit: contain;
+  width: 21px;
+}
+
+.enquiry-button {
+  border-radius: 15px;
+  background-color: #16f60e;
+  display: flex;
+  padding: 7px 17px;
+  align-items: center;
+  gap: 10px;
+}
+
+.enquiry-icon {
+  aspect-ratio: 1;
+  object-fit: contain;
+  width: 18px;
+  margin-left: 4px;
+}
+
+.enquiry-text {
+  flex: 1;
+  margin-left: 12px;
+}
+
+.tabs-section {
+  display: flex;
+  margin-top: 10px;
+  align-items: center;
+  gap: 7px;
+  font-family:
+    "Alexandria",
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+  font-size: 14px;
+  color: #000;
+  font-weight: 400;
+}
+
+.tab {
+  border-radius: 15px;
+  padding: 9px 11px;
+  min-width: 111px;
+  text-align: center;
+  border: 1px solid #847e7e;
+  background-color: #fff;
+}
+
+.tab.active {
+  background-color: #16f60e;
+  color: #fff6f6;
+  border: none;
+}
+
+.matches-section {
+  border-radius: 5px;
+  background-color: #fff;
+  border: 1px solid #847e7e;
+  margin-top: 39px;
+  padding: 11px 46px 170px 13px;
+}
+
+.matches-header {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  color: #000;
+}
+
+.matches-title {
+  font-size: 20px;
+  font-family:
+    "Average Sans",
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+}
+
+.year-filter {
+  border-radius: 10px;
+  background-color: #fff;
+  border: 1px solid #b3abab;
+  display: flex;
+  padding: 2px 8px 2px 20px;
+  align-items: center;
+  gap: 12px;
+  font-family:
+    "Fira Sans",
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+.filter-icon {
+  aspect-ratio: 0.73;
+  object-fit: contain;
+  width: 11px;
+  margin-top: 6px;
+}
+
+.matches-content {
+  color: #7f7d7d;
+  font-size: 14px;
+  font-family:
+    "Fira Sans",
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+  text-align: center;
+  margin-top: 144px;
+}
+
+@media (max-width: 991px) {
+  .player-data-container {
+    max-width: 100%;
+  }
+
+  .header-section {
+    max-width: 100%;
+  }
+
+  .content-section {
+    max-width: 100%;
+    padding: 0 20px;
+  }
+
+  .info-grid {
+    flex-direction: column;
+  }
+
+  .profile-section,
+  .action-section {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .profile-photo {
+    padding: 69px 20px;
+  }
+
+  .profile-details {
+    margin-top: 40px;
+  }
+
+  .action-container {
+    margin-top: 40px;
+  }
+
+  .matches-section {
+    max-width: 100%;
+    padding-right: 20px;
+    padding-bottom: 100px;
+  }
+
+  .matches-content {
+    margin-bottom: 10px;
+    margin-top: 40px;
+  }
+}
