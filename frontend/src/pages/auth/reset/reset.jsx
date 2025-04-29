@@ -3,11 +3,11 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { resetSchema } from "../schemas/resetSchema";
-import Spinner from "../components/Spinner";
-import InputField from "../components/InputField";
-import PlatformName from "../components/PlatformName";
-import "./resetlayout.css";
+import { resetSchema } from "../../../schemas/resetSchema";
+import Spinner from "../../../components/Spinner";
+import InputField from "../../../components/InputField";
+import PlatformName from "../../../components/PlatformName";
+import "../resetlayout.css";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
@@ -44,8 +44,6 @@ export default function ResetPage() {
   } = useForm({ resolver: yupResolver(resetSchema) });
 
   const validateToken = async () => {
-
-
     try {
       const res = await fetch(`${API_URL}/api/validate-token`, {
         method: "POST",
@@ -132,7 +130,9 @@ export default function ResetPage() {
           </div>
           <div>
             <h2 className="page-title">Redirecting...</h2>
-            <p className="page-subtext">You will be redirected to the Forgot Password page soon.</p>
+            <p className="page-subtext">
+              You will be redirected to the Forgot Password page soon.
+            </p>
           </div>
         </div>
       </div>

@@ -1,0 +1,30 @@
+.uploadBox {
+  border: 2px dashed #888;
+  border-radius: 8px;
+  background-color: #fff;
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  margin-bottom: 40px;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.dragactive {
+  border-color: #4caf50;
+  background-color: #f0fff0;
+}
+
+.uploadIcon {
+  margin-bottom: 14px;
+}
+
+.uploadText {
+  color: #7d8597;
+  font-size: 1.1rem;
+}
+
+.click {
+  color: #2563eb;
+  font-weight: 600;
+}

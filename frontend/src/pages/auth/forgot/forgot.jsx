@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { forgotSchema } from "../schemas/forgotSchema";
-import Spinner from "../components/Spinner";
-import InputField from "../components/InputField";
-import PlatformName from "../components/PlatformName";
-import "./resetlayout.css";
+import { forgotSchema } from "../../../schemas/forgotSchema";
+import Spinner from "../../../components/Spinner";
+import InputField from "../../../components/InputField";
+import PlatformName from "../../../components/PlatformName";
+import "../resetlayout.css";
 import "./forgot.css";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
@@ -62,7 +62,8 @@ export default function ForgotPage() {
       });
 
       const result = await res.json();
-      if (!res.ok) throw new Error(result.message || "Failed to send reset email");
+      if (!res.ok)
+        throw new Error(result.message || "Failed to send reset email");
 
       toast.success("Reset link sent to your email.");
     } catch (err) {

@@ -4,12 +4,16 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 
-import { registerSchema } from "../schemas/registerSchema";
-import Spinner from "../components/Spinner";
-import InputField from "../components/InputField";
-import { step1Fields, playerFields, scoutFields } from "../components/register";
+import { registerSchema } from "../../../schemas/registerSchema";
+import Spinner from "../../../components/Spinner";
+import InputField from "../../../components/InputField";
+import {
+  step1Fields,
+  playerFields,
+  scoutFields,
+} from "../../../components/register";
 
-import "./layout.css";
+import "../layout.css";
 import "./register.css";
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -90,20 +94,20 @@ export default function RegisterPage() {
     });
 
   return (
-    <div className='main-container'>
+    <div className="main-container">
       {/* Left Panel */}
-      <div className='column left'>
+      <div className="column left">
         <h1>Get started with O.G Football</h1>
         <p>Answer a couple of questions and we'll set up your account</p>
       </div>
 
       {/* Right Panel */}
-      <div className='column right'>
-        <div className='container-form'>
-          <span className='container-title'>Register</span>
+      <div className="column right">
+        <div className="container-form">
+          <span className="container-title">Register</span>
 
           <form onSubmit={handleSubmit(onSubmit)} noValidate>
-            <div className='register-fields'>
+            <div className="register-fields">
               {step === 1 && renderFields(step1Fields)}
               {step === 2 &&
                 userType === "player" &&
@@ -111,11 +115,11 @@ export default function RegisterPage() {
               {step === 2 && userType === "scout" && renderFields(scoutFields)}
             </div>
 
-            <div className='button-group'>
+            <div className="button-group">
               {step === 1 ? (
                 <button
-                  type='button'
-                  className='container-button primary'
+                  type="button"
+                  className="container-button primary"
                   onClick={handleNext}
                   disabled={validating}
                 >
@@ -124,15 +128,15 @@ export default function RegisterPage() {
               ) : (
                 <>
                   <button
-                    type='button'
-                    className='container-button secondary'
+                    type="button"
+                    className="container-button secondary"
                     onClick={() => setStep(1)}
                   >
                     Previous
                   </button>
                   <button
-                    type='submit'
-                    className='container-button'
+                    type="submit"
+                    className="container-button"
                     disabled={loading}
                   >
                     {loading ? <Spinner /> : "Register"}
@@ -142,8 +146,8 @@ export default function RegisterPage() {
             </div>
           </form>
 
-          <div className='container-footer'>
-            Have an account? <Link to='/login'>Login</Link>
+          <div className="container-footer">
+            Have an account? <Link to="/login">Login</Link>
           </div>
         </div>
       </div>

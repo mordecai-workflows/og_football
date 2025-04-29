@@ -1,0 +1,97 @@
+.mediaGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.mediaCard {
+  background: #f7f8fa;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  /* padding: 12px; */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.2s;
+}
+
+.mediaCard:hover,
+.mediaCard:focus-within {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.thumbnail {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 8px;
+
+  background: #eaeaea;
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+}
+
+.thumbnail:focus {
+  outline: 2px solid #7d8597;
+}
+
+.thumbnail img,
+.thumbnail video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.2s;
+}
+
+.thumbnail:hover img,
+.thumbnail:hover video {
+  transform: scale(1.03);
+}
+
+.playIcon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.deleteBtn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 5px 5px;
+  background: #fff;
+  border: none;
+  font-size: 14px;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #d14343;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  transition: color 0.2s, background 0.18s;
+  z-index: 3;
+}
+
+.deleteBtn:hover,
+.deleteBtn:focus {
+  color: #a12020;
+  background: #ffeaea;
+  outline: none;
+}
+
+@media (max-width: 600px) {
+  .mediaGrid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .mediaCard {
+    padding: 8px;
+  }
+}

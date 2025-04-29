@@ -1,6 +1,10 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Navigate,
+} from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -10,14 +14,19 @@ import ProtectedRoute from "./components/ProtectedRoute";
 
 // general pages
 import App from "./App.jsx";
-import LoginPage from "./pages/login.jsx";
-import RegisterPage from "./pages/register.jsx";
-import ForgotPage from "./pages/forgot.jsx";
-import ResetPage from "./pages/reset.jsx";
+import LoginPage from "./pages/auth/login/login.jsx";
+import RegisterPage from "./pages/auth/register/register.jsx";
+import ForgotPage from "./pages/auth/forgot/forgot.jsx";
+import ResetPage from "./pages/auth/reset/reset.jsx";
 
 //player pages
 import UserHome from "./pages/user.jsx";
 import ProfilePage from "./pages/profileEdit.jsx";
+
+// player pages
+import PlayerHome from "./pages/player/home/Home.jsx";
+import PlayerMedia from "./pages/player/media/Media.jsx";
+import ProgressAnalytics from "./pages/player/progress/Progress.jsx";
 
 import "./index.css";
 
@@ -29,11 +38,14 @@ const router = createBrowserRouter([
   { path: "/reset", element: <ResetPage /> },
   { path: "/profile", element: <ProfilePage /> },
 
+  { path: "/player", element: <Navigate to="/player/home" replace /> },
+
   {
     element: <ProtectedRoute allowedRoles={["player"]} />,
     children: [
-      { path: "/user/home", element: <UserHome /> },
-      { path: "/user/profile", element: <ProfilePage /> },
+      { path: "/player/home", element: <PlayerHome /> },
+      { path: "/player/media", element: <PlayerMedia /> },
+      { path: "/player/progress", element: <ProgressAnalytics /> },
     ],
   },
   {

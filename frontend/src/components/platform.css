@@ -1,27 +1,28 @@
-.platform h1{
-    position: relative;
-}
-.platform h1 span{
-    color: var(--theme)
+.platform h1 {
+  position: relative;
+  font-size: 1.5rem;
 }
 
-.platform h1::before{
-    content: '';
-    background-color: black;
-    position: absolute;
-    height: 5px;
-    width: 50%;
-    bottom: 0;
-    left: 0;
-    
+.platform h1 span {
+  color: var(--theme);
 }
-.platform h1::after{
-    content: '';
-    background-color: var(--theme);
-    position: absolute;
-    height: 5px;
-    width: 50%;
-    bottom: 0;
-    right: 0;
-    
+
+.platform h1::before {
+  content: "";
+  background-color: black;
+  position: absolute;
+  height: 5px;
+  width: 50%;
+  bottom: 0;
+  left: 0;
+}
+
+.platform h1::after {
+  content: "";
+  background-color: var(--theme);
+  position: absolute;
+  height: 5px;
+  width: 50%;
+  bottom: 0;
+  right: 0;
 }

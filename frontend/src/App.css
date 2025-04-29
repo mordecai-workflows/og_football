@@ -25,7 +25,7 @@ body {
 .logo {
   display: flex;
   align-items: center;
-  font-size: large;
+  font-size: 1rem;
 }
 
 .parts {
@@ -92,6 +92,14 @@ button a {
   opacity: 0.9;
 }
 
+.main-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
 .main-content {
   text-align: center;
   padding: 4rem 2rem;
@@ -140,7 +148,6 @@ button a {
   height: auto;
 }
 
-/* Hamburger menu icon (hidden by default) */
 .hamburger {
   display: none;
   font-size: 1.5rem;
@@ -148,7 +155,6 @@ button a {
   user-select: none;
 }
 
-/* Responsive adjustments */
 @media (max-width: 900px) {
   .nav-container {
     display: flex;
@@ -158,7 +164,7 @@ button a {
   }
 
   .logo {
-    font-size: small;
+    font-size: x-small;
     align-self: flex-start;
   }
 

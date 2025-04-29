@@ -4,14 +4,14 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 
-import { loginSchema } from "../schemas/loginSchema";
-import Spinner from "../components/Spinner";
-import InputField from "../components/InputField";
-import PlatformName from "../components/PlatformName";
-import { useAuth } from "../context/AuthContext";
-import FullScreenSpinner from "../components/FullScreenSpinner";
+import { loginSchema } from "../../../schemas/loginSchema";
+import Spinner from "../../../components/Spinner";
+import InputField from "../../../components/InputField";
+import PlatformName from "../../../components/PlatformName";
+import { useAuth } from "../../../context/AuthContext";
+import FullScreenSpinner from "../../../components/FullScreenSpinner";
 
-import "./layout.css";
+import "../layout.css";
 import "./login.css";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
@@ -45,7 +45,7 @@ const fetchJSON = async (url, options = {}) => {
 
 const navigateBasedOnRole = (navigate, role) => {
   setTimeout(
-    () => navigate(role === "admin" ? "/admin/dashboard" : "/user/home"),
+    () => navigate(role === "admin" ? "/admin/dashboard" : "/player/home"),
     1500
   );
 };

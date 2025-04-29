@@ -1,0 +1,279 @@
+.uploadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 0;
+  gap: 20px;
+  width: 100%;
+}
+
+.uploadingList {
+  background: #f8fafc;
+  max-width: 540px;
+  width: 100%;
+  padding: 22px 24px 24px;
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(60, 60, 80, 0.08);
+  user-select: none;
+}
+
+.uploadingHeader {
+  font-weight: 700;
+  font-size: 1.15rem;
+  margin-bottom: 14px;
+  color: #22223b;
+  letter-spacing: 0.015em;
+  user-select: text;
+}
+
+.uploadingItem {
+  position: relative; /* for absolute progress bar */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0 24px; /* extra bottom padding for progress bar */
+  border-bottom: 1px solid #e3e7ee;
+  gap: 18px;
+  transition: background-color 0.25s ease;
+}
+
+.uploadingItem:last-child {
+  border-bottom: none;
+}
+
+.uploadingItem:hover,
+.uploadingItem:focus-within {
+  background-color: #e9f0ff;
+  outline: none;
+}
+
+.previewThumb {
+  width: 160px;
+  height: 104px; /* 16:10 aspect ratio */
+  border-radius: 10px;
+  background: #e6eafa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+}
+
+.previewThumb img,
+.previewThumb video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  pointer-events: none;
+  user-select: none;
+}
+
+.previewThumb:hover {
+  transform: scale(1.03);
+}
+
+.fileInfo {
+  display: flex;
+  align-items: center;
+  flex: 1 1 auto;
+  min-width: 0;
+  gap: 14px;
+  overflow: hidden;
+}
+
+.fileName {
+  font-weight: 600;
+  color: #21213d;
+  max-width: 180px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1rem;
+  user-select: text;
+}
+
+.fileSize {
+  color: #3d3d4d;
+  font-size: 0.92rem;
+  opacity: 0.75;
+  margin-left: 8px;
+  user-select: none;
+}
+
+.fileActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 120px;
+  justify-content: flex-end;
+}
+
+.progressBar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  appearance: none;
+  background: #e5e7eb;
+  border-radius: 0 0 10px 10px;
+  overflow: hidden;
+  margin: 0;
+  z-index: 10;
+}
+
+.progressBar::-webkit-progress-bar {
+  background: #e5e7eb;
+  border-radius: 0 0 10px 10px;
+}
+
+.progressBar::-webkit-progress-value {
+  background: #2563eb;
+  border-radius: 0 0 10px 10px;
+  transition: width 0.3s ease;
+}
+
+.progressBar::-moz-progress-bar {
+  background: #2563eb;
+  border-radius: 0 0 10px 10px;
+  transition: width 0.3s ease;
+}
+
+.retryBtn,
+.removeBtn {
+  border-radius: 6px;
+  padding: 5px 14px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.25s ease, color 0.25s ease;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.retryBtn {
+  background: #ffe7e7;
+  color: #c00000;
+}
+
+.retryBtn:hover,
+.retryBtn:focus-visible {
+  background: #ffd6d6;
+  outline: none;
+}
+
+.removeBtn {
+  background: #f2f3f7;
+  color: #444;
+}
+
+.removeBtn:hover,
+.removeBtn:focus-visible {
+  background: #e2e3e7;
+  color: #c00000;
+  outline: none;
+}
+
+.uploadBtn {
+  margin-top: 18px;
+  min-width: 130px;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 0;
+  font-weight: 700;
+  letter-spacing: 0.015em;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.15);
+  user-select: none;
+}
+
+.uploadBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: #95a2c9;
+  box-shadow: none;
+}
+
+.uploadBtn:hover:enabled,
+.uploadBtn:focus-visible {
+  background: #1a48c2;
+  box-shadow: 0 6px 20px rgba(26, 72, 194, 0.4);
+  outline: none;
+}
+
+/* Fade out animation for removing items */
+.fadeOut {
+  animation: fadeOut 3s forwards;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    max-height: 104px;
+    margin-bottom: 10px;
+  }
+  100% {
+    opacity: 0;
+    max-height: 0;
+    margin-bottom: 0;
+  }
+}
+
+/* Status and error messages */
+.status-text {
+  margin-top: 12px;
+  color: #2563eb;
+  font-weight: 600;
+  font-size: 1rem;
+  user-select: none;
+}
+
+.error-text {
+  margin-top: 8px;
+  color: #c00000;
+  font-weight: 600;
+  font-size: 1rem;
+  user-select: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .uploadingList {
+    max-width: 100%;
+    padding: 18px 20px 20px;
+  }
+
+  .previewThumb {
+    width: 120px;
+    height: 78px;
+  }
+
+  .fileName {
+    max-width: 120px;
+    font-size: 0.95rem;
+  }
+
+  .progressBar {
+    height: 5px;
+  }
+
+  .fileActions {
+    min-width: 90px;
+    gap: 6px;
+  }
+
+  .uploadBtn {
+    min-width: 100%;
+    padding: 14px 0;
+    font-size: 1.05rem;
+  }
+}
