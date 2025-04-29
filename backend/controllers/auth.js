@@ -28,7 +28,7 @@ export async function registerUser(req, res) {
     county,
     // Scout details
     years_of_experience,
-    associated_team
+    associated_team,
   } = req.body || {};
 
   // Basic user details are mandatory
@@ -38,11 +38,19 @@ export async function registerUser(req, res) {
 
   // Validate that the required extra details for each user type are present
   if (user_type === "player") {
-    if (!yob || !height || !weight || !preferred_foot || !position || !club_team || !county) {
+    if (
+      !yob ||
+      !height ||
+      !weight ||
+      !preferred_foot ||
+      !position ||
+      !club_team ||
+      !county
+    ) {
       return res.status(400).json({ message: "Player details are incomplete" });
     }
   } else if (user_type === "scout") {
-    if ( !years_of_experience || !associated_team) {
+    if (!years_of_experience || !associated_team) {
       return res.status(400).json({ message: "Scout details are incomplete" });
     }
   } else {
@@ -69,7 +77,7 @@ export async function registerUser(req, res) {
         last_name,
         email,
         password: hashedPassword,
-        user_type
+        user_type,
       },
       { transaction: t }
     );
@@ -85,7 +93,7 @@ export async function registerUser(req, res) {
           position,
           club_team,
           county,
-          userId: newUser.id // associate the Player with the User
+          userId: newUser.id, // associate the Player with the User
         },
         { transaction: t }
       );
@@ -95,7 +103,7 @@ export async function registerUser(req, res) {
           county,
           years_of_experience,
           associated_team,
-          userId: newUser.id // you can also add this if you have an association; adjust as needed
+          userId: newUser.id, // you can also add this if you have an association; adjust as needed
         },
         { transaction: t }
       );
@@ -121,7 +129,7 @@ export async function loginUser(req, res) {
 
   try {
     const user = await User.findOne({ where: { email } });
-    if (!user || !await bcryptjs.compare(password, user.password)) {
+    if (!user || !(await bcryptjs.compare(password, user.password))) {
       return res.status(401).json({ message: "Invalid email or password" });
     }
 
@@ -131,11 +139,11 @@ export async function loginUser(req, res) {
       { expiresIn: "1h" }
     );
 
-    res.cookie('accessToken', token, {
+    res.cookie("accessToken", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'Lax',
-      path: '/',     
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "Lax",
+      path: "/",
       maxAge: 60 * 60 * 1000,
     });
 
@@ -145,8 +153,6 @@ export async function loginUser(req, res) {
     res.status(500).json({ message: "Internal server error" });
   }
 }
-
-
 
 export async function forgot(req, res) {
   const { email } = req.body;
@@ -158,7 +164,9 @@ export async function forgot(req, res) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    const resetToken = jwt.sign({ email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const resetToken = jwt.sign({ email: user.email }, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
 
     user.resetToken = resetToken;
     user.resetTokenExpiration = Date.now() + 3600000; // 1 hour from now
@@ -198,10 +206,6 @@ export async function forgot(req, res) {
   }
 }
 
-
-
-
-
 export async function reset(req, res) {
   const { token, password, confirmPassword } = req.body;
 
@@ -228,7 +232,9 @@ export async function reset(req, res) {
     });
 
     if (!user) {
-      return res.status(400).json({ message: "Invalid or expired reset token" });
+      return res
+        .status(400)
+        .json({ message: "Invalid or expired reset token" });
     }
 
     // Hash the new password
@@ -321,7 +327,8 @@ export const editUserInfo = async (req, res) => {
     } else if (user.user_type === "scout") {
       const scout = await Scout.findOne({ where: { userId } });
       if (scout) {
-        if (years_of_experience) scout.years_of_experience = years_of_experience;
+        if (years_of_experience)
+          scout.years_of_experience = years_of_experience;
         if (associated_team) scout.associated_team = associated_team;
         if (county) scout.county = county;
 
@@ -336,9 +343,6 @@ export const editUserInfo = async (req, res) => {
   }
 };
 
-
-
-
 //Get player profile
 export const getPlayerInfo = async (req, res) => {
   const userId = req.userId; // Extracted from the middleware
@@ -346,7 +350,7 @@ export const getPlayerInfo = async (req, res) => {
   try {
     // Find the user by ID
     const user = await User.findByPk(userId, {
-      attributes: ['first_name', 'last_name', 'email', 'user_type'], // Fetch only relevant fields
+      attributes: ["first_name", "last_name", "email", "user_type"], // Fetch only relevant fields
     });
 
     if (!user) {
@@ -361,7 +365,15 @@ export const getPlayerInfo = async (req, res) => {
     // Fetch the player's details
     const player = await Player.findOne({
       where: { userId },
-      attributes: ['yob', 'height', 'weight', 'preferred_foot', 'position', 'club_team', 'county'], // Fetch only relevant fields
+      attributes: [
+        "yob",
+        "height",
+        "weight",
+        "preferred_foot",
+        "position",
+        "club_team",
+        "county",
+      ], // Fetch only relevant fields
     });
 
     if (!player) {
@@ -381,16 +393,14 @@ export const getPlayerInfo = async (req, res) => {
   }
 };
 
-
 // others to get player profile
 export const getPlayerProfile = async (req, res) => {
   const { playerId } = req.params; // Extract playerId from the route parameter
 
-
   try {
     // Find the user by ID
     const user = await User.findByPk(playerId, {
-      attributes: ['first_name', 'last_name', 'email', 'user_type'], // Fetch only relevant fields
+      attributes: ["first_name", "last_name", "email", "user_type"], // Fetch only relevant fields
     });
 
     if (!user) {
@@ -399,13 +409,23 @@ export const getPlayerProfile = async (req, res) => {
 
     // Ensure the user is a player
     if (user.user_type !== "player") {
-      return res.status(400).json({ message: "The requested user is not a player" });
+      return res
+        .status(400)
+        .json({ message: "The requested user is not a player" });
     }
 
     // Fetch the player's details
     const player = await Player.findOne({
       where: { userId: playerId },
-      attributes: ['yob', 'height', 'weight', 'preferred_foot', 'position', 'club_team', 'county'], // Fetch only relevant fields
+      attributes: [
+        "yob",
+        "height",
+        "weight",
+        "preferred_foot",
+        "position",
+        "club_team",
+        "county",
+      ], // Fetch only relevant fields
     });
 
     if (!player) {
@@ -424,5 +444,3 @@ export const getPlayerProfile = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
-
-
