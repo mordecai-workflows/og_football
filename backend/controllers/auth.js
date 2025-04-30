@@ -164,6 +164,7 @@ export async function forgot(req, res) {
     user.resetTokenExpiration = Date.now() + 3600000; // 1 hour from now
     await user.save();
 
+    
     // Create the reset link
     const resetLink = `${process.env.FRONTEND_URL}/reset?token=${resetToken}`;
 
