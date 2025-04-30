@@ -1,0 +1,77 @@
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1100;
+  backdrop-filter: blur(4px);
+  animation: fadeInOverlay 0.3s ease;
+}
+
+@keyframes fadeInOverlay {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modalContent {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px 32px;
+  max-width: 1000px;
+  width: 90vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  animation: slideInModal 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@keyframes slideInModal {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modalCloseBtn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-size: 28px;
+  color: #666;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s;
+  line-height: 1;
+}
+
+.modalCloseBtn:hover,
+.modalCloseBtn:focus {
+  color: #111;
+  outline: none;
+}
+
+.modalVideo,
+.modalImage {
+  width: 100%;
+  border-radius: 12px;
+  max-height: 70vh;
+  object-fit: contain;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  user-select: none;
+  background: #000;
+}

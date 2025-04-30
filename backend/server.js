@@ -2,6 +2,8 @@ import express from "express";
 import dotenv from "dotenv";
 import { connectDB, disconnectDB, sequelize } from "./config/database.js";
 import api from "./routes/auth.js";
+import media from "./routes/uploads.js";
+import message from "./routes/messaging.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
@@ -9,16 +11,20 @@ dotenv.config();
 const PORT = process.env.PORT || 5000;
 const app = express();
 
-app.use(cors({
-  origin: true, // or your frontend origin
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: true, // or your frontend origin
+    credentials: true,
+  })
+);
 
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api", api);
+app.use("/media", media);
+app.use("/message", message);
 
 (async () => {
   await connectDB();

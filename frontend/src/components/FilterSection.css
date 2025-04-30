@@ -1,0 +1,108 @@
+.filter-container {
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 1);
+  border-color: rgba(0, 0, 0, 1);
+  width: 100%;
+  padding-top: 29px;
+}
+
+.filter-header {
+  border-radius: 5px 5px 0 0;
+  background-color: rgba(217, 217, 217, 1);
+  display: flex;
+  width: 100%;
+  padding: 13px;
+  align-items: stretch;
+  gap: 20px;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 1);
+  font-weight: 700;
+  justify-content: space-between;
+}
+
+.filter-title {
+  font-family:
+    "Noto Sans Lao",
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+}
+
+.reset-section {
+  align-self: start;
+  display: flex;
+  margin-top: 5px;
+  align-items: stretch;
+  gap: 2px;
+  font-family:
+    "Droid Sans",
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+}
+
+
+.filter-content {
+  display: flex;
+  margin-top: 18px;
+  width: 100%;
+  padding: 0 18px;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.filter-select {
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 1);
+  border: 2px solid rgba(238, 236, 236, 1);
+  padding: 6px 13px;
+  margin-bottom: 13px;
+  font-family:
+    "Droid Sans",
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+  font-size: 16px;
+  color: rgb(151, 148, 148);
+  font-weight: 700;
+  appearance: none;
+  background-repeat: no-repeat;
+  background-position: right 13px center;
+  background-size: 11px;
+  cursor: pointer;
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: rgba(22, 246, 14, 1);
+}
+
+.height-handle {
+  aspect-ratio: 1;
+  object-fit: contain;
+  object-position: center;
+  width: 16px;
+  flex-shrink: 0;
+}
+
+.height-track {
+  aspect-ratio: 200;
+  object-fit: contain;
+  object-position: center;
+  width: 100%;
+  margin: auto 0;
+}
+
+@media (max-width: 991px) {
+  .filter-container {
+    margin-top: 40px;
+  }
+
+  .height-value {
+    white-space: initial;
+  }
+
+}

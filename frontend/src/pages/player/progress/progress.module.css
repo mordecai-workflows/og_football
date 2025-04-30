@@ -1,0 +1,108 @@
+.container {
+  display: flex;
+  height: 100vh;
+  background: #f7f8fa;
+}
+
+.sidebar {
+  width: 260px;
+  background: #23272f;
+  color: #fff;
+  padding: 40px 0 0 0;
+  border-radius: 18px 0 0 18px;
+  min-width: 220px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar li {
+  padding: 16px 32px;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  margin-bottom: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.sidebar li:hover,
+.sidebar .active {
+  background: #1e293b;
+  color: #fff;
+}
+
+.active {
+  background: #2563eb !important;
+  color: #fff;
+}
+
+.main {
+  flex: 1;
+  background: #fff;
+  border-radius: 0 18px 18px 0;
+  padding: 48px 48px 0 48px;
+  min-width: 0;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.05);
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 32px;
+}
+
+.section {
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+}
+
+.sectionTitle {
+  font-size: 1.13rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.graphBox {
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 10px;
+  padding: 12px 0;
+}
+
+.lineChart,
+.barChart {
+  width: 100%;
+  height: 100px;
+  display: block;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  font-size: 1rem;
+}
+
+.table th,
+.table td {
+  padding: 12px 18px;
+  text-align: left;
+}
+
+.table thead {
+  background: #f1f5f9;
+}
+
+.table tbody tr:nth-child(even) {
+  background: #f8fafc;
+}

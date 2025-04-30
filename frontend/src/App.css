@@ -3,10 +3,9 @@
   --theme-hover: rgb(5, 158, 5);
 }
 
-body{
-  font-family: 'Segoe UI', sans-serif;
+body {
+  font-family: "Segoe UI", sans-serif;
   min-height: 100vh;
-  /* overflow: hidden; */
 }
 
 .navbar {
@@ -14,7 +13,6 @@ body{
   background-color: #ffffff;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border-bottom: 1px solid #ddd;
-  
 }
 
 .nav-container {
@@ -27,12 +25,14 @@ body{
 .logo {
   display: flex;
   align-items: center;
+  font-size: 1rem;
 }
 
 .parts {
   display: flex;
   gap: 2rem;
   justify-content: center;
+  transition: all 0.3s ease-in-out;
 }
 
 .parts a {
@@ -43,13 +43,13 @@ body{
 }
 
 .parts a::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 0%;
   height: 2px;
   left: 0;
   bottom: -3px;
-  background-color: limegreen;
+  background-color: var(--theme);
   transition: width 0.3s ease;
 }
 
@@ -84,12 +84,20 @@ button a {
 }
 
 .buttons button:last-child {
-  background-color: limegreen;
+  background-color: var(--theme);
   color: white;
 }
 
 .buttons button:hover {
   opacity: 0.9;
+}
+
+.main-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  box-sizing: border-box;
 }
 
 .main-content {
@@ -140,17 +148,53 @@ button a {
   height: auto;
 }
 
+.hamburger {
+  display: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  user-select: none;
+}
 
-/* Responsive adjustments */
 @media (max-width: 900px) {
   .nav-container {
-    grid-template-columns: 1fr;
-    row-gap: 1rem;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
   }
 
-  .parts, .buttons {
-    justify-content: center;
-    flex-wrap: nowrap;
+  .logo {
+    font-size: x-small;
+    align-self: flex-start;
+  }
+
+  .hamburger {
+    display: block;
+    align-self: flex-end;
+    margin-top: -2rem;
+  }
+
+  .parts {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .parts.show {
+    display: flex;
+  }
+
+  .buttons {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .buttons button {
+    width: 100%;
   }
 }
