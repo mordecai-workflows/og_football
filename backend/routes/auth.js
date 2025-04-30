@@ -6,11 +6,13 @@ import {
   registerUser,
   forgot,
   reset,
+  logout,
   deleteUserAccount,
   editUserInfo,
   getPlayerInfo,
   getPlayerProfile,
 } from "../controllers/auth.js";
+
 import User from "../models/user.js";
 import { extractUserId } from "../Middleware/auth.js";
 
@@ -21,6 +23,7 @@ router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.post("/forgot", forgot);
 router.post("/reset", reset);
+router.post("/logout", logout);
 
 router.delete("/delete", extractUserId, deleteUserAccount);
 router.put("/edit", extractUserId, editUserInfo);
@@ -31,7 +34,7 @@ router.get("/auth/verify", (req, res) => {
   const token = req.cookies.accessToken;
 
   if (!token) {
-    return res.status(200).json({ valid: false});
+    return res.status(200).json({ valid: false });
   }
 
   try {

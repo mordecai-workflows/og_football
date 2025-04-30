@@ -1,6 +1,6 @@
 import "./App.css";
 import { Link } from "react-router-dom";
-import PlatformName from "./components/PlatformName";
+import PlatformName from "./components/platformname/PlatformName";
 import { useState } from "react";
 
 function App() {

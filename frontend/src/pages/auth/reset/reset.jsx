@@ -4,9 +4,9 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { resetSchema } from "../../../schemas/resetSchema";
-import Spinner from "../../../components/Spinner";
+import Spinner from "../../../components/spinner/Spinner";
 import InputField from "../../../components/InputField";
-import PlatformName from "../../../components/PlatformName";
+import PlatformName from "../../../components/platformname/PlatformName";
 import "../resetlayout.css";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";

@@ -10,7 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 // authentication system
 import { AuthProvider } from "./context/AuthContext";
-import ProtectedRoute from "./components/ProtectedRoute";
+import ProtectedRoute from "./components/protected/ProtectedRoute";
 
 // general pages
 import App from "./App.jsx";
@@ -21,12 +21,14 @@ import ResetPage from "./pages/auth/reset/reset.jsx";
 
 //player pages
 import UserHome from "./pages/user.jsx";
-import ProfilePage from "./pages/profileEdit.jsx";
+// import ProfilePage from "./pages/profileEdit.jsx";
 
 // player pages
 import PlayerHome from "./pages/player/home/Home.jsx";
 import PlayerMedia from "./pages/player/media/Media.jsx";
 import ProgressAnalytics from "./pages/player/progress/Progress.jsx";
+import MessagingPage from "./pages/player/message/Messages.jsx";
+import ProfilePage from "./pages/player/profile/Profile.jsx";
 
 import "./index.css";
 
@@ -36,9 +38,9 @@ const router = createBrowserRouter([
   { path: "/register", element: <RegisterPage /> },
   { path: "/forgot", element: <ForgotPage /> },
   { path: "/reset", element: <ResetPage /> },
-  { path: "/profile", element: <ProfilePage /> },
 
   { path: "/player", element: <Navigate to="/player/home" replace /> },
+  { path: "/scout", element: <Navigate to="/scout/home" replace /> },
 
   {
     element: <ProtectedRoute allowedRoles={["player"]} />,
@@ -46,6 +48,8 @@ const router = createBrowserRouter([
       { path: "/player/home", element: <PlayerHome /> },
       { path: "/player/media", element: <PlayerMedia /> },
       { path: "/player/progress", element: <ProgressAnalytics /> },
+      { path: "/player/message", element: <MessagingPage /> },
+      { path: "/player/profile", element: <ProfilePage /> },
     ],
   },
   {

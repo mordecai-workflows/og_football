@@ -1,15 +1,23 @@
 .sidebar {
-  width: 200px;
-  min-width: 200px;
+  width: 260px;
+  min-width: 260px;
   min-height: 100vh;
-  height: 100%;
   background: #23272f;
   color: #fff;
   padding: 32px 0 0 0;
   display: flex;
   flex-direction: column;
-  transition: 0.3s;
+  transition: width 0.2s cubic-bezier(0.4, 2, 0.6, 1),
+    min-width 0.2s cubic-bezier(0.4, 2, 0.6, 1);
   position: relative;
+}
+
+/* Minimized style */
+.sidebar.minimized {
+  width: 60px;
+  min-width: 60px;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .minimizeBtn {
@@ -47,17 +55,17 @@
   color: white;
 }
 
-/* Minimized style */
-.sidebar.minimized {
-  width: 1px;
-  min-width: 1px;
-  padding: 0;
+.sidebar.minimized .logo * {
+  display: none;
 }
 
-.sidebar.minimized .minimizeBtn {
-  position: absolute;
-  top: 16px;
-  right: -40px;
+.sidebar.minimized .nav li a {
+  justify-content: center;
+  padding-left: 0;
+  padding-right: 0;
+}
+.sidebar.minimized .nav li a span {
+  font-size: 1.3rem;
 }
 
 .nav li a {
@@ -88,33 +96,5 @@
 .nav li:hover,
 .active {
   background: #2563eb;
-  color: #fff;
-}
-
-.logout {
-  position: absolute;
-  width: 100%;
-  bottom: 0;
-  left: 0;
-  text-decoration: none;
-  border-radius: 8px;
-  transition: background 0.2s, color 0.2s;
-}
-
-.logout button {
-  display: flex;
-  align-items: center;
-  padding: 14px 32px;
-  font-size: 1.08rem;
-  color: #fff;
-  background-color: transparent;
-  border: none;
-  width: 100%;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.logout:hover {
-  background: #ff4d4d;
   color: #fff;
 }

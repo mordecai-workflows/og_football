@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import { connectDB, disconnectDB, sequelize } from "./config/database.js";
 import api from "./routes/auth.js";
 import media from "./routes/uploads.js";
+import message from "./routes/messaging.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
@@ -23,6 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api", api);
 app.use("/media", media);
+app.use("/message", message);
 
 (async () => {
   await connectDB();

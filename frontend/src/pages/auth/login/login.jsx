@@ -5,11 +5,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 
 import { loginSchema } from "../../../schemas/loginSchema";
-import Spinner from "../../../components/Spinner";
+import Spinner from "../../../components/spinner/Spinner";
 import InputField from "../../../components/InputField";
-import PlatformName from "../../../components/PlatformName";
+import PlatformName from "../../../components/platformname/PlatformName";
 import { useAuth } from "../../../context/AuthContext";
-import FullScreenSpinner from "../../../components/FullScreenSpinner";
+import FullScreenSpinner from "../../../components/fullscreenspinner/FullScreenSpinner";
 
 import "../layout.css";
 import "./login.css";

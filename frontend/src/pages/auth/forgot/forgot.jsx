@@ -4,9 +4,9 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { forgotSchema } from "../../../schemas/forgotSchema";
-import Spinner from "../../../components/Spinner";
+import Spinner from "../../../components/spinner/Spinner";
 import InputField from "../../../components/InputField";
-import PlatformName from "../../../components/PlatformName";
+import PlatformName from "../../../components/platformname/PlatformName";
 import "../resetlayout.css";
 import "./forgot.css";
 

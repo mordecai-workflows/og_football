@@ -1,5 +1,5 @@
 import React from "react";
-import Spinner from "./Spinner";
+import Spinner from "../spinner/Spinner";
 
 // A reusable full-screen loading overlay
 export default function FullScreenSpinner() {

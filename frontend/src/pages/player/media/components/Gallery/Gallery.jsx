@@ -1,5 +1,5 @@
 import styles from "./Gallery.module.css";
-import Spinner from "../../../../../components/Spinner";
+import Spinner from "../../../../../components/spinner/Spinner";
 
 export default function Gallery({
   media,

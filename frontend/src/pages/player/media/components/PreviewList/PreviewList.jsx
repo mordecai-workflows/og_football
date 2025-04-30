@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import styles from "./PreviewList.module.css";
-import Spinner from "../../../../../components/Spinner";
+import Spinner from "../../../../../components/spinner/Spinner";
 
 export default function PreviewList({
   files,

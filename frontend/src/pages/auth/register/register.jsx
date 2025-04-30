@@ -5,13 +5,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 
 import { registerSchema } from "../../../schemas/registerSchema";
-import Spinner from "../../../components/Spinner";
+import Spinner from "../../../components/spinner/Spinner";
 import InputField from "../../../components/InputField";
-import {
-  step1Fields,
-  playerFields,
-  scoutFields,
-} from "../../../components/register";
+import { step1Fields, playerFields, scoutFields } from "./components/register";
 
 import "../layout.css";
 import "./register.css";

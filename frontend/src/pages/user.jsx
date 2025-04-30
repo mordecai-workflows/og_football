@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import PlayerCard from "../components/PlayerCard";
 import SearchBar from "../components/SearchBar";
 import FilterSection from "../components/FilterSection";
-import PlatformName from "../components/PlatformName";
+import PlatformName from "../components/platformname/PlatformName";
 import "./user.css";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
@@ -18,10 +18,14 @@ const User = () => {
           <div className="header-content">
             <div className="logo-section">
               <PlatformName />
-              <Link to='#' className="nav-home"> Home</Link>
+              <Link to="#" className="nav-home">
+                Home
+              </Link>
             </div>
             <div className="user-profile">
-              <Link to="/profileEdit" className="avatar">PN</Link>
+              <Link to="/profileEdit" className="avatar">
+                PN
+              </Link>
               <div className="username">Player Name</div>
               <div className="category">Category</div>
             </div>
@@ -35,7 +39,9 @@ const User = () => {
               <h2 className="section-title">Discover player</h2>
               <div className="player-list">
                 {[1, 2, 3, 4].map((index) => (
-                  <Link to='/PlayerData'><PlayerCard key={index} /></Link>
+                  <Link to="/PlayerData">
+                    <PlayerCard key={index} />
+                  </Link>
                 ))}
               </div>
             </div>
@@ -43,7 +49,9 @@ const User = () => {
             <div className="column player-list-secondary">
               <div className="player-list">
                 {[1, 2, 3, 4].map((index) => (
-                  <Link to=''><PlayerCard key={index} /></Link>
+                  <Link to="">
+                    <PlayerCard key={index} />
+                  </Link>
                 ))}
               </div>
             </div>

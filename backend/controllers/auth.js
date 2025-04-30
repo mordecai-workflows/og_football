@@ -134,7 +134,11 @@ export async function loginUser(req, res) {
     }
 
     const token = jwt.sign(
-      { id: user.id, user_type: user.user_type },
+      {
+        id: user.id,
+        user_type: user.user_type,
+        name: user.first_name + " " + user.last_name,
+      },
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
@@ -253,6 +257,20 @@ export async function reset(req, res) {
       return res.status(400).json({ message: "Reset token has expired" });
     }
     res.status(500).json({ message: "Something went wrong" });
+  }
+}
+
+export async function logout(req, res) {
+  try {
+    res.clearCookie("accessToken", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "Lax",
+    });
+    res.status(200).json({ message: "Logout successful" });
+  } catch (error) {
+    console.error("Error logging out:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 }
 
