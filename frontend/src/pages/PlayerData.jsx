@@ -74,12 +74,6 @@ function PlayerData() {
               <div className="action-section">
                 <div className="action-container">
                   <img src="/field.jpg" className="action-image" alt="Field" />
-                  <div className="action-buttons">
-                    <div className="share-button">
-                      <img src="/share.png" className="share-icon" alt="Share" />
-                      <div className="share-text">Share profile</div>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
