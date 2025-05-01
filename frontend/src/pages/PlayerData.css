@@ -301,6 +301,25 @@
   margin-top: 6px;
 }
 
+.filter-dropdown {
+  padding: 5px 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.filter-dropdown:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.filter-dropdown option {
+  padding: 5px;
+  font-size: 14px;
+}
+
 .matches-content {
   color: #7f7d7d;
   font-size: 14px;
