@@ -6,8 +6,8 @@ import Sidebar from "../components/Sidebar";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-export default function PlayerProfilePage() {
-  const [player, setPlayer] = useState(null);
+export default function ScoutProfilePage() {
+  const [scout, setScout] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -28,7 +28,7 @@ export default function PlayerProfilePage() {
           throw new Error(`Failed to fetch profile: ${res.statusText}`);
         }
         const data = await res.json();
-        setPlayer(data);
+        setScout(data);
       } catch (err) {
         setError(err.message || "Unknown error");
       } finally {
@@ -53,13 +53,13 @@ export default function PlayerProfilePage() {
       ) : (
         <div className={styles.main}>
           <h1 className={styles.title}>
-            {player.first_name} {player.last_name}
+            {scout.first_name} {scout.last_name}
           </h1>
 
           <div className={styles.avatarContainer}>
             <img
-              src={player.profile_picture || profilesvg}
-              alt={`${player.first_name} ${player.last_name} avatar`}
+              src={scout.profile_picture || profilesvg}
+              alt={`${scout.first_name} ${scout.last_name} avatar`}
               className={styles.avatar}
             />
           </div>
@@ -68,41 +68,41 @@ export default function PlayerProfilePage() {
             <div className={styles.infoGrid}>
               <div>
                 <span className={styles.label}>Email:</span>
-                <span>{player.email}</span>
+                <span>{scout.email}</span>
               </div>
               <div>
                 <span className={styles.label}>User Type:</span>
-                <span>{player.user_type}</span>
+                <span>{scout.user_type}</span>
               </div>
               <div>
                 <span className={styles.label}>Date of Birth:</span>
-                <span>{formatDate(player.yob)}</span>
+                <span>{formatDate(scout.yob)}</span>
               </div>
               <div>
                 <span className={styles.label}>Height:</span>
-                <span>{player.height} cm</span>
+                <span>{scout.height} cm</span>
               </div>
               <div>
                 <span className={styles.label}>Weight:</span>
-                <span>{player.weight} kg</span>
+                <span>{scout.weight} kg</span>
               </div>
               <div>
                 <span className={styles.label}>Preferred Foot:</span>
                 <span style={{ textTransform: "capitalize" }}>
-                  {player.preferred_foot}
+                  {scout.preferred_foot}
                 </span>
               </div>
               <div>
                 <span className={styles.label}>Position:</span>
-                <span>{player.position}</span>
+                <span>{scout.position}</span>
               </div>
               <div>
                 <span className={styles.label}>Club Team:</span>
-                <span>{player.club_team}</span>
+                <span>{scout.club_team}</span>
               </div>
               <div>
                 <span className={styles.label}>County:</span>
-                <span>{player.county}</span>
+                <span>{scout.county}</span>
               </div>
             </div>
           </div>
