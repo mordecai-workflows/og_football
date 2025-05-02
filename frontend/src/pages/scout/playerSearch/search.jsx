@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './search.module.css';
+import Sidebar from '../components/Sidebar';
 
 const PlayerSearch = () => {
   const [age, setAge] = useState(18);

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { Link,useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 import styles from "./Sidebar.module.css";
+import PlatformName from "../../../components/platformname/PlatformName";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
