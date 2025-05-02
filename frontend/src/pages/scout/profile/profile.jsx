@@ -21,7 +21,7 @@ export default function ScoutProfilePage() {
         setLoading(true);
         setError(null);
 
-        const res = await fetch(`${API_URL}/api/player`, {
+        const res = await fetch(`${API_URL}/api/edit`, {
           credentials: "include", // include cookies if needed
         });
         if (!res.ok) {
