@@ -79,25 +79,7 @@ export default function ScoutProfilePage() {
                 <span>{formatDate(scout.yob)}</span>
               </div>
               <div>
-                <span className={styles.label}>Height:</span>
-                <span>{scout.height} cm</span>
-              </div>
-              <div>
-                <span className={styles.label}>Weight:</span>
-                <span>{scout.weight} kg</span>
-              </div>
-              <div>
-                <span className={styles.label}>Preferred Foot:</span>
-                <span style={{ textTransform: "capitalize" }}>
-                  {scout.preferred_foot}
-                </span>
-              </div>
-              <div>
-                <span className={styles.label}>Position:</span>
-                <span>{scout.position}</span>
-              </div>
-              <div>
-                <span className={styles.label}>Club Team:</span>
+                <span className={styles.label}>Associated Team:</span>
                 <span>{scout.club_team}</span>
               </div>
               <div>
