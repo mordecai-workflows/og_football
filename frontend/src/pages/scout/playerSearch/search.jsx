@@ -11,12 +11,14 @@ const PlayerSearch = () => {
     <div className={styles.playerSearchContainer}>
       <Sidebar active="search" />
       <main className={styles.searchContent}>
-        <h1>Player Search</h1>
+        
         <div className={styles.filters}>
+          <h2 className={styles.filterHeader}>Search</h2>
           <label>Age Range: {age}</label>
+          
           <input
             type="range"
-            min="18"
+            min="15"
             max="30"
             value={age}
             onChange={(e) => setAge(e.target.value)}
@@ -24,6 +26,8 @@ const PlayerSearch = () => {
 
           <label>Position:</label>
           <select>
+            <option>select position</option>
+            <option value="defender">Defender</option>
             <option value="midfielder">Midfielder</option>
             <option value="forward">Forward</option>
             <option value="goalkeeper">Goalkeeper</option>
@@ -49,29 +53,46 @@ const PlayerSearch = () => {
             value={videoViews}
             onChange={(e) => setVideoViews(e.target.value)}
           />
+          <button className={styles.filterButton}>Apply</button>
         </div>
 
         <div className={styles.playerList}>
-          <h2>Players</h2>
-          <div className={styles.playerItem}>
-            <span>Jacob Hall - Midfielder</span>
-            <button>Endorse</button>
+          <h1>Players</h1>
+          <div className={styles.playerTile}>
+            <span className={styles.playerName}>Jacob Hall</span>
+            <span className={styles.playerPosition}>Midfielder</span>
+            <button className={styles.endorseButton}>Endorse</button>
           </div>
-          <div className={styles.playerItem}>
-            <span>Sam King - Forward</span>
-            <button>Endorse</button>
+          <div className={styles.playerTile}>
+            <span className={styles.playerName}>Sam King</span>
+            <span className={styles.playerPosition}>Forward</span>
+            <button className={styles.endorseButton}>Endorse</button>
           </div>
-          <div className={styles.playerItem}>
-            <span>Liam Robert - Goalkeeper</span>
-            <button>Endorse</button>
+          <div className={styles.playerTile}>
+            <span className={styles.playerName}>Liam Robert</span>
+            <span className={styles.playerPosition}>Goalkeeper</span>
+            <button className={styles.endorseButton}>Endorse</button>
           </div>
-          <div className={styles.playerItem}>
-            <span>Nathan Baker - Forward</span>
-            <button>Endorse</button>
+          <div className={styles.playerTile}>
+            <span className={styles.playerName}>Nathan Baker</span>
+            <span className={styles.playerPosition}>Forward</span>
+            <button className={styles.endorseButton}>Endorse</button>
           </div>
-          <div className={styles.playerItem}>
-            <span>Alex Hughes - Midfielder</span>
-            <button>Endorse</button>
+        </div>
+
+        <div className={styles.additionalTiles}>
+          <h2>Additional Info</h2>
+          <div className={styles.infoTile}>
+            <span className={styles.infoTitle}>Top Scorer</span>
+            <p>John Doe</p>
+          </div>
+          <div className={styles.infoTile}>
+            <span className={styles.infoTitle}>Most Endorsed</span>
+            <p>Jane Smith</p>
+          </div>
+          <div className={styles.infoTile}>
+            <span className={styles.infoTitle}>Best Goalkeeper</span>
+            <p>Chris Johnson</p>
           </div>
         </div>
       </main>

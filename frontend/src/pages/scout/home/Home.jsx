@@ -1,9 +1,22 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import Sidebar from "../components/Sidebar";
 import styles from "./Home.module.css"; 
 
 export default function ScoutDashboard() {
   const navigate = useNavigate();
+  const [modalContent, setModalContent] = useState(null);
+
+  const handleViewClick = (category) => {
+    const players = {
+      "U18 Prospects": ["Player A", "Player B", "Player C"],
+      "Strikers in Review": ["Player X", "Player Y", "Player Z"],
+    };
+    setModalContent(players[category]);
+  };
+
+  const closeModal = () => setModalContent(null);
+
   return (
     <div className={styles.container}>
       <Sidebar active="dashboard" />
@@ -11,17 +24,23 @@ export default function ScoutDashboard() {
         <h1 className={styles.dashboardTitle}>Dashboard</h1>
         <section className={styles.alerts}>
           <h2>New Player Alerts</h2>
-          <p>5 new players matched your filters</p>
+          <p>
+            <span className={styles.alertNumber}>5</span> new players matched your filters
+          </p>
+          <Link to="/scout/shortlists" className={styles.alertLink}>
+            Go to Shortlists
+          </Link>
         </section>
         <section className={styles.shortlists}>
           <h2>Your Shortlists</h2>
           <div className={styles.shortlistItem}>
             <span>U18 Prospects</span>
-            <a href="#">View</a>
+            <a href="#" onClick={() => handleViewClick("U18 Prospects")}>View</a>
           </div>
+          <hr style={{ border: "1px solid gray", opacity: 0.2 }} />
           <div className={styles.shortlistItem}>
             <span>Strikers in Review</span>
-            <a href="#">View</a>
+            <a href="#" onClick={() => handleViewClick("Strikers in Review")}>View</a>
           </div>
         </section>
         <section className={styles.conversations}>
@@ -39,6 +58,19 @@ export default function ScoutDashboard() {
             <p>Looking forward to it!</p>
           </div>
         </section>
+        {modalContent && (
+          <div className={styles.modal}>
+            <div className={styles.modalContent}>
+              <h3>Player List</h3>
+              <ul>
+                {modalContent.map((player, index) => (
+                  <li key={index}>{player}</li>
+                ))}
+              </ul>
+              <button onClick={closeModal}>Close</button>
+            </div>
+          </div>
+        )}
       </main>
     </div>
   );

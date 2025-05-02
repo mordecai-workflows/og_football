@@ -1,22 +1,44 @@
 .playerSearchContainer {
     display: flex;
-    height: 100vh; /* Match the height of the home page */
-    background: #f8f9fb;
+    height: 100vh;
+    background: #ffff;
 }
 
 .searchContent {
-    flex: 1; /* Allow the main content to take up remaining space */
-    padding: 48px; /* Match padding with the home page */
-    background: #fff;
-    min-width: 0; /* Prevent shrinking */
     display: flex;
-    flex-direction: column; /* Stack content vertically */
-    align-items: flex-start; /* Align content to the left */
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 48px;
+    background: #fff;
+    min-width: 0;
 }
 
 .filters {
+    flex: 3;
+    margin-top: 70px;
     margin-bottom: 20px;
-    width: 100%; /* Ensure filters take full width */
+    margin-right: 150px;
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.filterHeaderOutside {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.filterContent {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .filters label {
@@ -24,9 +46,97 @@
     margin-top: 10px;
 }
 
+select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    background-color: #fff;
+    font-size: 1rem;
+    margin-bottom: 16px;
+}
+
+select option:first-child {
+    opacity: 0.4;
+}
+
+input[type="text"], input[type="range"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    background-color: #fff;
+    font-size: 1rem;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+}
+
+.filterButton {
+    width: 100%;
+    padding: 10px;
+    background-color: #131313;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 16px;
+}
+
+.filterButton:hover {
+    background-color: #3dea0d;
+}
+
 .playerList {
-    margin-top: 20px;
-    width: 100%; /* Ensure player list takes full width */
+    flex: 3;
+    margin-top: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    width: 100%;
+}
+
+.playerList h1 {
+    text-align: center;
+    margin-bottom: 0px;
+}
+
+.playerTile {
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.playerName {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.playerPosition {
+    font-size: 1rem;
+    color: #6c757d;
+    margin-bottom: 16px;
+}
+
+.endorseButton {
+    background-color: #2ced0a;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.endorseButton:hover {
+    background-color: #000000;
 }
 
 .playerItem {
@@ -43,13 +153,35 @@ button {
     cursor: pointer;
 }
 
-/* Responsive adjustments */
+.additionalTiles {
+    flex: 1;
+    margin-left: 70px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.infoTile {
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.infoTitle {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
 @media (max-width: 600px) {
     .searchContent {
-        padding: 24px 16px; /* Reduce padding for smaller screens */
+        padding: 24px 16px;
     }
 
     .filters, .playerList {
-        width: 100%; /* Allow full width on smaller screens */
+        width: 100%;
     }
 }

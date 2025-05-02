@@ -1,36 +1,54 @@
 .shortlistManagerContainer {
     display: flex;
-}
-
-.logo {
-    font-size: 24px;
-    margin-bottom: 20px;
+    
 }
 
 .newShortlist {
-    background-color: #007bff;
+    background-color: #676a7d;
     color: white;
     border: none;
+    border-radius: 10px;
     padding: 10px 15px;
     cursor: pointer;
     margin-bottom: 20px;
+    margin-left: 150px;
+}
+
+.newShortlist:hover {
+    background-color: #101112;
 }
 
 .shortlistTable {
-    width: 100%;
+    margin: 0 auto; /* Center the table horizontally */
+    width: 80%; /* Adjust width as needed */
     border-collapse: collapse;
+    text-align: center; /* Center align all table contents */
 }
 
 .shortlistTable th, .shortlistTable td {
     border: 1px solid #ccc;
-    padding: 10px;
-    text-align: left;
+    padding: 12px;
+    text-align: center; /* Ensure individual cells are centered */
+}
+
+.shortlistTable th {
+    background-color: #f4f4f4;
+    font-weight: bold;
 }
 
 .manageBtn {
     background-color: #28a745;
     color: white;
     border: none;
+    border-radius: 15px;
     padding: 5px 10px;
     cursor: pointer;
+}
+
+.manageBtn:hover {
+    background-color: #1ef701;}
+
+.shortlistContent h1 {
+    text-align: center;
+    margin-bottom: 20px;
 }
