@@ -44,7 +44,7 @@ export default function Sidebar({ active }) {
           </li>
           <li className={active === "search" ? styles.active : ""}>
             <Link to="/scout/playerSearch">
-              {!minimized ? "Player Search" : <span title="Player Search">🎞️</span>}
+              {!minimized ? "Player Search" : <span title="Player Search">🔍</span>}
             </Link>
           </li>
           <li className={active === "shortlist" ? styles.active : ""}>
@@ -52,13 +52,13 @@ export default function Sidebar({ active }) {
               {!minimized ? (
                 "Shortlists"
               ) : (
-                <span title="Shortlists">📈</span>
+                <span title="Shortlists">📋</span>
               )}
             </Link>
           </li>
           <li className={active === "profile" ? styles.active : ""}>
             <Link to="/scout/profile">
-              {!minimized ? "Profile" : <span title="Profile">💬</span>}
+              {!minimized ? "Profile" : <span title="Profile">👤</span>}
             </Link>
           </li>
         </ul>

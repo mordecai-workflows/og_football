@@ -45,7 +45,11 @@ const fetchJSON = async (url, options = {}) => {
 
 const navigateBasedOnRole = (navigate, role) => {
   setTimeout(
-    () => navigate(role === "admin" ? "/admin/dashboard" : "/player/home"),
+    () =>
+      navigate(
+        role === "admin" ? "/admin/dashboard"
+          : role === "scout" ? "/scout/home" : "/player/home"
+      ),
     1500
   );
 };
