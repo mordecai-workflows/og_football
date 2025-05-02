@@ -1,98 +1,51 @@
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
-import styles from "./home.module.css";
+import "./Home.module.css";
 
-const recentActivities = [
-  {
-    id: 1,
-    name: "Daniel Clark",
-    action: "endorsed",
-    time: "2 hours ago",
-    avatarColor: "#c6e2d6",
-    icon: null,
-  },
-  {
-    id: 2,
-    name: "Thomas White",
-    action: "endorsed",
-    time: "1 day ago",
-    avatarColor: "#e6f4ea",
-    icon: <span className={styles.thumbsUp}>👍</span>,
-  },
-  {
-    id: 3,
-    name: "Scout",
-    action: "message",
-    time: "1 day ago",
-    avatarColor: "#e6eaff",
-    icon: <span className={styles.messageIcon}>🟦</span>,
-  },
-];
-
-export default function PlayerDashboard() {
+export default function ScoutDashboard() {
   const navigate = useNavigate();
   return (
-    <div className={styles.container}>
+    <div className="container">
       <Sidebar active="dashboard" />
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>Player Dashboard</h1>
-
-        <div className={styles.grid}>
-          <section className={styles.profileSection}>
-            <h2>Profile Completeness</h2>
-            <div className={styles.progressBarContainer}>
-              <div className={styles.progressBar}>
-                <div className={styles.progress} style={{ width: "80%" }}></div>
-              </div>
-              <span className={styles.progressText}>80% complete</span>
-            </div>
-          </section>
-
-          <section className={styles.activitySection}>
-            <h2>Recent Activity</h2>
-            <ul className={styles.activityList}>
-              {recentActivities.map((activity) => (
-                <li key={activity.id} className={styles.activityItem}>
-                  <div
-                    className={styles.avatar}
-                    style={{ background: activity.avatarColor }}
-                  >
-                    {activity.icon || (
-                      <span className={styles.avatarInitials}>
-                        {activity.name[0]}
-                      </span>
-                    )}
-                  </div>
-                  <div>
-                    <span className={styles.activityName}>{activity.name}</span>
-                    <span className={styles.activityAction}>
-                      {" "}
-                      {activity.action}
-                    </span>
-                    <div className={styles.activityTime}>{activity.time}</div>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </section>
-        </div>
-        <section className={styles.quickActions}>
-          <h2>Quick Actions</h2>
-          <button
-            className={styles.actionBtn}
-            onClick={() => navigate("/player/media")}
-          >
-            Upload New Video
-          </button>
-          <button
-            className={styles.actionBtn}
-            onClick={() => navigate("/player/profile")}
-          >
-            Edit Profile
-          </button>
+      <div className="dashboard-container">
+      <aside className="sidebar">
+        <div className="logo">Scout</div>
+      </aside>
+      <main className="main-content">
+        <h1 className="dashboard-title">Dashboard</h1>
+        <section className="alerts">
+          <h2>New Player Alerts</h2>
+          <p>5 new players matched your filters</p>
+        </section>
+        <section className="shortlists">
+          <h2>Your Shortlists</h2>
+          <div className="shortlist-item">
+            <span>U18 Prospects</span>
+            <a href="#">View</a>
+          </div>
+          <div className="shortlist-item">
+            <span>Strikers in Review</span>
+            <a href="#">View</a>
+          </div>
+        </section>
+        <section className="conversations">
+          <h2>Recent Conversations</h2>
+          <div className="conversation-item">
+            <span>Ethan Wright</span>
+            <p>Thanks for the update!</p>
+          </div>
+          <div className="conversation-item">
+            <span>Mason Lee</span>
+            <p>Sounds good, I'll be...</p>
+          </div>
+          <div className="conversation-item">
+            <span>Ryan Gardner</span>
+            <p>Looking forward to it!</p>
+          </div>
         </section>
       </main>
     </div>
+  </div>
   );
-}
+};
