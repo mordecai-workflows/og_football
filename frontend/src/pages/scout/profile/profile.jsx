@@ -83,8 +83,8 @@ export default function ScoutProfilePage() {
                 <span>{scout.club_team}</span>
               </div>
               <div>
-                <span className={styles.label}>County:</span>
-                <span>{scout.county}</span>
+                <span className={styles.label}>Years of experience:</span>
+                <span>{scout.experience}</span>
               </div>
             </div>
           </div>
