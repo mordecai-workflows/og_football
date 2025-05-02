@@ -1,43 +1,55 @@
-.player-search-container {
+.playerSearchContainer {
     display: flex;
-  }
-  
-  .sidebar {
-    width: 250px;
-    background-color: #1a1a1a;
-    color: #fff;
-    padding: 20px;
-  }
-  
-  .search-content {
-    flex-grow: 1;
-    padding: 20px;
-  }
-  
-  .filters {
+    height: 100vh; /* Match the height of the home page */
+    background: #f8f9fb;
+}
+
+.searchContent {
+    flex: 1; /* Allow the main content to take up remaining space */
+    padding: 48px; /* Match padding with the home page */
+    background: #fff;
+    min-width: 0; /* Prevent shrinking */
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    align-items: flex-start; /* Align content to the left */
+}
+
+.filters {
     margin-bottom: 20px;
-  }
-  
-  .filters label {
+    width: 100%; /* Ensure filters take full width */
+}
+
+.filters label {
     display: block;
     margin-top: 10px;
-  }
-  
-  .player-list {
+}
+
+.playerList {
     margin-top: 20px;
-  }
-  
-  .player-item {
+    width: 100%; /* Ensure player list takes full width */
+}
+
+.playerItem {
     display: flex;
     justify-content: space-between;
     padding: 10px 0;
-  }
-  
-  button {
+}
+
+button {
     background-color: #007bff;
     color: white;
     border: none;
     padding: 5px 10px;
     cursor: pointer;
-  }
-  
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .searchContent {
+        padding: 24px 16px; /* Reduce padding for smaller screens */
+    }
+
+    .filters, .playerList {
+        width: 100%; /* Allow full width on smaller screens */
+    }
+}

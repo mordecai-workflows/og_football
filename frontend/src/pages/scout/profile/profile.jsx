@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import styles from "./profile.module.css";
+import styles from "./profile.module.css"; // Corrected file name casing
 import Spinner from "../../../components/spinner/Spinner";
 import profilesvg from "../../../assets/profile.svg";
 import Sidebar from "../components/Sidebar";

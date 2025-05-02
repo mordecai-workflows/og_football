@@ -47,7 +47,7 @@ export default function Sidebar({ active }) {
               {!minimized ? "Player Search" : <span title="Player Search">🔍</span>}
             </Link>
           </li>
-          <li className={active === "shortlist" ? styles.active : ""}>
+          <li className={active === "shortlists" ? styles.active : ""}>
             <Link to="/scout/shortlists">
               {!minimized ? (
                 "Shortlists"
