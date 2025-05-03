@@ -2,18 +2,22 @@ import React, { useState, useEffect } from "react";
 import styles from "./search.module.css"; // Ensure CSS is imported as a module
 import Sidebar from "../components/Sidebar";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const PlayerSearch = () => {
-  const [age, setAge] = useState(18);
+  const [age, setAge] = useState(15);
   const [endorsements, setEndorsements] = useState(0);
   const [videoViews, setVideoViews] = useState(0);
-  const [players, setPlayers] = useState([]);
+  const [player, setPlayers] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchPlayers = async () => {
       try {
-        const response = await fetch("/api/scout/players");
+        const response = await fetch(`${API_URL}/api/scout/players`);
         const data = await response.json();
-        setPlayers(data.players); // Assuming the API returns a `players` array
+        console.log("Initial API Response:", data); // Log the API response for debugging
+        setPlayers(data.player || []); // Ensure players is set to an array even if undefined
       } catch (error) {
         console.error("Error fetching players:", error);
         setPlayers([]);
@@ -22,6 +26,33 @@ const PlayerSearch = () => {
 
     fetchPlayers();
   }, []);
+
+  const applyFilters = async () => {
+    setIsLoading(true);
+    const position = document.querySelector("select").value;
+    const club_team = document.querySelector("input[type='text']").value.toLowerCase();
+
+    try {
+      const response = await fetch(
+        `${API_URL}/api/scout/players?age=${age}&position=${position}&club=${club_team}&endorsements=${endorsements}&videoViews=${videoViews}`
+      );
+      const data = await response.json();
+      console.log("API Response:", data); // Log the API response for debugging
+
+      const filteredPlayers = data.player.filter(
+        (player) =>
+          player.endorsements <= endorsements &&
+          player.videoViews <= videoViews &&
+          player.club_team.toLowerCase().includes(club_team) // Ensure `club_team` matches the API response
+      );
+      setPlayers(filteredPlayers);
+    } catch (error) {
+      console.error("Error fetching filtered players:", error);
+      setPlayers([]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className={styles.playerSearchContainer}>
@@ -69,38 +100,28 @@ const PlayerSearch = () => {
             value={videoViews}
             onChange={(e) => setVideoViews(e.target.value)}
           />
-          <button className={styles.filterButton}>Apply</button>
+          <button className={styles.filterButton} onClick={applyFilters} disabled={isLoading}>
+            {isLoading ? "Loading..." : "Apply"}
+          </button>
         </div>
 
         <div className={styles.playerList}>
           <h1>Players</h1>
-          {players.length > 0 ? (
-            players.map((player, index) => (
-              <div key={index} className={styles.playerTile}>
-                <span className={styles.playerName}>{player.name}</span>
-                <span className={styles.playerPosition}>{player.position}</span>
-                <button className={styles.endorseButton}>Endorse</button>
-              </div>
-            ))
+          {player.length > 0 ? (
+            <div className={styles.playerGrid}>
+              {player.map((player, index) => (
+                <div key={index} className={styles.playerTile}>
+                  <span className={styles.playerName}>
+                    {player.first_name} {player.last_name}
+                  </span>
+                  <span className={styles.playerPosition}>{player.position}</span>
+                  <button className={styles.endorseButton}>Endorse</button>
+                </div>
+              ))}
+            </div>
           ) : (
             <p>No players found.</p>
           )}
-        </div>
-
-        <div className={styles.additionalTiles}>
-          <h2>Additional Info</h2>
-          <div className={styles.infoTile}>
-            <span className={styles.infoTitle}>Top Scorer</span>
-            <p>John Doe</p>
-          </div>
-          <div className={styles.infoTile}>
-            <span className={styles.infoTitle}>Most Endorsed</span>
-            <p>Jane Smith</p>
-          </div>
-          <div className={styles.infoTile}>
-            <span className={styles.infoTitle}>Best Goalkeeper</span>
-            <p>Chris Johnson</p>
-          </div>
         </div>
       </main>
     </div>
