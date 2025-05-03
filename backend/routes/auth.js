@@ -13,6 +13,14 @@ import {
   getPlayerProfile,
   getScoutProfile
 } from "../controllers/auth.js";
+import { getPlayersForLoggedInTeam } from "../controllers/team.js";
+import { getFilteredPlayersForScout } from "../controllers/player.js";
+
+import {
+  addPlayerToShortlist,
+  removePlayerFromShortlist,
+  getShortlistedPlayers,
+} from "../controllers/shortlist.js";
 
 import User from "../models/user.js";
 import { extractUserId } from "../Middleware/auth.js";
@@ -31,6 +39,15 @@ router.put("/edit", extractUserId, editUserInfo);
 router.get("/player", extractUserId, getPlayerInfo);
 router.get("/scout/profile",extractUserId, getScoutProfile);
 router.get("/player/:playerId", extractUserId, getPlayerProfile);
+router.get("/teamplayers", extractUserId, getPlayersForLoggedInTeam);
+router.get("/scout/players", getFilteredPlayersForScout);
+
+router.post("/shortlist/add", extractUserId, addPlayerToShortlist);
+
+router.delete("/shortlist/remove/:playerId", extractUserId, removePlayerFromShortlist);
+
+
+router.get("/shortlist/", extractUserId, getShortlistedPlayers);
 
 router.get("/auth/verify", (req, res) => {
   const token = req.cookies.accessToken;
