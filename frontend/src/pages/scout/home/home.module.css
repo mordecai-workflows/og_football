@@ -95,6 +95,25 @@
   text-align: center;
 }
 
+.modalContent ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.modalContent li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.modalContent li:last-child {
+  border-bottom: none;
+}
+
+.modalContent strong {
+  color: #333;
+}
+
 .alertLink {
   display: inline-block;
   margin-top: 10px;
