@@ -45,5 +45,5 @@ const Player = sequelize.define("Player", {
 
 
 Player.belongsTo(User, { foreignKey: 'userId', onDelete: 'CASCADE' });
-Player.belongsTo(Team, { foreignKey: "club_name"});
+Player.belongsTo(Team, { foreignKey: "club_team", targetKey: "name", onDelete: "CASCADE" });
 export default Player;

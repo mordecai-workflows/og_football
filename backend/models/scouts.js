@@ -5,7 +5,7 @@ import User from "./user.js";
 const Scout = sequelize.define("Scout", {
     
     years_of_experience: {
-        type: DataTypes.DATE,
+        type: DataTypes.INTEGER,
         allowNull: false,
     },
     associated_team: {
