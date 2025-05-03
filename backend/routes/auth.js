@@ -11,6 +11,7 @@ import {
   editUserInfo,
   getPlayerInfo,
   getPlayerProfile,
+  getScoutProfile
 } from "../controllers/auth.js";
 
 import User from "../models/user.js";
@@ -28,6 +29,7 @@ router.post("/logout", logout);
 router.delete("/delete", extractUserId, deleteUserAccount);
 router.put("/edit", extractUserId, editUserInfo);
 router.get("/player", extractUserId, getPlayerInfo);
+router.get("/scout/profile",extractUserId, getScoutProfile);
 router.get("/player/:playerId", extractUserId, getPlayerProfile);
 
 router.get("/auth/verify", (req, res) => {

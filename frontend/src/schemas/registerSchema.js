@@ -1,4 +1,5 @@
 import * as Yup from "yup";
+import { counties } from "../pages/auth/register/components/register";
 
 export const registerSchema = Yup.object().shape({
   first_name: Yup.string().required("First Name is required"),
@@ -18,7 +19,7 @@ export const registerSchema = Yup.object().shape({
     .oneOf([Yup.ref('password')], 'Passwords must match')
     .required('Please confirm your password'),
   user_type: Yup.string()
-    .oneOf(["player", "scout"], "Role is required")
+    .oneOf(["player", "scout","team"], "Role is required")
     .required("Role is required"),
 
   // Player fields
@@ -67,6 +68,23 @@ export const registerSchema = Yup.object().shape({
   years_of_experience: Yup.string().when("user_type", {
     is: "scout",
     then: (schema) => schema.required("Experience is required"),
+    otherwise: (schema) => schema.notRequired(),
+  }),
+
+  //team fields
+  name: Yup.string().when("user_type", {
+    is: "team",
+    then: (schema) => schema.required("Team Name is required"),
+    otherwise: (schema) => schema.notRequired(),
+  }),
+  team_level: Yup.string().when("user_type", {
+    is: "team",
+    then: (schema) => schema.required("Team Level is required"),
+    otherwise: (schema) => schema.notRequired(),
+  }),
+  county: Yup.string().when("user_type", {
+    is: "team",
+    then: (schema) => schema.required("County is required"),
     otherwise: (schema) => schema.notRequired(),
   }),
 });

@@ -8,8 +8,11 @@ import { sequelize } from "../config/database.js";
 import User from "../models/user.js";
 import Player from "../models/player.js";
 import Scout from "../models/scouts.js";
+import Team from "../models/team.js";
 
 dotenv.config();
+
+
 
 export async function registerUser(req, res) {
   const {
@@ -29,6 +32,11 @@ export async function registerUser(req, res) {
     // Scout details
     years_of_experience,
     associated_team,
+    //Team details
+    name,
+    team_level,
+  
+
   } = req.body || {};
 
   // Basic user details are mandatory
@@ -52,6 +60,10 @@ export async function registerUser(req, res) {
   } else if (user_type === "scout") {
     if (!years_of_experience || !associated_team) {
       return res.status(400).json({ message: "Scout details are incomplete" });
+    }
+  } else if (user_type === "team") {
+    if (!name || !county || !team_level) {
+      return res.status(400).json({ message: "Team details are incomplete" });
     }
   } else {
     return res.status(400).json({ message: "Invalid user type" });
@@ -107,6 +119,16 @@ export async function registerUser(req, res) {
         },
         { transaction: t }
       );
+    }else if (user_type === "team") {
+      await Team.create(
+        {
+          name,
+          county,
+          team_level,
+          userId: newUser.id, // Associate the Team with the User
+        },
+        { transaction: t }
+      );
     }
 
     // Commit the transaction if all creations succeed
@@ -151,7 +173,7 @@ export async function loginUser(req, res) {
       maxAge: 60 * 60 * 1000,
     });
 
-    res.status(200).json({ message: "Login Successful" });
+    res.status(200).json({ message: "Login Successful", token });
   } catch (error) {
     console.error("Error logging in:", error);
     res.status(500).json({ message: "Internal server error" });
@@ -460,6 +482,51 @@ export const getPlayerProfile = async (req, res) => {
     res.status(200).json(playerProfile);
   } catch (error) {
     console.error("Error fetching player profile:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+// get scout profile
+export const getScoutProfile = async (req, res) => {
+  const userId = req.userId; // Extracted from the middleware
+
+  try {
+    // Find the user by ID
+    const user = await User.findByPk(userId, {
+      attributes: ["first_name", "last_name", "email", "user_type"], // Fetch only relevant fields
+    });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Ensure the user is a player
+    if (user.user_type !== "scout") {
+      return res.status(400).json({ message: "User is not a scout" });
+    }
+    // Fetch the scout's details
+    const scout = await Scout.findOne({
+      where: { userId },
+      attributes: [
+        
+        "years_of_experience",
+        "associated_team",
+      ], // Fetch only relevant fields
+    });
+
+    if (!scout) {
+      return res.status(404).json({ message: "Scout details not found" });
+    }
+
+    // Combine user and scout details
+    const scoutProfile = {
+      ...user.toJSON(),
+      ...scout.toJSON(),
+    };
+
+    res.status(200).json(scoutProfile);
+  } catch (error) {
+    console.error("Error fetching scout profile:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };

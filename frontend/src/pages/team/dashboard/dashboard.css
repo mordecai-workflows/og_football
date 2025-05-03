@@ -1,0 +1,71 @@
+.team-overview {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.team-info h2 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.team-info p {
+  margin: 5px 0 20px;
+  color: #666;
+}
+
+.stats {
+  display: flex;
+  gap: 20px;
+}
+
+.stats div {
+  text-align: center;
+}
+
+.stats strong {
+  display: block;
+  font-size: 20px;
+  color: #333;
+}
+
+.quick-links {
+  margin-bottom: 20px;
+}
+
+.quick-links .links {
+  display: flex;
+  gap: 10px;
+}
+
+.quick-links button {
+  padding: 10px 20px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.quick-links button:hover {
+  background: #0056b3;
+}
+
+.recent-activity {
+  display: flex;
+  gap: 20px;
+}
+
+.recent-activity h4 {
+  margin-bottom: 10px;
+}
+
+.recent-activity ul {
+  list-style: none;
+  padding: 0;
+}
+
+.recent-activity li {
+  margin-bottom: 5px;
+}

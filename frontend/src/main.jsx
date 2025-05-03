@@ -30,6 +30,12 @@ import ProgressAnalytics from "./pages/player/progress/Progress.jsx";
 import MessagingPage from "./pages/player/message/Messages.jsx";
 import ProfilePage from "./pages/player/profile/Profile.jsx";
 
+// team pages
+import TeamDashboard from "./pages/team/dashboard/dashboard.jsx";
+import TeamRoster from "./pages/team/roster/index.jsx";
+import TeamStats from "./pages/team/stats/index.jsx";
+import TeamMatches from "./pages/team/matches/index.jsx";
+
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -56,6 +62,16 @@ const router = createBrowserRouter([
     element: <ProtectedRoute allowedRoles={["scout"]} />,
     children: [{ path: "/scout/home", element: <div>Scout HomePage</div> }],
   },
+  {
+    element: <ProtectedRoute allowedRoles={["team"]} />,
+    children: [
+      { path: "/team/dashboard", element: <TeamDashboard /> },
+      { path: "/team/roster", element: <TeamRoster /> },
+      { path: "/team/stats", element: <TeamStats /> },
+      { path: "/team/matches", element: <TeamMatches /> },
+    ],
+  },
+  
 ]);
 
 createRoot(document.getElementById("root")).render(
