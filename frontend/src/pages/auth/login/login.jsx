@@ -54,7 +54,7 @@ const navigateBasedOnRole = (navigate, role) => {
     } else if (role === "scout") {
       navigate("/scout/home");
     }else if(role === "team"){
-      navigate("/team/home");
+      navigate("/team/dashboard");
     }
 
   }, 1500);
