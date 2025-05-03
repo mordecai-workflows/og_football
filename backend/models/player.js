@@ -1,7 +1,7 @@
 import { sequelize } from "../config/database.js";
 import { DataTypes } from "sequelize";
 import User from "./user.js";
-
+import Team from "./team.js";
 const Player = sequelize.define("Player", {
     
     yob: {
@@ -29,7 +29,11 @@ const Player = sequelize.define("Player", {
     },
     club_team: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true, // A player may not belong to a team initially
+    references: {
+      model: "Team",
+      key: "name",
+    },
     
     },
     county: {
@@ -41,4 +45,5 @@ const Player = sequelize.define("Player", {
 
 
 Player.belongsTo(User, { foreignKey: 'userId', onDelete: 'CASCADE' });
+Player.belongsTo(Team, { foreignKey: "club_name"});
 export default Player;

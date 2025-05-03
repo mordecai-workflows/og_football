@@ -44,14 +44,17 @@ const fetchJSON = async (url, options = {}) => {
 };
 
 const navigateBasedOnRole = (navigate, role) => {
-  setTimeout(
-    () =>
-      navigate(
-        role === "admin" ? "/admin/dashboard"
-          : role === "scout" ? "/scout/home" : "/player/home"
-      ),
-    1500
-  );
+  setTimeout(() => {
+    if (role === "admin") {
+      navigate("/admin/dashboard");
+    } else if (role === "team") {
+      navigate("/team/dashboard");
+    } else if (role === "player") {
+      navigate("/player/home");
+    } else if (role === "scout") {
+      navigate("/scout/home");
+    }
+  }, 1500);
 };
 
 export default function LoginPage() {

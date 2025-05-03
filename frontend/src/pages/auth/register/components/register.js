@@ -1,4 +1,4 @@
-const roles = ["player", "scout"];
+const roles = ["player", "scout","team"];
 
 const counties = [
   "Mombasa",
@@ -135,6 +135,32 @@ const scoutFields = [
     type: "text",
     placeholder: "Enter Experience",
   },
+
 ];
 
-export {roles, counties,step1Fields, playerFields, scoutFields}
+const teamFields = [
+  {
+    id: "county",
+    label: "County",
+    type: "select",
+    options: counties,
+    placeholder: "Select County",
+  },
+  {
+    id: "name",
+    label: "Team Name",
+    type: "text",
+    placeholder: "Enter Team Name",
+  },
+  
+  {
+    id: "team_level",
+    label: "Team Level",
+    type: "select",
+    options: ["Local","Sub-branch","County", "Regional", "National"],
+    placeholder: "Select Team Level",
+  },
+  
+];
+
+export {roles, counties,step1Fields, playerFields, scoutFields, teamFields}

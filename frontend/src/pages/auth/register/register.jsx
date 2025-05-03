@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import { registerSchema } from "../../../schemas/registerSchema";
 import Spinner from "../../../components/spinner/Spinner";
 import InputField from "../../../components/InputField";
-import { step1Fields, playerFields, scoutFields } from "./components/register";
+import { step1Fields, playerFields, scoutFields,teamFields } from "./components/register";
 
 import "../layout.css";
 import "./register.css";
@@ -109,6 +109,7 @@ export default function RegisterPage() {
                 userType === "player" &&
                 renderFields(playerFields)}
               {step === 2 && userType === "scout" && renderFields(scoutFields)}
+              {step === 2 && userType === "team" && renderFields(teamFields)}
             </div>
 
             <div className="button-group">
