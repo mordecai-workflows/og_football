@@ -1,18 +1,25 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Sidebar from "../components/Sidebar";
 import styles from "./Home.module.css"; 
 
 export default function ScoutDashboard() {
   const navigate = useNavigate();
   const [modalContent, setModalContent] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  const handleViewClick = (category) => {
-    const players = {
-      "U18 Prospects": ["Player A", "Player B", "Player C"],
-      "Strikers in Review": ["Player X", "Player Y", "Player Z"],
-    };
-    setModalContent(players[category]);
+  const handleViewClick = async (category) => {
+    setLoading(true);
+    try {
+      const response = await fetch(`/api/player?category=${category}`);
+      const data = await response.json();
+      setModalContent(data.players); // Assuming the API returns a `players` array
+    } catch (error) {
+      console.error("Error fetching player data:", error);
+      setModalContent([]);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const closeModal = () => setModalContent(null);
@@ -62,11 +69,19 @@ export default function ScoutDashboard() {
           <div className={styles.modal}>
             <div className={styles.modalContent}>
               <h3>Player List</h3>
-              <ul>
-                {modalContent.map((player, index) => (
-                  <li key={index}>{player}</li>
-                ))}
-              </ul>
+              {loading ? (
+                <p>Loading...</p>
+              ) : modalContent.length > 0 ? (
+                <ul>
+                  {modalContent.map((player, index) => (
+                    <li key={index}>
+                      <strong>{player.name}</strong> - {player.position}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p>No players found.</p>
+              )}
               <button onClick={closeModal}>Close</button>
             </div>
           </div>
