@@ -1,90 +1,95 @@
+/* main  */
 .playerSearchContainer {
-    display: flex;
-    height: 100vh;
-    background: #ffff;
+  display: flex;
+  height: 100vh;
+  background: #ffff;
 }
 
 .searchContent {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    padding: 48px;
-    background: #fff;
-    min-width: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 48px 20px;
+  background: #fff;
+  min-width: 0;
+  flex-grow: 1;
+  gap: 40px;
+  overflow-y: auto;
 }
 
+/* sidebar  */
 .filters {
-    flex: 3;
-    margin-top: 70px;
-    margin-bottom: 20px;
-    margin-right: 150px;
-    width: 100%;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-    padding: 16px;
-    background-color: #f9f9f9;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  margin-top: 70px;
+  width: 100%;
+  min-width: 300px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 16px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .filterHeaderOutside {
-    text-align: center;
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 10px;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
 .filterContent {
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-    padding: 16px;
-    background-color: #f9f9f9;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 16px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .filters label {
-    display: block;
-    margin-top: 10px;
+  display: block;
+  margin-top: 10px;
 }
 
 select {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 4px;
-    background-color: #fff;
-    font-size: 1rem;
-    margin-bottom: 16px;
+  width: 100%;
+  padding: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  background-color: #fff;
+  font-size: 1rem;
+  margin-bottom: 16px;
 }
 
 select option:first-child {
-    opacity: 0.4;
+  opacity: 0.4;
 }
 
-input[type="text"], input[type="range"] {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 4px;
-    background-color: #fff;
-    font-size: 1rem;
-    margin-bottom: 16px;
-    box-sizing: border-box;
+input[type="text"],
+input[type="range"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  background-color: #fff;
+  font-size: 1rem;
+  margin-bottom: 16px;
+  box-sizing: border-box;
 }
 
 .filterButton {
-    width: 100%;
-    padding: 10px;
-    background-color: #131313;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 1rem;
-    cursor: pointer;
-    margin-top: 16px;
+  width: 100%;
+  padding: 10px;
+  background-color: #131313;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 16px;
 }
 
 .filterButton:hover {
-    background-color: #3dea0d;
+  background-color: #3dea0d;
 }
 
 .filterButton:disabled {
@@ -92,111 +97,104 @@ input[type="text"], input[type="range"] {
   cursor: not-allowed;
 }
 
+/* player list  */
 .playerList {
-    flex: 3;
-    margin-top: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 16px;
-    width: 100%;
+  margin-top: 70px;
+  width: 100%;
+  max-height: calc(100vh - 140px);
+  overflow-y: auto;
+  padding-right: 8px;
 }
 
 .playerList h1 {
-    text-align: center;
-    margin-bottom: 0px;
-}
-
-.playerTile {
-    background-color: #fff;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-    padding: 16px;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.playerName {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-bottom: 4px;
-}
-
-.playerPosition {
-    font-size: 1rem;
-    color: #6c757d;
-    margin-bottom: 16px;
-}
-
-.endorseButton {
-    background-color: #2ced0a;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.9rem;
-}
-
-.endorseButton:hover {
-    background-color: #000000;
-}
-
-.playerItem {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 0;
-}
-
-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-}
-
-.additionalTiles {
-    flex: 1;
-    margin-left: 70px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.infoTile {
-    background-color: #fff;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-    padding: 16px;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.infoTitle {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-bottom: 8px;
-}
-
-@media (max-width: 600px) {
-    .searchContent {
-        padding: 24px 16px;
-    }
-
-    .filters, .playerList {
-        width: 100%;
-    }
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: #222;
 }
 
 .playerGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  grid-auto-rows: auto;
-  grid-auto-flow: dense;
-  max-height: calc(4 * 150px); /* Assuming each row is 150px tall */
-  overflow-y: auto;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 16px;
+}
+
+/* card */
+.playerTile {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 16px;
+  padding: 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.playerTile:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+.playerItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+
+.playerName {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.playerPosition {
+  font-size: 1rem;
+  color: #6c757d;
+  margin-bottom: 16px;
+}
+
+.endorseButton {
+  background-color: #2ced0a;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.endorseButton:hover {
+  background-color: #000000;
+}
+
+/* responsive design */
+@media (max-width: 1600px) {
+  .playerGrid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}
+@media (max-width: 1200px) {
+  .playerGrid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .searchContent {
+    padding: 24px 16px;
+  }
+
+  .filters,
+  .playerList {
+    width: 100%;
+  }
+
+  .filters {
+    min-width: 100px;
+  }
 }

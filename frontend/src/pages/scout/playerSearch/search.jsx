@@ -1,26 +1,34 @@
 import React, { useState, useEffect } from "react";
-import styles from "./search.module.css"; // Ensure CSS is imported as a module
+import styles from "./search.module.css"; // Your improved CSS module
 import Sidebar from "../components/Sidebar";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 const PlayerSearch = () => {
-  const [age, setAge] = useState(15);
+  // filters
+  const [age, setAge] = useState(0);
+  const [position, setPosition] = useState("");
+  const [clubTeam, setClubTeam] = useState("");
   const [endorsements, setEndorsements] = useState(0);
   const [videoViews, setVideoViews] = useState(0);
-  const [player, setPlayers] = useState([]);
+
+  // players
+  const [players, setPlayers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchPlayers = async () => {
+      setIsLoading(true);
       try {
         const response = await fetch(`${API_URL}/api/scout/players`);
         const data = await response.json();
-        console.log("Initial API Response:", data); // Log the API response for debugging
-        setPlayers(data.player || []); // Ensure players is set to an array even if undefined
+
+        setPlayers(data || []);
       } catch (error) {
         console.error("Error fetching players:", error);
         setPlayers([]);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -29,22 +37,28 @@ const PlayerSearch = () => {
 
   const applyFilters = async () => {
     setIsLoading(true);
-    const position = document.querySelector("select").value;
-    const club_team = document.querySelector("input[type='text']").value.toLowerCase();
 
     try {
-      const response = await fetch(
-        `${API_URL}/api/scout/players?age=${age}&position=${position}&club=${club_team}&endorsements=${endorsements}&videoViews=${videoViews}`
-      );
-      const data = await response.json();
-      console.log("API Response:", data); // Log the API response for debugging
+      // Build query params dynamically
+      const params = new URLSearchParams();
 
-      const filteredPlayers = data.player.filter(
-        (player) =>
-          player.endorsements <= endorsements &&
-          player.videoViews <= videoViews &&
-          player.club_team.toLowerCase().includes(club_team) // Ensure `club_team` matches the API response
-      );
+      if (age) params.append("age", age);
+      if (position) params.append("position", position);
+      if (clubTeam.trim() !== "") params.append("club", clubTeam.toLowerCase());
+      if (endorsements) params.append("endorsements", endorsements);
+      if (videoViews) params.append("videoViews", videoViews);
+
+      const queryString = params.toString();
+      const url = `${API_URL}/api/scout/players${
+        queryString ? `?${queryString}` : ""
+      }`;
+
+      const response = await fetch(url);
+      const data = await response.json();
+
+      // If your API returns filtered players directly, just set them:
+      const filteredPlayers = data.player || data || [];
+
       setPlayers(filteredPlayers);
     } catch (error) {
       console.error("Error fetching filtered players:", error);
@@ -58,71 +72,97 @@ const PlayerSearch = () => {
     <div className={styles.playerSearchContainer}>
       <Sidebar active="search" />
       <main className={styles.searchContent}>
-        
-        <div className={styles.filters}>
+        <section className={styles.filters}>
           <h2 className={styles.filterHeader}>Search</h2>
-          <label>Age Range: {age}</label>
-          
+
+          <label htmlFor="ageRange">Age Range: {age}</label>
           <input
+            id="ageRange"
             type="range"
             min="15"
             max="30"
             value={age}
-            onChange={(e) => setAge(e.target.value)}
+            onChange={(e) => setAge(Number(e.target.value))}
           />
 
-          <label>Position:</label>
-          <select>
-            <option>select position</option>
+          <label htmlFor="positionSelect">Position:</label>
+          <select
+            id="positionSelect"
+            value={position}
+            onChange={(e) => setPosition(e.target.value)}
+          >
+            <option value="">Select position</option>
             <option value="defender">Defender</option>
             <option value="midfielder">Midfielder</option>
             <option value="forward">Forward</option>
             <option value="goalkeeper">Goalkeeper</option>
           </select>
 
-          <label>Club:</label>
-          <input type="text" placeholder="Enter club name" />
-
-          <label>Endorsements: {endorsements}</label>
+          <label htmlFor="clubInput">Club:</label>
           <input
+            id="clubInput"
+            type="text"
+            placeholder="Enter club name"
+            value={clubTeam}
+            onChange={(e) => setClubTeam(e.target.value)}
+          />
+
+          <label htmlFor="endorsementsRange">
+            Endorsements: {endorsements}
+          </label>
+          <input
+            id="endorsementsRange"
             type="range"
             min="0"
             max="100"
             value={endorsements}
-            onChange={(e) => setEndorsements(e.target.value)}
+            onChange={(e) => setEndorsements(Number(e.target.value))}
           />
 
-          <label>Video Views: {videoViews}</label>
+          <label htmlFor="videoViewsRange">Video Views: {videoViews}</label>
           <input
+            id="videoViewsRange"
             type="range"
             min="0"
             max="1000"
             value={videoViews}
-            onChange={(e) => setVideoViews(e.target.value)}
+            onChange={(e) => setVideoViews(Number(e.target.value))}
           />
-          <button className={styles.filterButton} onClick={applyFilters} disabled={isLoading}>
+
+          <button
+            className={styles.filterButton}
+            onClick={applyFilters}
+            disabled={isLoading}
+            aria-busy={isLoading}
+            aria-disabled={isLoading}
+            title="Apply filters"
+          >
             {isLoading ? "Loading..." : "Apply"}
           </button>
-        </div>
+        </section>
 
-        <div className={styles.playerList}>
+        <section className={styles.playerList}>
           <h1>Players</h1>
-          {player.length > 0 ? (
+          {isLoading && <p>Loading players...</p>}
+          {players.length === 0 && !isLoading && <p>No players found.</p>}
+          {!isLoading && players.length > 0 && (
             <div className={styles.playerGrid}>
-              {player.map((player, index) => (
-                <div key={index} className={styles.playerTile}>
-                  <span className={styles.playerName}>
-                    {player.first_name} {player.last_name}
-                  </span>
-                  <span className={styles.playerPosition}>{player.position}</span>
-                  <button className={styles.endorseButton}>Endorse</button>
+              {players.map((player, index) => (
+                <div key={index} className={styles.playerTile} tabIndex={0}>
+                  <div className={styles.playerItem}>
+                    <span className={styles.playerName}>
+                      {player.User.first_name} {player.User.last_name}
+                    </span>
+                    <span className={styles.playerPosition}>
+                      {player.position}
+                    </span>
+                    <button className={styles.endorseButton}>Endorse</button>
+                  </div>
                 </div>
               ))}
             </div>
-          ) : (
-            <p>No players found.</p>
           )}
-        </div>
+        </section>
       </main>
     </div>
   );
