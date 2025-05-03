@@ -35,6 +35,11 @@ import TeamDashboard from "./pages/team/dashboard/dashboard.jsx";
 import TeamRoster from "./pages/team/roster/index.jsx";
 import TeamStats from "./pages/team/stats/index.jsx";
 import TeamMatches from "./pages/team/matches/index.jsx";
+// scout pages
+import ScoutHome from "./pages/scout/home/Home.jsx";
+import PlayerSearch from "./pages/scout/playerSearch/search.jsx";
+import ScoutProfile from "./pages/scout/profile/profile.jsx";
+import Shortlists from "./pages/scout/shortlists/shortlists.jsx";
 
 import "./index.css";
 
@@ -60,7 +65,12 @@ const router = createBrowserRouter([
   },
   {
     element: <ProtectedRoute allowedRoles={["scout"]} />,
-    children: [{ path: "/scout/home", element: <div>Scout HomePage</div> }],
+    children: [
+      { path: "/scout/home", element: <ScoutHome /> },
+      {path: "/scout/playerSearch", element: <PlayerSearch /> },
+      {path: "/scout/profile", element: <ScoutProfile /> },
+      {path: "/scout/shortlists", element: <Shortlists /> },
+    ],
   },
   {
     element: <ProtectedRoute allowedRoles={["team"]} />,

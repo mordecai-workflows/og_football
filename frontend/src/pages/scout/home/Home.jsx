@@ -1,98 +1,77 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import Sidebar from "../components/Sidebar";
-import styles from "./home.module.css";
+import styles from "./Home.module.css"; 
 
-const recentActivities = [
-  {
-    id: 1,
-    name: "Daniel Clark",
-    action: "endorsed",
-    time: "2 hours ago",
-    avatarColor: "#c6e2d6",
-    icon: null,
-  },
-  {
-    id: 2,
-    name: "Thomas White",
-    action: "endorsed",
-    time: "1 day ago",
-    avatarColor: "#e6f4ea",
-    icon: <span className={styles.thumbsUp}>👍</span>,
-  },
-  {
-    id: 3,
-    name: "Scout",
-    action: "message",
-    time: "1 day ago",
-    avatarColor: "#e6eaff",
-    icon: <span className={styles.messageIcon}>🟦</span>,
-  },
-];
-
-export default function PlayerDashboard() {
+export default function ScoutDashboard() {
   const navigate = useNavigate();
+  const [modalContent, setModalContent] = useState(null);
+
+  const handleViewClick = (category) => {
+    const players = {
+      "U18 Prospects": ["Player A", "Player B", "Player C"],
+      "Strikers in Review": ["Player X", "Player Y", "Player Z"],
+    };
+    setModalContent(players[category]);
+  };
+
+  const closeModal = () => setModalContent(null);
+
   return (
     <div className={styles.container}>
       <Sidebar active="dashboard" />
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>Player Dashboard</h1>
-
-        <div className={styles.grid}>
-          <section className={styles.profileSection}>
-            <h2>Profile Completeness</h2>
-            <div className={styles.progressBarContainer}>
-              <div className={styles.progressBar}>
-                <div className={styles.progress} style={{ width: "80%" }}></div>
-              </div>
-              <span className={styles.progressText}>80% complete</span>
-            </div>
-          </section>
-
-          <section className={styles.activitySection}>
-            <h2>Recent Activity</h2>
-            <ul className={styles.activityList}>
-              {recentActivities.map((activity) => (
-                <li key={activity.id} className={styles.activityItem}>
-                  <div
-                    className={styles.avatar}
-                    style={{ background: activity.avatarColor }}
-                  >
-                    {activity.icon || (
-                      <span className={styles.avatarInitials}>
-                        {activity.name[0]}
-                      </span>
-                    )}
-                  </div>
-                  <div>
-                    <span className={styles.activityName}>{activity.name}</span>
-                    <span className={styles.activityAction}>
-                      {" "}
-                      {activity.action}
-                    </span>
-                    <div className={styles.activityTime}>{activity.time}</div>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </section>
-        </div>
-        <section className={styles.quickActions}>
-          <h2>Quick Actions</h2>
-          <button
-            className={styles.actionBtn}
-            onClick={() => navigate("/player/media")}
-          >
-            Upload New Video
-          </button>
-          <button
-            className={styles.actionBtn}
-            onClick={() => navigate("/player/profile")}
-          >
-            Edit Profile
-          </button>
+      <main className={styles.mainContent}>
+        <h1 className={styles.dashboardTitle}>Dashboard</h1>
+        <section className={styles.alerts}>
+          <h2>New Player Alerts</h2>
+          <p>
+            <span className={styles.alertNumber}>5</span> new players matched your filters
+          </p>
+          <Link to="/scout/shortlists" className={styles.alertLink}>
+            Go to Shortlists
+          </Link>
         </section>
+        <section className={styles.shortlists}>
+          <h2>Your Shortlists</h2>
+          <div className={styles.shortlistItem}>
+            <span>U18 Prospects</span>
+            <a href="#" onClick={() => handleViewClick("U18 Prospects")}>View</a>
+          </div>
+          <hr style={{ border: "1px solid gray", opacity: 0.2 }} />
+          <div className={styles.shortlistItem}>
+            <span>Strikers in Review</span>
+            <a href="#" onClick={() => handleViewClick("Strikers in Review")}>View</a>
+          </div>
+        </section>
+        <section className={styles.conversations}>
+          <h2>Recent Conversations</h2>
+          <div className={styles.conversationItem}>
+            <span>Ethan Wright</span>
+            <p>Thanks for the update!</p>
+          </div>
+          <div className={styles.conversationItem}>
+            <span>Mason Lee</span>
+            <p>Sounds good, I'll be...</p>
+          </div>
+          <div className={styles.conversationItem}>
+            <span>Ryan Gardner</span>
+            <p>Looking forward to it!</p>
+          </div>
+        </section>
+        {modalContent && (
+          <div className={styles.modal}>
+            <div className={styles.modalContent}>
+              <h3>Player List</h3>
+              <ul>
+                {modalContent.map((player, index) => (
+                  <li key={index}>{player}</li>
+                ))}
+              </ul>
+              <button onClick={closeModal}>Close</button>
+            </div>
+          </div>
+        )}
       </main>
     </div>
   );
-}
+};

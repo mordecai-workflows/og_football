@@ -1,0 +1,99 @@
+/* Container and layout */
+
+.container {
+    display: flex;
+    height: 100vh;
+    background: #f8f9fb;
+  }
+  
+  .main {
+    flex: 1;
+    padding: 48px 48px 0 48px;
+    background: #fff;
+    min-width: 0;
+  }
+  
+  /* Page title */
+  .title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+  }
+  
+  /* Avatar container */
+  .avatarContainer {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Avatar image */
+  .avatar {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+    border: 3px solid #2563eb;
+    background-color: #f0f4ff;
+  }
+  
+  /* Profile card background */
+  .profileCard {
+    background: #fff;
+    border-radius: 12px;
+    padding: 1.5rem 1.5rem 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+  
+  /* Grid layout for profile info */
+  .infoGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem 1.5rem;
+  }
+  
+  /* Labels for each field */
+  .label {
+    display: block;
+    font-size: 0.93rem;
+    color: #7d8597;
+    font-weight: 600;
+    margin-bottom: 0.15rem;
+  }
+  
+  /* Values for each field */
+  .infoGrid span:last-child {
+    font-size: 1.08rem;
+    color: #22223b;
+    font-weight: 500;
+  }
+  
+  /* Loading and error messages */
+  .loading,
+  .error {
+    max-width: 520px;
+    margin: 3rem auto;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    text-align: center;
+    color: #555;
+  }
+  
+  .error {
+    color: #d14343;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 600px) {
+    .profileCard {
+      padding: 1rem 0.5rem 0.5rem;
+    }
+  
+    .infoGrid {
+      grid-template-columns: 1fr;
+      gap: 1rem 0;
+    }
+  }
+  

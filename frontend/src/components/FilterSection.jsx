@@ -16,11 +16,20 @@ const FilterSection = () => {
     }));
   };
 
+  const handleResetFilters = () => {
+    setFilters({
+      role: "",
+      ageRange: "",
+      county: "",
+      strongFoot: "",
+    });
+  };
+
   return (
     <div className="filter-container">
       <div className="filter-header">
         <div className="filter-title">Sort by</div>
-        <div className="reset-section">
+        <div className="reset-section" onClick={handleResetFilters}>
           <div className="reset-text">Reset all</div>
         </div>
       </div>

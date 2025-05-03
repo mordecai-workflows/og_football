@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
 import styles from "./Sidebar.module.css";
-import PlatFormName from "../../../components/PlatformName";
+import PlatformName from "../../../components/platformname/PlatformName";
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function Sidebar({ active }) {
   // Start minimized if window is small
@@ -32,31 +34,31 @@ export default function Sidebar({ active }) {
       >
         {minimized ? "»" : "«"}
       </button>
-      <div className={styles.logo}>{!minimized && <PlatFormName />}</div>
+      <div className={styles.logo}>{!minimized && <PlatformName />}</div>
       <nav className={styles.nav}>
         <ul>
           <li className={active === "dashboard" ? styles.active : ""}>
-            <Link to="/player/home">
+            <Link to="/scout/home">
               {!minimized ? "Dashboard" : <span title="Dashboard">🏠</span>}
             </Link>
           </li>
-          <li className={active === "media" ? styles.active : ""}>
-            <Link to="/player/media">
-              {!minimized ? "Media Library" : <span title="Media">🎞️</span>}
+          <li className={active === "search" ? styles.active : ""}>
+            <Link to="/scout/playerSearch">
+              {!minimized ? "Player Search" : <span title="Player Search">🔍</span>}
             </Link>
           </li>
-          <li className={active === "progress" ? styles.active : ""}>
-            <Link to="/player/progress">
+          <li className={active === "shortlists" ? styles.active : ""}>
+            <Link to="/scout/shortlists">
               {!minimized ? (
-                "Progress Analytics"
+                "Shortlists"
               ) : (
-                <span title="Progress">📈</span>
+                <span title="Shortlists">📋</span>
               )}
             </Link>
           </li>
-          <li className={active === "messaging" ? styles.active : ""}>
-            <Link to="/player/message">
-              {!minimized ? "Messaging" : <span title="Messages">💬</span>}
+          <li className={active === "profile" ? styles.active : ""}>
+            <Link to="/scout/profile">
+              {!minimized ? "Profile" : <span title="Profile">👤</span>}
             </Link>
           </li>
         </ul>

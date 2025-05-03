@@ -219,57 +219,6 @@
   border-radius: 10px;
 }
 
-.action-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  font-family:
-    "Josefin Sans",
-    -apple-system,
-    Roboto,
-    Helvetica,
-    sans-serif;
-  font-size: 20px;
-  color: #fff6f6;
-  font-weight: 400;
-}
-
-.share-button {
-  border-radius: 15px;
-  background-color: #e41a1a;
-  display: flex;
-  padding: 6px 8px;
-  align-items: center;
-  gap: 4px;
-}
-
-.share-icon {
-  aspect-ratio: 1.05;
-  object-fit: contain;
-  width: 21px;
-}
-
-.enquiry-button {
-  border-radius: 15px;
-  background-color: #16f60e;
-  display: flex;
-  padding: 7px 17px;
-  align-items: center;
-  gap: 10px;
-}
-
-.enquiry-icon {
-  aspect-ratio: 1;
-  object-fit: contain;
-  width: 18px;
-  margin-left: 4px;
-}
-
-.enquiry-text {
-  flex: 1;
-  margin-left: 12px;
-}
-
 .tabs-section {
   display: flex;
   margin-top: 10px;
@@ -350,6 +299,25 @@
   object-fit: contain;
   width: 11px;
   margin-top: 6px;
+}
+
+.filter-dropdown {
+  padding: 5px 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.filter-dropdown:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.filter-dropdown option {
+  padding: 5px;
+  font-size: 14px;
 }
 
 .matches-content {
