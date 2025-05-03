@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./search.module.css"; // Ensure CSS is imported as a module
 import Sidebar from "../components/Sidebar";
 
@@ -6,6 +6,22 @@ const PlayerSearch = () => {
   const [age, setAge] = useState(18);
   const [endorsements, setEndorsements] = useState(0);
   const [videoViews, setVideoViews] = useState(0);
+  const [players, setPlayers] = useState([]);
+
+  useEffect(() => {
+    const fetchPlayers = async () => {
+      try {
+        const response = await fetch("/api/scout/players");
+        const data = await response.json();
+        setPlayers(data.players); // Assuming the API returns a `players` array
+      } catch (error) {
+        console.error("Error fetching players:", error);
+        setPlayers([]);
+      }
+    };
+
+    fetchPlayers();
+  }, []);
 
   return (
     <div className={styles.playerSearchContainer}>
@@ -58,26 +74,17 @@ const PlayerSearch = () => {
 
         <div className={styles.playerList}>
           <h1>Players</h1>
-          <div className={styles.playerTile}>
-            <span className={styles.playerName}>Jacob Hall</span>
-            <span className={styles.playerPosition}>Midfielder</span>
-            <button className={styles.endorseButton}>Endorse</button>
-          </div>
-          <div className={styles.playerTile}>
-            <span className={styles.playerName}>Sam King</span>
-            <span className={styles.playerPosition}>Forward</span>
-            <button className={styles.endorseButton}>Endorse</button>
-          </div>
-          <div className={styles.playerTile}>
-            <span className={styles.playerName}>Liam Robert</span>
-            <span className={styles.playerPosition}>Goalkeeper</span>
-            <button className={styles.endorseButton}>Endorse</button>
-          </div>
-          <div className={styles.playerTile}>
-            <span className={styles.playerName}>Nathan Baker</span>
-            <span className={styles.playerPosition}>Forward</span>
-            <button className={styles.endorseButton}>Endorse</button>
-          </div>
+          {players.length > 0 ? (
+            players.map((player, index) => (
+              <div key={index} className={styles.playerTile}>
+                <span className={styles.playerName}>{player.name}</span>
+                <span className={styles.playerPosition}>{player.position}</span>
+                <button className={styles.endorseButton}>Endorse</button>
+              </div>
+            ))
+          ) : (
+            <p>No players found.</p>
+          )}
         </div>
 
         <div className={styles.additionalTiles}>
