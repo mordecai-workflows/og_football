@@ -21,7 +21,7 @@ export default function ScoutProfilePage() {
         setLoading(true);
         setError(null);
 
-        const res = await fetch(`${API_URL}/api/edit`, {
+        const res = await fetch(`${API_URL}/api/scout/profile`, {
           credentials: "include", // include cookies if needed
         });
         if (!res.ok) {
@@ -80,11 +80,11 @@ export default function ScoutProfilePage() {
               </div>
               <div>
                 <span className={styles.label}>Associated Team:</span>
-                <span>{scout.club_team}</span>
+                <span>{scout.associated_team}</span>
               </div>
               <div>
                 <span className={styles.label}>Years of experience:</span>
-                <span>{scout.experience}</span>
+                <span>{scout.years_of_experience}</span>
               </div>
             </div>
           </div>

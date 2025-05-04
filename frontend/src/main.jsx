@@ -32,9 +32,10 @@ import ProfilePage from "./pages/player/profile/Profile.jsx";
 
 // team pages
 import TeamDashboard from "./pages/team/dashboard/dashboard.jsx";
-import TeamRoster from "./pages/team/roster/index.jsx";
-import TeamStats from "./pages/team/stats/index.jsx";
-import TeamMatches from "./pages/team/matches/index.jsx";
+import TeamRoster from "./pages/team/roster/roster.jsx";
+import TeamStats from "./pages/team/stats/stats.jsx";
+import TeamMatches from "./pages/team/matches/matches.jsx";
+
 // scout pages
 import ScoutHome from "./pages/scout/home/Home.jsx";
 import PlayerSearch from "./pages/scout/playerSearch/search.jsx";

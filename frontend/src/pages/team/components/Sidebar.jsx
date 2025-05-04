@@ -62,27 +62,27 @@ export default function Sidebar({ active }) {
       <nav className={styles.nav}>
         <ul>
           <li className={active === "dashboard" ? styles.active : ""}>
-            <Link to="/scout/home">
+            <Link to="/team/dashboard">
               {!minimized ? "Dashboard" : <span title="Dashboard">🏠</span>}
             </Link>
           </li>
-          <li className={active === "search" ? styles.active : ""}>
-            <Link to="/scout/playerSearch">
-              {!minimized ? "Player Search" : <span title="Player Search">🔍</span>}
+          <li className={active === "roster" ? styles.active : ""}>
+            <Link to="/team/roster">
+              {!minimized ? "Roster" : <span title="Roster">📋</span>}
             </Link>
           </li>
-          <li className={active === "shortlists" ? styles.active : ""}>
-            <Link to="/scout/shortlists">
+          <li className={active === "stats" ? styles.active : ""}>
+            <Link to="/team/stats">
               {!minimized ? (
-                "Shortlists"
+                "Stats Entry"
               ) : (
-                <span title="Shortlists">📋</span>
+                <span title="Stats Entry">📈</span>
               )}
             </Link>
           </li>
-          <li className={active === "profile" ? styles.active : ""}>
-            <Link to="/scout/profile">
-              {!minimized ? "Profile" : <span title="Profile">👤</span>}
+          <li className={active === "matches" ? styles.active : ""}>
+            <Link to="/team/matches">
+              {!minimized ? "Matches" : <span title="Matches">⚽</span>}
             </Link>
           </li>
         </ul>

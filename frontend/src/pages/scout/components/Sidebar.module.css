@@ -98,3 +98,31 @@
   background: #404959;
   color: #ffff;
 }
+
+.logout {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.logout button {
+  display: flex;
+  align-items: center;
+  padding: 14px 32px;
+  font-size: 1.08rem;
+  color: #fff;
+  background-color: transparent;
+  border: none;
+  width: 100%;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.logout:hover {
+  background: #ff4d4d;
+  color: #fff;
+}
