@@ -29,15 +29,15 @@ export const getFilteredPlayersForScout = async (req, res) => {
       where.club_team = { [Op.like]: `%${query.club}%` }; // Use LIKE for MySQL
     }
 
-    // ⭐ Endorsements filter
-    if (query.endorsements !== undefined) {
-      where.endorsements = { [Op.gte]: parseInt(query.endorsements) };
-    }
+    // // ⭐ Endorsements filter
+    // if (query.endorsements !== undefined) {
+    //   where.endorsements = { [Op.gte]: parseInt(query.endorsements) };
+    // }
 
-    // 📹 Video views filter
-    if (query.videoViews !== undefined) {
-      where.videoViews = { [Op.gte]: parseInt(query.videoViews) };
-    }
+    // // 📹 Video views filter
+    // if (query.videoViews !== undefined) {
+    //   where.videoViews = { [Op.gte]: parseInt(query.videoViews) };
+    // }
 
     const players = await Player.findAll({
       where,

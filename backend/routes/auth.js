@@ -22,6 +22,16 @@ import {
   getShortlistedPlayers,
 } from "../controllers/shortlist.js";
 
+import {
+  addMatch,
+  getMatchesForTeam,
+  getMatchesForPlayer,
+} from "../controllers/match.js";
+
+import { addOrUpdatePlayerStats,
+  getPlayerStats,
+ } from "../controllers/playerStats.js";
+
 import User from "../models/user.js";
 import { extractUserId } from "../Middleware/auth.js";
 
@@ -48,6 +58,24 @@ router.delete("/shortlist/remove/:playerId", extractUserId, removePlayerFromShor
 
 
 router.get("/shortlist/", extractUserId, getShortlistedPlayers);
+
+// Add a new match
+router.post("/matches/add", addMatch);
+
+// Get all matches for a team
+router.get("/matches/team/:teamId", getMatchesForTeam);
+
+// Get all matches for a player
+router.get("/matches/player/:playerId", getMatchesForPlayer);
+
+// Add or update player stats
+router.post("/playerStats/add", addOrUpdatePlayerStats);
+
+// Get stats for a player
+router.get("/playerStats/:playerId", getPlayerStats);
+
+
+
 
 router.get("/auth/verify", (req, res) => {
   const token = req.cookies.accessToken;
