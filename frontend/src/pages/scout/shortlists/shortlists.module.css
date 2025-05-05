@@ -1,54 +1,137 @@
 .shortlistManagerContainer {
-    display: flex;
-    
+  display: flex;
+  background-color: #f9f9f9;
+  min-height: 100vh;
 }
 
 .newShortlist {
-    background-color: #676a7d;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    padding: 10px 15px;
-    cursor: pointer;
-    margin-bottom: 20px;
-    margin-left: 150px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-bottom: 20px;
+  margin-left: 150px;
 }
 
 .newShortlist:hover {
-    background-color: #101112;
+  background-color: #0056b3;
 }
 
 .shortlistTable {
-    margin: 0 auto; /* Center the table horizontally */
-    width: 80%; /* Adjust width as needed */
-    border-collapse: collapse;
-    text-align: center; /* Center align all table contents */
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  margin: 0 auto; /* Center the table horizontally */
+  text-align: center; /* Center align all table contents */
 }
 
 .shortlistTable th, .shortlistTable td {
-    border: 1px solid #ccc;
-    padding: 12px;
-    text-align: center; /* Ensure individual cells are centered */
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
 }
 
 .shortlistTable th {
-    background-color: #f4f4f4;
-    font-weight: bold;
+  background-color: #f4f4f4;
+  font-weight: bold;
 }
 
-.manageBtn {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 15px;
-    padding: 5px 10px;
-    cursor: pointer;
+.shortlistTable tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.shortlistTable tr:hover {
+  background-color: #f1f1f1;
+}
+
+.manageBtn,
+.deleteBtn {
+  margin-left: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .manageBtn:hover {
-    background-color: #1ef701;}
+  background-color: #0056b3;
+}
+
+.deleteBtn {
+  background-color: #dc3545;
+}
+
+.deleteBtn:hover {
+  background-color: #a71d2a;
+}
+
+.shortlistContent {
+  flex: 1;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
 
 .shortlistContent h1 {
-    text-align: center;
-    margin-bottom: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popupContent {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 300px;
+}
+
+.popupContent h2 {
+  margin-top: 0;
+}
+
+.popupContent label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.popupContent input,
+.popupContent select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.popupContent button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.popupContent button:hover {
+  background-color: #0056b3;
 }

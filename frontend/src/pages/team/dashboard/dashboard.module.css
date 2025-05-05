@@ -3,8 +3,8 @@
   height: 100vh;
 }
 
-.sidebar{
-  height : 100vh;
+.sidebar {
+  height: 100vh;
 }
 
 .mainContent {
@@ -20,8 +20,8 @@
   margin-bottom: 20px;
   color: #333333;
   text-align: center;
-  border-bottom: 2px solid #20d907; /* Add underline */
-  padding-bottom: 5px; /* Add spacing between text and underline */
+  border-bottom: 2px solid #20d907;
+  padding-bottom: 5px;
 }
 
 .teamInfo {
@@ -81,7 +81,7 @@
 .statLabel {
   font-size: 0.9rem;
   color: #555;
-  margin-bottom: 5px; /* Add spacing between label and value */
+  margin-bottom: 5px;
 }
 
 .statValue {
@@ -94,7 +94,7 @@
   display: flex;
   gap: 10px;
   margin-bottom: 30px;
-  padding: 10px; /* Add padding for better spacing inside the border */
+  padding: 10px;
 }
 
 .quickLinksHeader {
@@ -148,10 +148,11 @@
 
 .matchDate,
 .matchTeam,
-.matchScore{
+.matchScore {
   font-size: 0.9rem;
   color: #555;
 }
+
 .matchNote {
   font-size: 1.2rem;
   font-weight: bold;

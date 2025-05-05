@@ -2,8 +2,8 @@
   display: flex;
   font-family: Arial, sans-serif;
   align-items: flex-start;
-  justify-content: flex-start; /* Ensure items are aligned horizontally */
-  height: 100vh; /* Ensure the container takes full viewport height */
+  justify-content: flex-start;
+  height: 100vh;
 }
 
 .title {
@@ -16,16 +16,16 @@
 
 .sidebarWrapper {
   flex-shrink: 0;
-  width: 25px; 
+  width: 25px;
   position: fixed;
 }
 
 .content {
   margin-left: 20px;
   flex-grow: 1;
-  display: flex; /* Ensure content takes up remaining space */
-  flex-direction: column; /* Allow stacking of child elements */
-  overflow-y: auto; /* Add scrolling if content overflows */
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
 }
 
 .formWrapper {
@@ -133,7 +133,7 @@
 }
 
 .editPlayerButton {
-  width:90px;
+  width: 90px;
   padding: 10px 10px;
   background-color: #007bff;
   color: white;
@@ -142,6 +142,7 @@
   cursor: pointer;
   margin-left: 400px;
 }
+
 .editPlayerButton:hover {
   background-color: #0056b3;
 }

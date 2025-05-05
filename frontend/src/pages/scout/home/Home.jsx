@@ -41,12 +41,12 @@ export default function ScoutDashboard() {
         <section className={styles.shortlists}>
           <h2>Your Shortlists</h2>
           <div className={styles.shortlistItem}>
-            <span>U18 Prospects</span>
+            <span>U-21 Prospects</span>
             <a href="#" onClick={() => handleViewClick("U18 Prospects")}>View</a>
           </div>
           <hr style={{ border: "1px solid gray", opacity: 0.2 }} />
           <div className={styles.shortlistItem}>
-            <span>Strikers in Review</span>
+            <span>Forwards in Review</span>
             <a href="#" onClick={() => handleViewClick("Strikers in Review")}>View</a>
           </div>
         </section>

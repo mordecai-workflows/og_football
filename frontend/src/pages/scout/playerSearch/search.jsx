@@ -75,7 +75,7 @@ const PlayerSearch = () => {
         <section className={styles.filters}>
           <h2 className={styles.filterHeader}>Search</h2>
 
-          <label htmlFor="ageRange">Age Range: {age}</label>
+          <label htmlFor="ageRange">Age: {age}</label>
           <input
             id="ageRange"
             type="range"
