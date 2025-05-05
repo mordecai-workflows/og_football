@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./search.module.css"; // Your improved CSS module
 import Sidebar from "../components/Sidebar";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 const PlayerSearch = () => {
+  const navigate = useNavigate();
+
   // filters
   const [age, setAge] = useState(0);
   const [position, setPosition] = useState("");
@@ -66,6 +69,10 @@ const PlayerSearch = () => {
     } finally {
       setIsLoading(false);
     }
+  };
+  // handle click using navigate
+  const viewProfile = (id) => {
+    navigate(`/scout/playerSearch/${id}`);
   };
 
   return (
@@ -156,7 +163,12 @@ const PlayerSearch = () => {
                     <span className={styles.playerPosition}>
                       {player.position}
                     </span>
-                    <button className={styles.endorseButton}>Endorse</button>
+                    <button
+                      onClick={() => viewProfile(player.userId)}
+                      className={styles.endorseButton}
+                    >
+                      View Profile
+                    </button>
                   </div>
                 </div>
               ))}

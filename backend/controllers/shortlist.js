@@ -3,31 +3,33 @@ import Player from "../models/player.js";
 import User from "../models/user.js";
 
 export const addPlayerToShortlist = async (req, res) => {
-    const { playerId } = req.body;
-    const scoutId = req.userId; // Extracted from middleware
-  
-    try {
-      // Check if the player is already shortlisted
-      const existingShortlist = await Shortlist.findOne({
-        where: { scoutId, playerId },
-      });
-  
-      if (existingShortlist) {
-        return res.status(400).json({ message: "Player is already shortlisted" });
-      }
-  
-      // Add the player to the shortlist
-      const shortlist = await Shortlist.create({ scoutId, playerId });
-      res.status(201).json({
-        message: "Player added to shortlist",
-        playerId, // Include the playerId in the response
-        shortlist,
-      });
-    } catch (error) {
-      console.error("Error adding player to shortlist:", error);
-      res.status(500).json({ message: "Internal server error" });
+  const { playerId } = req.body;
+  const scoutId = req.userId; // Extracted from middleware
+
+  console.log(`player: ${playerId} scout: ${scoutId}`);
+
+  try {
+    // Check if the player is already shortlisted
+    const existingShortlist = await Shortlist.findOne({
+      where: { scoutId, playerId },
+    });
+
+    if (existingShortlist) {
+      return res.status(409).json({ message: "Player is already shortlisted" });
     }
-  };
+
+    // Add the player to the shortlist
+    const shortlist = await Shortlist.create({ scoutId, playerId });
+    res.status(201).json({
+      message: "Player added to shortlist",
+      playerId, // Include the playerId in the response
+      shortlist,
+    });
+  } catch (error) {
+    console.error("Error adding player to shortlist:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
 
 export const removePlayerFromShortlist = async (req, res) => {
   const { playerId } = req.params;
@@ -58,7 +60,15 @@ export const getShortlistedPlayers = async (req, res) => {
       include: [
         {
           model: Player,
-          attributes: ["id", "position", "club_team", "county","height","weight","preferred_foot"],
+          attributes: [
+            "id",
+            "position",
+            "club_team",
+            "county",
+            "height",
+            "weight",
+            "preferred_foot",
+          ],
         },
         {
           model: User,

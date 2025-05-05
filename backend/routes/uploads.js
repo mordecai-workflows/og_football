@@ -76,6 +76,32 @@ router.post("/user", async (req, res) => {
   }
 });
 
+// GET /media/player/:id
+router.get("/player/:id", async (req, res) => {
+  const token = req.cookies.accessToken;
+  console.log(token);
+  const { id } = req.params;
+  console.log(id);
+
+  if (!token) {
+    return res.status(400).json({ error: "No token provided" });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    const userMedia = await Media.findAll({
+      where: { userId: id },
+      order: [["uploadedAt", "DESC"]],
+    });
+
+    res.status(200).json({ media: userMedia });
+  } catch (err) {
+    console.error("Error displaying media:", err);
+    res.status(500).json({ error: "Failed to show media" });
+  }
+});
+
 // POST /media/url
 router.post("/url", async (req, res) => {
   const { key } = req.body || {};

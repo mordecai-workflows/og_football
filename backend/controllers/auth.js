@@ -12,8 +12,6 @@ import Team from "../models/team.js";
 
 dotenv.config();
 
-
-
 export async function registerUser(req, res) {
   const {
     first_name,
@@ -35,8 +33,6 @@ export async function registerUser(req, res) {
     //Team details
     name,
     team_level,
-  
-
   } = req.body || {};
 
   // Basic user details are mandatory
@@ -119,7 +115,7 @@ export async function registerUser(req, res) {
         },
         { transaction: t }
       );
-    }else if (user_type === "team") {
+    } else if (user_type === "team") {
       await Team.create(
         {
           name,
@@ -198,7 +194,6 @@ export async function forgot(req, res) {
     user.resetTokenExpiration = Date.now() + 3600000; // 1 hour from now
     await user.save();
 
-    
     // Create the reset link
     const resetLink = `${process.env.FRONTEND_URL}/reset?token=${resetToken}`;
 
@@ -436,7 +431,7 @@ export const getPlayerInfo = async (req, res) => {
 
 // others to get player profile
 export const getPlayerProfile = async (req, res) => {
-  const { playerId } = req.params; // Extract playerId from the route parameter
+  const { playerId } = req.params;
 
   try {
     // Find the user by ID
@@ -466,7 +461,8 @@ export const getPlayerProfile = async (req, res) => {
         "position",
         "club_team",
         "county",
-      ], // Fetch only relevant fields
+        "id",
+      ],
     });
 
     if (!player) {
@@ -478,8 +474,8 @@ export const getPlayerProfile = async (req, res) => {
       ...user.toJSON(),
       ...player.toJSON(),
     };
-
-    res.status(200).json(playerProfile);
+    console.log(playerProfile);
+    return res.status(200).json(playerProfile);
   } catch (error) {
     console.error("Error fetching player profile:", error);
     res.status(500).json({ message: "Internal server error" });
@@ -507,11 +503,7 @@ export const getScoutProfile = async (req, res) => {
     // Fetch the scout's details
     const scout = await Scout.findOne({
       where: { userId },
-      attributes: [
-        
-        "years_of_experience",
-        "associated_team",
-      ], // Fetch only relevant fields
+      attributes: ["years_of_experience", "associated_team"], // Fetch only relevant fields
     });
 
     if (!scout) {

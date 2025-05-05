@@ -42,6 +42,7 @@ import ScoutHome from "./pages/scout/home/Home.jsx";
 import PlayerSearch from "./pages/scout/playerSearch/search.jsx";
 import ScoutProfile from "./pages/scout/profile/profile.jsx";
 import Shortlists from "./pages/scout/shortlists/shortlists.jsx";
+import Player from "./pages/scout/player/Player.jsx";
 
 import "./index.css";
 
@@ -69,9 +70,10 @@ const router = createBrowserRouter([
     element: <ProtectedRoute allowedRoles={["scout"]} />,
     children: [
       { path: "/scout/home", element: <ScoutHome /> },
-      {path: "/scout/playerSearch", element: <PlayerSearch /> },
-      {path: "/scout/profile", element: <ScoutProfile /> },
-      {path: "/scout/shortlists", element: <Shortlists /> },
+      { path: "/scout/playerSearch", element: <PlayerSearch /> },
+      { path: "/scout/profile", element: <ScoutProfile /> },
+      { path: "/scout/shortlists", element: <Shortlists /> },
+      { path: "/scout/playerSearch/:id", element: <Player /> },
     ],
   },
   {
@@ -84,7 +86,6 @@ const router = createBrowserRouter([
       {path: "/team/profile", element: <TeamProfile /> },
     ],
   },
-  
 ]);
 
 createRoot(document.getElementById("root")).render(
