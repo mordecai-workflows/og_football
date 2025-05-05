@@ -35,6 +35,7 @@ import TeamDashboard from "./pages/team/dashboard/dashboard.jsx";
 import TeamRoster from "./pages/team/roster/roster.jsx";
 import TeamStats from "./pages/team/stats/stats.jsx";
 import TeamMatches from "./pages/team/matches/matches.jsx";
+import TeamProfile from "./pages/team/profile/profile.jsx";
 
 // scout pages
 import ScoutHome from "./pages/scout/home/Home.jsx";
@@ -80,6 +81,7 @@ const router = createBrowserRouter([
       { path: "/team/roster", element: <TeamRoster /> },
       { path: "/team/stats", element: <TeamStats /> },
       { path: "/team/matches", element: <TeamMatches /> },
+      {path: "/team/profile", element: <TeamProfile /> },
     ],
   },
   

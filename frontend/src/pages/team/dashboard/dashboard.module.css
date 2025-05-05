@@ -3,6 +3,10 @@
   height: 100vh;
 }
 
+.sidebar{
+  height : 100vh;
+}
+
 .mainContent {
   flex: 1;
   background: #fff;

@@ -83,8 +83,13 @@ export default function Sidebar({ active }) {
           <li className={active === "matches" ? styles.active : ""}>
             <Link to="/team/matches">
               {!minimized ? "Matches" : <span title="Matches">⚽</span>}
-            </Link>
+            </Link>        
           </li>
+          <li className={active === "profile" ? styles.active : ""}>
+            <Link to="/team/profile">
+              {!minimized ? "Profile" : <span title="Profile">👤</span>}
+            </Link>
+          </li>    
         </ul>
       </nav>
 

@@ -1,11 +1,24 @@
 import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import styles from './dashboard.module.css';
 
 const TeamDashboard = () => {
+  const navigate = useNavigate();
+
+  const handleManageRosterClick = () => {
+    navigate('/team/roster');
+  };
+
+  const handleEnterMatchStatsClick = () => {
+    navigate('/team/matches'); // Redirect to matches page
+  };
+
   return (
     <div className={styles.dashboard}>
-        <Sidebar active="dashboard" />
+      <div className={styles.sidebar}>
+      <Sidebar active="dashboard" />
+      </div>
       <div className={styles.mainContent}>
         <h1 className={styles.pageTitle}>Team Dashboard</h1>
         <div className={styles.teamInfo}>
@@ -35,8 +48,18 @@ const TeamDashboard = () => {
         </div>
         <h1 className={styles.quickLinksHeader}>Quick Links</h1>
         <div className={`${styles.quickLinks} ${styles.bordered}`}>
-          <button className={styles.linkButton}>Manage Roster</button>
-          <button className={styles.linkButton}>Enter Match Stats</button>
+          <button 
+            className={styles.linkButton} 
+            onClick={handleManageRosterClick}
+          >
+            Manage Roster
+          </button>
+          <button 
+            className={styles.linkButton} 
+            onClick={handleEnterMatchStatsClick}
+          >
+            Enter Match Stats
+          </button>
         </div>
         <div className={styles.recentActivity}>
           <h2 className={styles.sectionTitle}>Recent Activity</h2>

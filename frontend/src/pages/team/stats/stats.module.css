@@ -1,0 +1,191 @@
+.container {
+  display: flex;
+  font-family: Arial, sans-serif;
+  align-items: flex-start;
+  justify-content: flex-start; /* Ensure items are aligned horizontally */
+  height: 100vh; /* Ensure the container takes full viewport height */
+}
+
+.title {
+  font-size: 28px;
+  font-weight: bold;
+  align-items: center;
+  margin-top: 40px;
+  text-align: center;
+}
+
+.sidebarWrapper {
+  flex-shrink: 0;
+  width: 25px; 
+  position: fixed;
+}
+
+.content {
+  margin-left: 20px;
+  flex-grow: 1;
+  display: flex; /* Ensure content takes up remaining space */
+  flex-direction: column; /* Allow stacking of child elements */
+  overflow-y: auto; /* Add scrolling if content overflows */
+}
+
+.formWrapper {
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+  width: 60%;
+  margin-left: 0px;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  width: 20%;
+  max-width: 400px;
+  margin-top: 20px;
+  margin-left: 400px;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.input,
+.select {
+  padding: 10px;
+  font-size: 14px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.buttonGroup {
+  grid-column: span 2;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.saveButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.saveButton:hover {
+  background-color: #0056b3;
+}
+
+.cancelButton {
+  background-color: #f8f9fa;
+  color: #000;
+  border: 1px solid #ccc;
+  padding: 10px 25px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cancelButton:hover {
+  background-color: #e2e6ea;
+}
+
+.subtitle {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.table {
+  width: 70%;
+  max-width: 800px;
+  border-collapse: collapse;
+  margin-top: 20px;
+  margin-left: 400px;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+.table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.editPlayerButton {
+  width:90px;
+  padding: 10px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 400px;
+}
+.editPlayerButton:hover {
+  background-color: #0056b3;
+}
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popupContent {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.playerList {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.playerItem {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  background-color: #f9f9f9;
+  transition: background-color 0.3s ease;
+}
+
+.playerItem:hover {
+  background-color: #e2e6ea;
+}
