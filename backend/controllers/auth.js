@@ -429,6 +429,23 @@ export const getPlayerInfo = async (req, res) => {
   }
 };
 
+// helper function
+function calculateAge(dob) {
+  const birthDate = new Date(dob);
+  const today = new Date();
+
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const monthDiff = today.getMonth() - birthDate.getMonth();
+  const dayDiff = today.getDate() - birthDate.getDate();
+
+  // If birth month/day hasn't occurred yet this year, subtract 1
+  if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+    age--;
+  }
+
+  return age;
+}
+
 // others to get player profile
 export const getPlayerProfile = async (req, res) => {
   const { playerId } = req.params;
@@ -469,12 +486,18 @@ export const getPlayerProfile = async (req, res) => {
       return res.status(404).json({ message: "Player details not found" });
     }
 
-    // Combine user and player details
+    // Calculate age from yob
+    const playerData = player.toJSON();
+    const age = calculateAge(playerData.yob);
+
+    // Remove yob and add age to the response
+    const { yob: _, ...playerWithoutYob } = playerData;
     const playerProfile = {
       ...user.toJSON(),
-      ...player.toJSON(),
+      ...playerWithoutYob,
+      age: age,
     };
-    console.log(playerProfile);
+
     return res.status(200).json(playerProfile);
   } catch (error) {
     console.error("Error fetching player profile:", error);

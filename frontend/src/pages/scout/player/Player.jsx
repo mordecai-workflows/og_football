@@ -188,7 +188,7 @@ export default function Player() {
             <div className={styles.media_section}>
               {media.length > 0 ? (
                 media.map((item) => {
-                  const isVideo = /\.(mp4|webm|ogg)$/i.test(item.signedUrl);
+                  const isVideo = item.key.match(/\.(mp4|webm|ogg)$/i);
 
                   return (
                     <div key={item.id} className={styles.video_thumb}>
@@ -210,12 +210,6 @@ export default function Player() {
                           src={item.signedUrl}
                           alt={item.alt || "Media"}
                         />
-                      )}
-
-                      {isVideo && (
-                        <div className={styles.video_overlay}>
-                          <span className={styles.play_icon}>▶</span>
-                        </div>
                       )}
                     </div>
                   );

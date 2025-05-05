@@ -6,6 +6,7 @@ import media from "./routes/uploads.js";
 import message from "./routes/messaging.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import notFound from "./utils/notFound.js";
 
 dotenv.config();
 const PORT = process.env.PORT || 5000;
@@ -25,6 +26,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api", api);
 app.use("/media", media);
 app.use("/message", message);
+
+// Not found middleware
+app.use(notFound);
 
 (async () => {
   await connectDB();

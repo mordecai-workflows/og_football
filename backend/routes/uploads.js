@@ -79,9 +79,7 @@ router.post("/user", async (req, res) => {
 // GET /media/player/:id
 router.get("/player/:id", async (req, res) => {
   const token = req.cookies.accessToken;
-  console.log(token);
   const { id } = req.params;
-  console.log(id);
 
   if (!token) {
     return res.status(400).json({ error: "No token provided" });

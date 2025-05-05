@@ -11,7 +11,7 @@ import {
   editUserInfo,
   getPlayerInfo,
   getPlayerProfile,
-  getScoutProfile
+  getScoutProfile,
 } from "../controllers/auth.js";
 import { getPlayersForLoggedInTeam } from "../controllers/team.js";
 import { getFilteredPlayersForScout } from "../controllers/player.js";
@@ -28,9 +28,10 @@ import {
   getMatchesForPlayer,
 } from "../controllers/match.js";
 
-import { addOrUpdatePlayerStats,
+import {
+  addOrUpdatePlayerStats,
   getPlayerStats,
- } from "../controllers/playerStats.js";
+} from "../controllers/playerStats.js";
 
 import User from "../models/user.js";
 import { extractUserId } from "../Middleware/auth.js";
@@ -47,16 +48,18 @@ router.post("/logout", logout);
 router.delete("/delete", extractUserId, deleteUserAccount);
 router.put("/edit", extractUserId, editUserInfo);
 router.get("/player", extractUserId, getPlayerInfo);
-router.get("/scout/profile",extractUserId, getScoutProfile);
+router.get("/scout/profile", extractUserId, getScoutProfile);
 router.get("/player/:playerId", extractUserId, getPlayerProfile);
 router.get("/teamplayers", extractUserId, getPlayersForLoggedInTeam);
 router.get("/scout/players", getFilteredPlayersForScout);
 
+// Shortlisting
 router.post("/shortlist/add", extractUserId, addPlayerToShortlist);
-
-router.delete("/shortlist/remove/:playerId", extractUserId, removePlayerFromShortlist);
-
-
+router.delete(
+  "/shortlist/remove/:playerId",
+  extractUserId,
+  removePlayerFromShortlist
+);
 router.get("/shortlist/", extractUserId, getShortlistedPlayers);
 
 // Add a new match
@@ -74,9 +77,7 @@ router.post("/playerStats/add", addOrUpdatePlayerStats);
 // Get stats for a player
 router.get("/playerStats/:playerId", getPlayerStats);
 
-
-
-
+// Frontend continous auth
 router.get("/auth/verify", (req, res) => {
   const token = req.cookies.accessToken;
 
