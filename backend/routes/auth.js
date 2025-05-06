@@ -13,7 +13,12 @@ import {
   getPlayerProfile,
   getScoutProfile,
 } from "../controllers/auth.js";
-import { getPlayersForLoggedInTeam } from "../controllers/team.js";
+import {
+  getAllPlayers,
+  getPlayersForLoggedInTeam,
+  addPlayerToTeam,
+  removePlayerFromTeam,
+} from "../controllers/team.js";
 import { getFilteredPlayersForScout } from "../controllers/player.js";
 
 import {
@@ -51,7 +56,6 @@ router.put("/edit", extractUserId, editUserInfo);
 router.get("/player", extractUserId, getPlayerInfo);
 router.get("/scout/profile", extractUserId, getScoutProfile);
 router.get("/player/:playerId", extractUserId, getPlayerProfile);
-router.get("/teamplayers", extractUserId, getPlayersForLoggedInTeam);
 router.get("/scout/players", getFilteredPlayersForScout);
 
 /// Shortlisting
@@ -75,6 +79,19 @@ router.post("/playerStats/add", addOrUpdatePlayerStats);
 
 // Get stats for a player
 router.get("/playerStats/:playerId", getPlayerStats);
+
+// Get all players
+router.get("/team/allplayers", extractUserId, getAllPlayers);
+
+// Get players for the logged-in user's team
+router.get("/team/players", extractUserId, getPlayersForLoggedInTeam);
+
+// Add a player to a team
+router.post("/team/add-player", extractUserId, addPlayerToTeam);
+
+// Remove a player from a team
+router.post("/team/remove-player", extractUserId, removePlayerFromTeam);
+
 
 // Frontend continous auth
 router.get("/auth/verify", (req, res) => {
