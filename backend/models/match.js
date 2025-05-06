@@ -37,7 +37,7 @@ const Match = sequelize.define("Match", {
     allowNull: false,
   },
   goalTimestamps: {
-    type: DataTypes.JSON, // Store timestamps for goals as JSON
+    type: DataTypes.JSON, // Timestamps for goals in JSON format
     allowNull: true,
   },
 });
