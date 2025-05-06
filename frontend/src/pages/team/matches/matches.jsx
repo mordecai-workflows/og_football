@@ -4,13 +4,13 @@ import Sidebar from '../components/Sidebar';
 
 export default function Matches() {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
-  const [formData, setFormData] = useState({ date: "", opponent: "", result: "" });
+  const [formData, setFormData] = useState({ date: "", opponent: "", homeScore: "", awayScore: "" });
   const [editIndex, setEditIndex] = useState(null);
   const [matches, setMatches] = useState([
-    { date: "Apr 20, 2024", opponent: "FC Dynamo", result: "2 – 1" },
-    { date: "Apr 14, 2024", opponent: "United SC", result: "2 – 1" },
-    { date: "Apr 8, 2024", opponent: "Riverside FC", result: "L 1" },
-    { date: "Mar 30, 2024", opponent: "Northside FC", result: "4 – 0" },
+    { date: "Apr 20, 2024", opponent: "FC Dynamo", homeScore: 2, awayScore: 1 },
+    { date: "Apr 14, 2024", opponent: "United SC", homeScore: 2, awayScore: 1 },
+    { date: "Apr 8, 2024", opponent: "Riverside FC", homeScore: 1, awayScore: 1 },
+    { date: "Mar 30, 2024", opponent: "Northside FC", homeScore: 4, awayScore: 0 },
   ]);
   const [roster, setRoster] = useState([]);
 
@@ -45,7 +45,7 @@ export default function Matches() {
       updatedMatches.push(formData);
     }
     setMatches(updatedMatches);
-    setFormData({ date: "", opponent: "", result: "" });
+    setFormData({ date: "", opponent: "", homeScore: "", awayScore: "" });
     setEditIndex(null);
     setIsPopupVisible(false);
   };
@@ -66,12 +66,13 @@ export default function Matches() {
                 <tr>
                   <th>Date</th>
                   <th>Opponent</th>
-                  <th>Result</th>
+                  <th>Home Score</th>
+                  <th>Away Score</th>
                   <th>
                     <button
                       className={styles.editIcon}
                       onClick={() => {
-                        setFormData({ date: "", opponent: "", result: "" });
+                        setFormData({ date: "", opponent: "", homeScore: "", awayScore: "" });
                         setEditIndex(null);
                         setIsPopupVisible(true);
                       }}
@@ -86,7 +87,8 @@ export default function Matches() {
                   <tr key={index}>
                     <td>{match.date}</td>
                     <td>{match.opponent}</td>
-                    <td >{match.result}</td>
+                    <td>{match.homeScore}</td>
+                    <td>{match.awayScore}</td>
                     <td>
                       <button onClick={() => handleEdit(index)}>✏️</button>
                       <button className={styles.deleteButton} onClick={() => handleDelete(index)}>Delete</button>
@@ -118,11 +120,20 @@ export default function Matches() {
                     />
                   </label>
                   <label>
-                    Result:
+                    Home Score:
                     <input
-                      type="text"
-                      name="result"
-                      value={formData.result}
+                      type="number"
+                      name="homeScore"
+                      value={formData.homeScore}
+                      onChange={handleInputChange}
+                    />
+                  </label>
+                  <label>
+                    Away Score:
+                    <input
+                      type="number"
+                      name="awayScore"
+                      value={formData.awayScore}
                       onChange={handleInputChange}
                     />
                   </label>
