@@ -17,11 +17,12 @@ import { getPlayersForLoggedInTeam } from "../controllers/team.js";
 import { getFilteredPlayersForScout } from "../controllers/player.js";
 
 import {
+  createShortlist,
   addPlayerToShortlist,
+  getShortlists,
   removePlayerFromShortlist,
-  getShortlistedPlayers,
+  deleteShortlist
 } from "../controllers/shortlist.js";
-
 import {
   addMatch,
   getMatchesForTeam,
@@ -53,14 +54,12 @@ router.get("/player/:playerId", extractUserId, getPlayerProfile);
 router.get("/teamplayers", extractUserId, getPlayersForLoggedInTeam);
 router.get("/scout/players", getFilteredPlayersForScout);
 
-// Shortlisting
+/// Shortlisting
+router.post("/shortlist/create", extractUserId, createShortlist);
 router.post("/shortlist/add", extractUserId, addPlayerToShortlist);
-router.delete(
-  "/shortlist/remove/:playerId",
-  extractUserId,
-  removePlayerFromShortlist
-);
-router.get("/shortlist/", extractUserId, getShortlistedPlayers);
+router.get("/shortlist", extractUserId, getShortlists);
+router.delete("/shortlist/remove", extractUserId, removePlayerFromShortlist);
+router.delete("/shortlist/delete", extractUserId, deleteShortlist);
 
 // Add a new match
 router.post("/matches/add", addMatch);
