@@ -28,11 +28,7 @@ import {
   removePlayerFromShortlist,
   deleteShortlist
 } from "../controllers/shortlist.js";
-import {
-  addMatch,
-  getMatchesForTeam,
-  getMatchesForPlayer,
-} from "../controllers/match.js";
+import { addMatch, getAllMatches, editMatch, deleteMatch } from "../controllers/match.js";
 
 import {
   addOrUpdatePlayerStats,
@@ -65,20 +61,33 @@ router.get("/shortlist", extractUserId, getShortlists);
 router.delete("/shortlist/remove", extractUserId, removePlayerFromShortlist);
 router.delete("/shortlist/delete", extractUserId, deleteShortlist);
 
-// Add a new match
-router.post("/matches/add", addMatch);
 
-// Get all matches for a team
-router.get("/matches/team/:teamId", getMatchesForTeam);
-
-// Get all matches for a player
-router.get("/matches/player/:playerId", getMatchesForPlayer);
 
 // Add or update player stats
 router.post("/playerStats/add", addOrUpdatePlayerStats);
 
 // Get stats for a player
 router.get("/playerStats/:playerId", getPlayerStats);
+
+
+
+
+// Add a match (home team is automatically set as the logged-in user's team)
+router.post("/match/add", extractUserId, addMatch);
+
+// Get all matches for the logged-in user's team
+router.get("/match/all", extractUserId, getAllMatches);
+
+// Edit a match
+router.put("/match/edit/:matchId", extractUserId, editMatch);
+
+// Delete a match
+router.delete("/match/delete/:matchId", extractUserId, deleteMatch);
+
+
+
+
+
 
 // Get all players
 router.get("/team/allplayers", extractUserId, getAllPlayers);
