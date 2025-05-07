@@ -12,6 +12,7 @@ import {
   getPlayerInfo,
   getPlayerProfile,
   getScoutProfile,
+  getTeamProfile,
 } from "../controllers/auth.js";
 import {
   getAllPlayers,
@@ -33,6 +34,7 @@ import { addMatch, getAllMatches, editMatch, deleteMatch } from "../controllers/
 import {
   addOrUpdatePlayerStats,
   getPlayerStats,
+  getAllPlayersStatsSummary,
 } from "../controllers/playerStats.js";
 
 import User from "../models/user.js";
@@ -61,13 +63,16 @@ router.get("/shortlist", extractUserId, getShortlists);
 router.delete("/shortlist/remove", extractUserId, removePlayerFromShortlist);
 router.delete("/shortlist/delete", extractUserId, deleteShortlist);
 
+// Get Team Profile
+router.get("/team/profile", extractUserId, getTeamProfile);
+
+// Add or Update Player Stats
+router.post("/stats", addOrUpdatePlayerStats);
+
+// Get All Stats for a Specific Player
+router.get("/stats/:playerId", getPlayerStats);
 
 
-// Add or update player stats
-router.post("/playerStats/add", addOrUpdatePlayerStats);
-
-// Get stats for a player
-router.get("/playerStats/:playerId", getPlayerStats);
 
 
 

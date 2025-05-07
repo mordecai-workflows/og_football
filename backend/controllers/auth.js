@@ -545,3 +545,46 @@ export const getScoutProfile = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
+//team profile
+export const getTeamProfile = async (req, res) => {
+  const userId = req.userId; // Extracted from the middleware
+
+  try {
+    // Find the user by ID
+    const user = await User.findByPk(userId, {
+      attributes: ["first_name", "last_name", "email", "user_type"], // Fetch only relevant fields
+    });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Ensure the user is a team manager
+    if (user.user_type !== "team") {
+      return res.status(400).json({ message: "User is not a team manager" });
+    }
+
+    // Fetch the team's details
+    const team = await Team.findOne({
+      where: { userId },
+      attributes: ["name", "county", "team_level"], // Fetch only relevant fields
+    });
+
+    if (!team) {
+      return res.status(404).json({ message: "Team details not found" });
+    }
+
+    // Combine user and team details
+    const teamProfile = {
+      ...user.toJSON(),
+      ...team.toJSON(),
+    };
+
+    res.status(200).json(teamProfile);
+  } catch (error) {
+    console.error("Error fetching team profile:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
