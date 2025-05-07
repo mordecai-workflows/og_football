@@ -5,188 +5,123 @@ import { toast } from "react-toastify";
 import styles from "./shortlists.module.css";
 import Sidebar from "../components/Sidebar";
 import Spinner from "../../../components/spinner/Spinner";
+import CreateShortlistPopup from "./components/CreateShortlistPopup";
+import EditShortlistPopup from "./components/EditShortlistPopup";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 const ShortlistManager = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [list, setList] = useState([]);
-  const [shortlists, setShortlists] = useState([
-    { name: "Midfield Targets", players: 5, created: "04/25/2024" },
-    { name: "Young Prospects", players: 12, created: "03/18/2024" },
-    { name: "Transfer Window", players: 8, created: "01/10/2024" },
-    { name: "Regional Talent", players: 14, created: "11/22/2023" },
-    { name: "Potential Signings", players: 7, created: "09/05/2023" },
-  ]);
+  const [shortlists, setShortlists] = useState([]);
 
   const [showPopup, setShowPopup] = useState(false);
-  const [newShortlist, setNewShortlist] = useState({ name: "", created: "" });
-
   const [showEditPopup, setShowEditPopup] = useState(false);
+  const [shortlist, setShortlist] = useState({ name: "" });
   const [editShortlist, setEditShortlist] = useState(null);
-  const nameOptions = [
-    "",
-    "Forward Targets",
-    "Midfield Targets",
-    "Defender Targets",
-    "Goalkeeper Targets",
-    "Under-21 Prospects",
-    "Left footed",
-    "Right footed",
-  ];
+
+  const fetchShortlists = async () => {
+    setLoading(true);
+    try {
+      const { data } = await axios.get(`${API_URL}/api/shortlist`, {
+        withCredentials: true,
+      });
+      setShortlists(data);
+    } catch (err) {
+      console.error(err);
+      setError(
+        err.response?.data?.message ||
+          err.response?.data ||
+          err.message ||
+          "Failed to fetch shortlists."
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    async function fetchShortlists() {
-      setLoading(true);
-      setError(null);
-      try {
-        const { data } = await axios.get(`${API_URL}/api/shortlist`, {
-          withCredentials: true,
-        });
-
-        console.log(data);
-        setList(data);
-      } catch (err) {
-        console.error(err);
-        setError(
-          err.response?.data?.message ||
-            err.response?.data ||
-            err.message ||
-            "Failed to fetch shortlists."
-        );
-      } finally {
-        setLoading(false);
-      }
-    }
     fetchShortlists();
   }, []);
 
-  const handleAddShortlist = () => {
-    if (newShortlist.name && newShortlist.created) {
-      setShortlists([...shortlists, { ...newShortlist, players: 0 }]);
-      setNewShortlist({ name: "", created: "" });
+  const handleAddShortlist = async () => {
+    try {
+      await axios.post(`${API_URL}/api/shortlist/create`, shortlist, {
+        withCredentials: true,
+      });
+      toast.success("Successfully created the shortlist");
+      setShortlist({ name: "" });
       setShowPopup(false);
+      fetchShortlists();
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to create the shortlist.");
     }
   };
 
-  const handleEditShortlist = (index) => {
-    setEditShortlist({ ...shortlists[index], index });
+  const handleDeleteShortlist = async (shortlistId) => {
+    try {
+      await axios.delete(`${API_URL}/api/shortlist/delete`, {
+        data: { shortlistId },
+        withCredentials: true,
+      });
+      toast.success("Deleted Successfully");
+      fetchShortlists();
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to delete the shortlist.");
+    }
+  };
+
+  const closeEditPopup = () => {
+    setShowEditPopup(false);
+    fetchShortlists();
+  };
+
+  const handleRemovePlayer = async (shortlistId, playerId) => {
+    await axios.delete(`${API_URL}/api/shortlist/remove`, {
+      data: { shortlistId, playerId },
+      withCredentials: true,
+    });
+  };
+
+  const handleEditShortlist = (id) => {
+    const selected = shortlists.find((s) => s.id === id);
+    setEditShortlist(selected);
     setShowEditPopup(true);
   };
 
-  const handleSaveEdit = () => {
-    if (editShortlist.name) {
-      const updatedShortlists = [...shortlists];
-      updatedShortlists[editShortlist.index] = {
-        ...updatedShortlists[editShortlist.index],
-        name: editShortlist.name,
-      };
-      setShortlists(updatedShortlists);
-      setShowEditPopup(false);
+  const renderContent = () => {
+    if (loading) {
+      return (
+        <div className={styles.box}>
+          <Spinner />
+          <p>Loading shortlists...</p>
+        </div>
+      );
     }
-  };
 
-  const handleDeleteShortlist = (index) => {
-    const updatedShortlists = shortlists.filter((_, i) => i !== index);
-    setShortlists(updatedShortlists);
-  };
+    if (error) {
+      return (
+        <div className={`${styles.box} ${styles.error}`}>
+          <p>Error loading shortlists: {error}</p>
+        </div>
+      );
+    }
 
-  if (loading) {
+    if (!shortlists.length) {
+      return (
+        <div className={styles.box}>
+          <p>No shortlists found.</p>
+          <button className={styles.box_btn} onClick={() => setShowPopup(true)}>
+            NEW SHORTLIST
+          </button>
+        </div>
+      );
+    }
+
     return (
-      <div className={styles.shortlistManagerContainer}>
-        <Sidebar active="shortlists" />
-        <main className={styles.shortlistContent}>
-          <div className={styles.box}>
-            <Spinner />
-            <br />
-            Loading shortlists...
-          </div>
-        </main>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className={styles.shortlistManagerContainer}>
-        <Sidebar active="shortlists" />
-        <main className={styles.shortlistContent}>
-          <div className={`${styles.box} ${styles.error}`}>
-            Error loading shortlists: {error}
-          </div>
-        </main>
-      </div>
-    );
-  }
-
-  if (!list.length) {
-    return (
-      <div className={styles.shortlistManagerContainer}>
-        <Sidebar active="shortlists" />
-        <main className={styles.shortlistContent}>
-          <div className={styles.box}>
-            <div className={styles}>
-              <p>No Shortlists found.</p>
-            </div>
-            <div>
-              <button
-                className={styles.box_btn}
-                onClick={() => setShowPopup(true)}
-              >
-                NEW SHORTLIST
-              </button>
-              {showPopup && (
-                <div className={styles.popup}>
-                  <div className={styles.popupContent}>
-                    <h2>Create New Shortlist</h2>
-                    <label>
-                      Name:
-                      <select
-                        value={newShortlist.name}
-                        onChange={(e) =>
-                          setNewShortlist({
-                            ...newShortlist,
-                            name: e.target.value,
-                          })
-                        }
-                      >
-                        {nameOptions.map((option, index) => (
-                          <option key={index} value={option}>
-                            {option}
-                          </option>
-                        ))}
-                      </select>
-                    </label>
-                    <label>
-                      Date Created:
-                      <input
-                        type="date"
-                        value={newShortlist.created}
-                        onChange={(e) =>
-                          setNewShortlist({
-                            ...newShortlist,
-                            created: e.target.value,
-                          })
-                        }
-                      />
-                    </label>
-                    <button onClick={handleAddShortlist}>Add</button>
-                    <button onClick={() => setShowPopup(false)}>Cancel</button>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </main>
-      </div>
-    );
-  }
-
-  return (
-    <div className={styles.shortlistManagerContainer}>
-      <Sidebar active="shortlists" />
-      <main className={styles.shortlistContent}>
+      <>
         <h1>Shortlist Manager</h1>
         <button
           className={styles.newShortlist}
@@ -194,68 +129,6 @@ const ShortlistManager = () => {
         >
           NEW SHORTLIST
         </button>
-
-        {showPopup && (
-          <div className={styles.popup}>
-            <div className={styles.popupContent}>
-              <h2>Create New Shortlist</h2>
-              <label>
-                Name:
-                <select
-                  value={newShortlist.name}
-                  onChange={(e) =>
-                    setNewShortlist({ ...newShortlist, name: e.target.value })
-                  }
-                >
-                  {nameOptions.map((option, index) => (
-                    <option key={index} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <label>
-                Date Created:
-                <input
-                  type="date"
-                  value={newShortlist.created}
-                  onChange={(e) =>
-                    setNewShortlist({
-                      ...newShortlist,
-                      created: e.target.value,
-                    })
-                  }
-                />
-              </label>
-              <button onClick={handleAddShortlist}>Add</button>
-              <button onClick={() => setShowPopup(false)}>Cancel</button>
-            </div>
-          </div>
-        )}
-        {showEditPopup && (
-          <div className={styles.popup}>
-            <div className={styles.popupContent}>
-              <h2>Edit Shortlist</h2>
-              <label>
-                Name:
-                <select
-                  value={editShortlist.name}
-                  onChange={(e) =>
-                    setEditShortlist({ ...editShortlist, name: e.target.value })
-                  }
-                >
-                  {nameOptions.map((option, index) => (
-                    <option key={index} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <button onClick={handleSaveEdit}>Save</button>
-              <button onClick={() => setShowEditPopup(false)}>Cancel</button>
-            </div>
-          </div>
-        )}
         <table className={styles.shortlistTable}>
           <thead>
             <tr>
@@ -266,21 +139,21 @@ const ShortlistManager = () => {
             </tr>
           </thead>
           <tbody>
-            {shortlists.map((shortlist, index) => (
-              <tr key={index}>
-                <td>{shortlist.name}</td>
-                <td>{shortlist.players}</td>
-                <td>{shortlist.created}</td>
+            {shortlists.map((s) => (
+              <tr key={s.id}>
+                <td>{s.name}</td>
+                <td>{s.ShortlistPlayers.length}</td>
+                <td>{new Date(s.createdAt).toLocaleDateString()}</td>
                 <td>
                   <button
                     className={styles.manageBtn}
-                    onClick={() => handleEditShortlist(index)}
+                    onClick={() => handleEditShortlist(s.id)}
                   >
                     Manage
                   </button>
                   <button
                     className={styles.deleteBtn}
-                    onClick={() => handleDeleteShortlist(index)}
+                    onClick={() => handleDeleteShortlist(s.id)}
                   >
                     Delete
                   </button>
@@ -289,6 +162,30 @@ const ShortlistManager = () => {
             ))}
           </tbody>
         </table>
+      </>
+    );
+  };
+
+  return (
+    <div className={styles.shortlistManagerContainer}>
+      <Sidebar active="shortlists" />
+      <main className={styles.shortlistContent}>
+        {renderContent()}
+        {showPopup && (
+          <CreateShortlistPopup
+            shortlist={shortlist}
+            setShortlist={setShortlist}
+            onAdd={handleAddShortlist}
+            onCancel={() => setShowPopup(false)}
+          />
+        )}
+        {showEditPopup && editShortlist && (
+          <EditShortlistPopup
+            editShortlist={editShortlist}
+            onCancelEdit={closeEditPopup}
+            handleRemovePlayer={handleRemovePlayer}
+          />
+        )}
       </main>
     </div>
   );
