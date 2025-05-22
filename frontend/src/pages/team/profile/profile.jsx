@@ -11,17 +11,13 @@ export default function teamProfilePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Format date helper
-  const formatDate = (isoDate) =>
-    isoDate ? new Date(isoDate).toLocaleDateString("en-GB") : "";
-
   useEffect(() => {
     async function fetchProfile() {
       try {
         setLoading(true);
         setError(null);
 
-        const res = await fetch(`${API_URL}/api/scout/profile`, {
+        const res = await fetch(`${API_URL}/api/team/profile`, {
           credentials: "include", // include cookies if needed
         });
         if (!res.ok) {
@@ -52,9 +48,7 @@ export default function teamProfilePage() {
         <div className={styles.error}>Error loading profile: {error}</div>
       ) : (
         <div className={styles.main}>
-          <h1 className={styles.title}>
-            {team.name}
-          </h1>
+          <h1 className={styles.title}>{team.name}</h1>
 
           <div className={styles.avatarContainer}>
             <img
@@ -71,12 +65,16 @@ export default function teamProfilePage() {
                 <span>{team.email}</span>
               </div>
               <div>
-                <span className={styles.label}>User Type:</span>
-                <span>{team.user_type}</span>
+                <span className={styles.label}>Team Level:</span>
+                <span>{team.team_level}</span>
               </div>
               <div>
                 <span className={styles.label}>Club Name:</span>
-                <span>{team.team_name}</span>
+                <span>{team.name}</span>
+              </div>
+              <div>
+                <span className={styles.label}>County:</span>
+                <span>{team.county}</span>
               </div>
             </div>
           </div>
