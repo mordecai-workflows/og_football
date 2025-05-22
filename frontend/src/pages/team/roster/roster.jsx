@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Roster.module.css";
 import Sidebar from "../components/Sidebar";
+import { toast } from "react-toastify";
 
 // Configuration - replace with your actual API URL
 const API_URL = import.meta.env.VITE_API_URL;
@@ -50,7 +51,7 @@ const Roster = () => {
   const fetchAvailablePlayers = async () => {
     try {
       setActionLoading(true);
-      const res = await fetch(`${API_URL}/api/players/available`, {
+      const res = await fetch(`${API_URL}/api/team/allplayers`, {
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
@@ -94,9 +95,6 @@ const Roster = () => {
         },
         body: JSON.stringify({
           playerId: player.id,
-          name: player.name,
-          position: player.position,
-          number: player.number || null,
         }),
       });
 
@@ -104,7 +102,8 @@ const Roster = () => {
         throw new Error(`Failed to add player: ${res.statusText}`);
       }
 
-      const addedPlayer = await res.json();
+      // const data = await res.json();
+      const addedPlayer = player;
 
       // Update local state
       setRoster((prevRoster) => [...prevRoster, addedPlayer]);
@@ -115,10 +114,10 @@ const Roster = () => {
       );
 
       // Show success message
-      alert(`${player.name} has been added to the roster!`);
+      toast.info(`${player.User.first_name} has been added to the roster!`);
     } catch (err) {
       console.error("Error adding player:", err);
-      alert(err.message || "Failed to add player to roster");
+      toast.error(err.message || "Failed to add player to roster");
     } finally {
       setActionLoading(false);
     }
@@ -126,21 +125,16 @@ const Roster = () => {
 
   // Remove player from roster
   const handleRemoveFromRoster = async (player) => {
-    if (
-      !window.confirm(
-        `Are you sure you want to remove ${player.name} from the team?`
-      )
-    ) {
-      return;
-    }
-
     try {
       setActionLoading(true);
 
       const res = await fetch(`${API_URL}/api/team/remove-player`, {
-        method: "DELETE",
+        method: "POST",
         credentials: "include",
-        body: `${player.id}`,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ playerId: player.id }),
       });
 
       if (!res.ok) {
@@ -151,7 +145,7 @@ const Roster = () => {
       setRoster((prevRoster) => prevRoster.filter((p) => p.id !== player.id));
 
       // Show success message
-      alert(`${player.name} has been removed from the roster.`);
+      toast.info(`${player.User.first_name} has been removed from the roster.`);
     } catch (err) {
       console.error("Error removing player:", err);
       alert(err.message || "Failed to remove player from roster");
@@ -234,16 +228,11 @@ const Roster = () => {
                       <li key={player.id} className={styles.playerItem}>
                         <div className={styles.playerDetails}>
                           <span className={styles.playerName}>
-                            {player.name}
+                            {player.User.first_name} {player.User.last_name}
                           </span>
                           <span className={styles.playerPosition}>
                             {player.position}
                           </span>
-                          {player.number && (
-                            <span className={styles.playerNumber}>
-                              #{player.number}
-                            </span>
-                          )}
                         </div>
                         <button
                           className={styles.actionButton}
@@ -296,16 +285,11 @@ const Roster = () => {
                       <li key={player.id} className={styles.playerItem}>
                         <div className={styles.playerDetails}>
                           <span className={styles.playerName}>
-                            {player.name}
+                            {`${player.User.first_name} ${player.User.last_name}`}
                           </span>
                           <span className={styles.playerPosition}>
                             {player.position}
                           </span>
-                          {player.number && (
-                            <span className={styles.playerNumber}>
-                              #{player.number}
-                            </span>
-                          )}
                         </div>
                         <button
                           className={`${styles.actionButton} ${styles.removeButton}`}
@@ -342,20 +326,28 @@ const Roster = () => {
               >
                 <div className={styles.profilePic}>
                   {player.profileImage ? (
-                    <img src={player.profileImage} alt={player.name} />
+                    <img
+                      src={player.profileImage}
+                      alt={player.User.first_name}
+                    />
                   ) : (
                     <div className={styles.placeholderImage}>
-                      {player.name.charAt(0)}
+                      {player.User.first_name.charAt(0)}
                     </div>
                   )}
                 </div>
                 <div className={styles.playerInfo}>
-                  <p className={styles.playerName}>{player.name}</p>
-                  <p className={styles.playerPosition}>{player.position}</p>
-                  <hr />
-                  <p className={styles.playerNumber}>
-                    {player.number || "N/A"}
+                  <p
+                    className={styles.playerName}
+                  >{`${player.User.first_name} ${player.User.last_name}`}</p>
+                  <p className={styles.playerPosition}>
+                    Age:{" "}
+                    {new Date().getFullYear() -
+                      new Date(player.yob).getFullYear()}
                   </p>
+
+                  <hr />
+                  <p className={styles.playerPosition}>{player.position}</p>
                 </div>
               </Link>
             ))

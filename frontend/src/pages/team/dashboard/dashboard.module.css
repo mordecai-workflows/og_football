@@ -159,16 +159,6 @@
   color: #161515;
 }
 
-.notifications {
-  margin-top: 20px;
-}
-
-.notification {
-  font-size: 0.9rem;
-  color: #666;
-  margin-bottom: 5px;
-}
-
 .bordered {
   border: 1px solid #ddd;
   border-radius: 8px;
