@@ -59,9 +59,7 @@ export const getAllMatches = async (req, res) => {
       ],
     });
 
-    if (!matches || matches.length === 0) {
-      return res.status(404).json({ message: "No matches found for this team" });
-    }
+    
 
     res.status(200).json(matches);
   } catch (error) {

@@ -19,6 +19,7 @@ import {
   getPlayersForLoggedInTeam,
   addPlayerToTeam,
   removePlayerFromTeam,
+  getAllOpponentTeams,
 } from "../controllers/team.js";
 import { getFilteredPlayersForScout } from "../controllers/player.js";
 
@@ -89,6 +90,8 @@ router.put("/match/edit/:matchId", extractUserId, editMatch);
 // Delete a match
 router.delete("/match/delete/:matchId", extractUserId, deleteMatch);
 
+// Get all opponent teams
+router.get("/team/opponents", extractUserId, getAllOpponentTeams);
 
 
 

@@ -1,22 +1,54 @@
 import Player from "../models/player.js";
 import Team from "../models/team.js";
 import User from "../models/user.js";
+import { Op } from "sequelize";
+
+
+export const getAllOpponentTeams = async (req, res) => {
+  const userId = req.userId;
+
+  try {
+    // Find the team managed by the logged-in user
+    const myTeam = await Team.findOne({ where: { userId } });
+
+    if (!myTeam) {
+      return res.status(404).json({ message: "Your team not found" });
+    }
+
+    // Fetch all teams except the user's own team
+    const teams = await Team.findAll({
+      where: { id: { [Op.ne]: myTeam.id } },
+      attributes: ["id", "name", "county", "team_level"], // Adjust attributes as needed
+    });
+
+    res.status(200).json(teams);
+  } catch (error) {
+    console.error("Error fetching opponent teams:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
 
 /**
  * Get all players in the database
  */
 export const getAllPlayers = async (req, res) => {
+  const userId = req.userId; // Extract userId from the request (e.g., from a token)
+
   try {
-    // Fetch all players, regardless of their team
+    // Find the team associated with the logged-in user
+    const team = await Team.findOne({ where: { userId } });
+
+    if (!team) {
+      return res.status(404).json({ message: "Team not found" });
+    }
+
+    // Fetch all players NOT in the user's team
     const players = await Player.findAll({
+      where: { club_team: { [Op.ne]: team.name } }, // Not equal to the user's team name
       include: [
         { model: User, attributes: ["first_name", "last_name"] }, // Include user details
       ],
     });
-
-    if (!players || players.length === 0) {
-      return res.status(404).json({ message: "No players found" });
-    }
 
     res.status(200).json(players);
   } catch (error) {
@@ -47,9 +79,7 @@ export const getPlayersForLoggedInTeam = async (req, res) => {
       ],
     });
 
-    if (!players || players.length === 0) {
-      return res.status(404).json({ message: "No players found for this team" });
-    }
+   
 
     res.status(200).json(players);
   } catch (error) {
