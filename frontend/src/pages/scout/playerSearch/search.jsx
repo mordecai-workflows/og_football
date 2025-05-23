@@ -82,15 +82,17 @@ const PlayerSearch = () => {
         <section className={styles.filters}>
           <h2 className={styles.filterHeader}>Search</h2>
 
-          <label htmlFor="ageRange">Age: {age}</label>
-          <input
+          <label htmlFor="ageRange">Age Range:</label>
+          <select
             id="ageRange"
-            type="range"
-            min="15"
-            max="30"
             value={age}
             onChange={(e) => setAge(Number(e.target.value))}
-          />
+          >
+            <option value="">Select age range</option>
+            <option value="15">15-20</option>
+            <option value="21">21-25</option>
+            <option value="26">26-30</option>
+          </select>
 
           <label htmlFor="positionSelect">Position:</label>
           <select
@@ -113,29 +115,6 @@ const PlayerSearch = () => {
             value={clubTeam}
             onChange={(e) => setClubTeam(e.target.value)}
           />
-
-          <label htmlFor="endorsementsRange">
-            Endorsements: {endorsements}
-          </label>
-          <input
-            id="endorsementsRange"
-            type="range"
-            min="0"
-            max="100"
-            value={endorsements}
-            onChange={(e) => setEndorsements(Number(e.target.value))}
-          />
-
-          <label htmlFor="videoViewsRange">Video Views: {videoViews}</label>
-          <input
-            id="videoViewsRange"
-            type="range"
-            min="0"
-            max="1000"
-            value={videoViews}
-            onChange={(e) => setVideoViews(Number(e.target.value))}
-          />
-
           <button
             className={styles.filterButton}
             onClick={applyFilters}
