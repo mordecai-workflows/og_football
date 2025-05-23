@@ -26,7 +26,6 @@ import UserHome from "./pages/user.jsx";
 // player pages
 import PlayerHome from "./pages/player/home/Home.jsx";
 import PlayerMedia from "./pages/player/media/Media.jsx";
-import ProgressAnalytics from "./pages/player/progress/Progress.jsx";
 import MessagingPage from "./pages/player/message/Messages.jsx";
 import ProfilePage from "./pages/player/profile/Profile.jsx";
 
@@ -61,7 +60,6 @@ const router = createBrowserRouter([
     children: [
       { path: "/player/home", element: <PlayerHome /> },
       { path: "/player/media", element: <PlayerMedia /> },
-      { path: "/player/progress", element: <ProgressAnalytics /> },
       { path: "/player/message", element: <MessagingPage /> },
       { path: "/player/profile", element: <ProfilePage /> },
     ],
