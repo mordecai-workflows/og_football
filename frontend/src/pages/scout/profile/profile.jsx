@@ -73,11 +73,7 @@ export default function ScoutProfilePage() {
               <div>
                 <span className={styles.label}>User Type:</span>
                 <span>{scout.user_type}</span>
-              </div>
-              <div>
-                <span className={styles.label}>Date of Birth:</span>
-                <span>{formatDate(scout.yob)}</span>
-              </div>
+              </div>             
               <div>
                 <span className={styles.label}>Associated Team:</span>
                 <span>{scout.associated_team}</span>
