@@ -35,7 +35,7 @@ import { addMatch, getAllMatches, editMatch, deleteMatch } from "../controllers/
 import {
   addOrUpdatePlayerStats,
   getPlayerStats,
-  getAllPlayersStatsSummary,
+  getTeamPlayersStatsSummary,
   deletePlayerStats,
 } from "../controllers/playerStats.js";
 
@@ -75,7 +75,8 @@ router.post("/stats", addOrUpdatePlayerStats);
 router.get("/stats/:playerId", getPlayerStats);
 //Delete Player Stats
 router.delete("/stats/:playerId/:matchId", extractUserId, deletePlayerStats);
-
+//get stat summary for players in a team
+router.get("/stats/team/summary", extractUserId, getTeamPlayersStatsSummary);
 
 
 

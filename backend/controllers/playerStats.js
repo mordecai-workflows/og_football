@@ -127,3 +127,62 @@ export const deletePlayerStats = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
+
+export const getTeamPlayersStatsSummary = async (req, res) => {
+  try {
+    // Find the team managed by the logged-in user
+    const team = await Team.findOne({ where: { userId: req.userId } });
+    if (!team) {
+      return res.status(404).json({ message: "Team not found" });
+    }
+
+    // Get all players in this team
+    const players = await Player.findAll({
+      where: { club_team: team.name },
+      include: [
+        {
+          model: User,
+          attributes: ["first_name", "last_name"]
+        }
+      ]
+    });
+
+    // Get stats for all players in this team
+    const stats = await PlayerStats.findAll({
+      where: { playerId: players.map(p => p.id) },
+      attributes: [
+        "playerId",
+        [sequelize.fn("AVG", sequelize.col("rating")), "averageRating"],
+        [sequelize.fn("SUM", sequelize.col("goalsScored")), "totalGoals"],
+        [sequelize.fn("SUM", sequelize.col("assists")), "totalAssists"],
+      ],
+      group: ["playerId"],
+      raw: true,
+    });
+
+    // Merge player info with stats
+    const summary = players.map(player => {
+      const stat = stats.find(s => s.playerId === player.id) || {};
+      return {
+        playerId: player.id,
+        name: `${player.User.first_name} ${player.User.last_name}`,
+        averageRating: Number(stat.averageRating) || 0,
+        totalGoals: Number(stat.totalGoals) || 0,
+        totalAssists: Number(stat.totalAssists) || 0,
+      };
+    });
+
+    // Sort by averageRating, then goals, then assists
+    summary.sort((a, b) =>
+      b.averageRating - a.averageRating ||
+      b.totalGoals - a.totalGoals ||
+      b.totalAssists - a.totalAssists
+    );
+
+    res.status(200).json(summary);
+  } catch (error) {
+    console.error("Error fetching team player stats summary:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
