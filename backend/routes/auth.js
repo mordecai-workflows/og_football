@@ -36,6 +36,7 @@ import {
   addOrUpdatePlayerStats,
   getPlayerStats,
   getAllPlayersStatsSummary,
+  deletePlayerStats,
 } from "../controllers/playerStats.js";
 
 import User from "../models/user.js";
@@ -72,6 +73,8 @@ router.post("/stats", addOrUpdatePlayerStats);
 
 // Get All Stats for a Specific Player
 router.get("/stats/:playerId", getPlayerStats);
+//Delete Player Stats
+router.delete("/stats/:playerId/:matchId", extractUserId, deletePlayerStats);
 
 
 
@@ -92,6 +95,7 @@ router.delete("/match/delete/:matchId", extractUserId, deleteMatch);
 
 // Get all opponent teams
 router.get("/team/opponents", extractUserId, getAllOpponentTeams);
+
 
 
 

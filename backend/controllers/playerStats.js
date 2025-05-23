@@ -2,6 +2,7 @@ import PlayerStats from "../models/playerStats.js";
 import Player from "../models/player.js";
 import Match from "../models/match.js";
 import User from "../models/user.js"; 
+import Team from "../models/team.js";
 
 import { sequelize } from "../config/database.js";
 
@@ -14,19 +15,16 @@ export const addOrUpdatePlayerStats = async (req, res) => {
     let playerStats = await PlayerStats.findOne({ where: { playerId, matchId } });
 
     if (playerStats) {
-      // Add new stats to the existing stats
-      const updatedStats = {
-        minutesPlayed: playerStats.minutesPlayed + (stats.minutesPlayed || 0),
-        goalsScored: playerStats.goalsScored + (stats.goalsScored || 0),
-        assists: playerStats.assists + (stats.assists || 0),
-        yellowCards: playerStats.yellowCards + (stats.yellowCards || 0),
-        redCards: playerStats.redCards + (stats.redCards || 0),
-        rating: stats.rating || playerStats.rating, // Replace rating if provided
+      // Replace the existing stats with the new stats
+      playerStats = await playerStats.update({
+        minutesPlayed: stats.minutesPlayed || 0,
+        goalsScored: stats.goalsScored || 0,
+        assists: stats.assists || 0,
+        yellowCards: stats.yellowCards || 0,
+        redCards: stats.redCards || 0,
+        rating: stats.rating || 0,
         // Add other stats fields as needed
-      };
-
-      // Update the stats in the database
-      playerStats = await playerStats.update(updatedStats);
+      });
       return res.status(200).json({ message: "Player stats updated successfully", playerStats });
     }
 
@@ -34,7 +32,7 @@ export const addOrUpdatePlayerStats = async (req, res) => {
     const newStats = await PlayerStats.create({ playerId, matchId, ...stats });
     res.status(201).json({ message: "Player stats added successfully", playerStats: newStats });
   } catch (error) {
-    console.error("Error adding/updating player stats:", error);
+    console.error("Error editing player stats:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
@@ -94,6 +92,38 @@ export const getAllPlayersStatsSummary = async (req, res) => {
     res.status(200).json(statsSummary);
   } catch (error) {
     console.error("Error fetching players' stats summary:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export const deletePlayerStats = async (req, res) => {
+  const { playerId, matchId } = req.params; // Use URL params
+
+  try {
+    // Find the team managed by the logged-in user
+    const team = await Team.findOne({ where: { userId: req.userId } });
+    if (!team) {
+      return res.status(403).json({ message: "Unauthorized: Team not found" });
+    }
+
+    // Find the player and ensure they belong to this team
+    const player = await Player.findOne({ where: { id: playerId, club_team: team.name } });
+    if (!player) {
+      return res.status(403).json({ message: "Unauthorized: Player not in your team" });
+    }
+
+    // Delete the stats
+    const deleted = await PlayerStats.destroy({
+      where: { playerId, matchId },
+    });
+
+    if (deleted === 0) {
+      return res.status(404).json({ message: "Player stats not found" });
+    }
+
+    res.status(200).json({ message: "Player stats deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting player stats:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
