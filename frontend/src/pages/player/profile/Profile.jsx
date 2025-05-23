@@ -10,6 +10,8 @@ export default function PlayerProfilePage() {
   const [player, setPlayer] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedPlayer, setEditedPlayer] = useState({});
 
   // Format date helper
   const formatDate = (isoDate) =>
@@ -38,6 +40,39 @@ export default function PlayerProfilePage() {
 
     fetchProfile();
   }, []);
+
+  const handleEditToggle = () => {
+    setIsEditing(!isEditing);
+    setEditedPlayer(player); // Initialize editedPlayer with current player data
+  };
+
+  const handleInputChange = (field, value) => {
+    setEditedPlayer({ ...editedPlayer, [field]: value });
+  };
+
+  const handleSave = async () => {
+    try {
+      setLoading(true);
+      const res = await fetch(`${API_URL}/api/player`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(editedPlayer),
+      });
+      if (!res.ok) {
+        throw new Error(`Failed to save profile: ${res.statusText}`);
+      }
+      const updatedPlayer = await res.json();
+      setPlayer(updatedPlayer);
+      setIsEditing(false);
+    } catch (err) {
+      setError(err.message || "Unknown error");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -68,7 +103,16 @@ export default function PlayerProfilePage() {
             <div className={styles.infoGrid}>
               <div>
                 <span className={styles.label}>Email:</span>
-                <span>{player.email}</span>
+                {isEditing ? (
+                  <input
+                    type="email"
+                    className={styles.editInput}
+                    value={editedPlayer.email}
+                    onChange={(e) => handleInputChange("email", e.target.value)}
+                  />
+                ) : (
+                  <span>{player.email}</span>
+                )}
               </div>
               <div>
                 <span className={styles.label}>User Type:</span>
@@ -80,11 +124,29 @@ export default function PlayerProfilePage() {
               </div>
               <div>
                 <span className={styles.label}>Height:</span>
-                <span>{player.height} cm</span>
+                {isEditing ? (
+                  <input
+                    type="number"
+                    className={styles.editInput}
+                    value={editedPlayer.height}
+                    onChange={(e) => handleInputChange("height", e.target.value)}
+                  />
+                ) : (
+                  <span>{player.height} cm</span>
+                )}
               </div>
               <div>
                 <span className={styles.label}>Weight:</span>
-                <span>{player.weight} kg</span>
+                {isEditing ? (
+                  <input
+                    type="number"
+                    className={styles.editInput}
+                    value={editedPlayer.weight}
+                    onChange={(e) => handleInputChange("weight", e.target.value)}
+                  />
+                ) : (
+                  <span>{player.weight} kg</span>
+                )}
               </div>
               <div>
                 <span className={styles.label}>Preferred Foot:</span>
@@ -102,9 +164,83 @@ export default function PlayerProfilePage() {
               </div>
               <div>
                 <span className={styles.label}>County:</span>
-                <span>{player.county}</span>
+                {isEditing ? (
+                  <select
+                    className={styles.editInput}
+                    value={editedPlayer.county}
+                    onChange={(e) => handleInputChange("county", e.target.value)}
+                  >
+                    <option value="">Select county</option>
+                    <option value="Mom">Mombasa</option>
+                    <option value="Kwa">Kwale</option>
+                    <option value="Kil">Kilifi</option>
+                    <option value="Trv">Tana River</option>
+                    <option value="Lamu">Lamu</option>
+                    <option value="Ttv">Taita-Taveta</option>
+                    <option value="Gar">Garissa</option>
+                    <option value="Wjr">Wajir</option>
+                    <option value="Man">Mandera</option>
+                    <option value="Mar">Marsabit</option>
+                    <option value="Isi">Isiolo</option>
+                    <option value="Mru">Meru</option>
+                    <option value="Thr">Tharaka-Nithi</option>
+                    <option value="Emb">Embu</option>
+                    <option value="Kit">Kitui</option>
+                    <option value="Mch">Machakos</option>
+                    <option value="Mak">Makueni</option>
+                    <option value="Nyn">Nyandarua</option>
+                    <option value="Nyr">Nyeri</option>
+                    <option value="Kir">Kirinyaga</option>
+                    <option value="Mur">Murang'a</option>
+                    <option value="Kia">Kiambu</option>
+                    <option value="Tur">Turkana</option>
+                    <option value="Pkt">West Pokot</option>
+                    <option value="Sbr">Samburu</option>
+                    <option value="Trn">Trans Nzoia</option>
+                    <option value="Uas">Uasin Gishu</option>
+                    <option value="Ema">Elgeyo-Marakwet</option>
+                    <option value="Nan">Nandi</option>
+                    <option value="Bar">Baringo</option>
+                    <option value="Lai">Laikipia</option>
+                    <option value="Nkr">Nakuru</option>
+                    <option value="Nar">Narok</option>
+                    <option value="Kaj">Kajiado</option>
+                    <option value="Ker">Kericho</option>
+                    <option value="Bom">Bomet</option>
+                    <option value="Kak">Kakamega</option>
+                    <option value="Vih">Vihiga</option>
+                    <option value="Bun">Bungoma</option>
+                    <option value="Bus">Busia</option>
+                    <option value="Sia">Siaya</option>
+                    <option value="Ksu">Kisumu</option>
+                    <option value="Hba">Hom Bay</option>
+                    <option value="Mig">Migori</option>
+                    <option value="Ksi">Kisii</option>
+                    <option value="Nym">Nyamira</option>
+                    <option value="Nrb">Nairobi</option>
+                  </select>
+                ) : (
+                  <span>{player.county}</span>
+                )}
               </div>
             </div>
+          </div>
+
+          <div className={styles.actions}>
+            {isEditing ? (
+              <>
+                <button className={styles.saveButton} onClick={handleSave}>
+                  Save
+                </button>
+                <button className={styles.cancelButton} onClick={handleEditToggle}>
+                  Cancel
+                </button>
+              </>
+            ) : (
+              <button className={styles.editButton} onClick={handleEditToggle}>
+                Edit
+              </button>
+            )}
           </div>
         </div>
       )}

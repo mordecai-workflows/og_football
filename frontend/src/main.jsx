@@ -26,7 +26,6 @@ import UserHome from "./pages/user.jsx";
 // player pages
 import PlayerHome from "./pages/player/home/Home.jsx";
 import PlayerMedia from "./pages/player/media/Media.jsx";
-import MessagingPage from "./pages/player/message/Messages.jsx";
 import ProfilePage from "./pages/player/profile/Profile.jsx";
 
 // team pages
@@ -37,7 +36,6 @@ import TeamMatches from "./pages/team/matches/matches.jsx";
 import TeamProfile from "./pages/team/profile/profile.jsx";
 
 // scout pages
-import ScoutHome from "./pages/scout/home/Home.jsx";
 import PlayerSearch from "./pages/scout/playerSearch/search.jsx";
 import ScoutProfile from "./pages/scout/profile/profile.jsx";
 import Shortlists from "./pages/scout/shortlists/shortlists.jsx";
@@ -53,21 +51,19 @@ const router = createBrowserRouter([
   { path: "/reset", element: <ResetPage /> },
 
   { path: "/player", element: <Navigate to="/player/home" replace /> },
-  { path: "/scout", element: <Navigate to="/scout/home" replace /> },
+  { path: "/scout", element: <Navigate to="/scout/playerSearch"  /> },
 
   {
     element: <ProtectedRoute allowedRoles={["player"]} />,
     children: [
       { path: "/player/home", element: <PlayerHome /> },
       { path: "/player/media", element: <PlayerMedia /> },
-      { path: "/player/message", element: <MessagingPage /> },
       { path: "/player/profile", element: <ProfilePage /> },
     ],
   },
   {
     element: <ProtectedRoute allowedRoles={["scout"]} />,
     children: [
-      { path: "/scout/home", element: <ScoutHome /> },
       { path: "/scout/playerSearch", element: <PlayerSearch /> },
       { path: "/scout/profile", element: <ScoutProfile /> },
       { path: "/scout/shortlists", element: <Shortlists /> },

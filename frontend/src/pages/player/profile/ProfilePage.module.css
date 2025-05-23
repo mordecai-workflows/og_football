@@ -85,6 +85,51 @@
   color: #d14343;
 }
 
+/* Edit related styles */
+.editInput {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px;
+  font-size: 1rem;
+  width: 100%;
+  margin-top: 4px;
+}
+
+.editButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.saveButton {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 5px;
+  margin-top:10px;
+}
+
+.cancelButton {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.editButton:hover,
+.saveButton:hover,
+.cancelButton:hover {
+  opacity: 0.9;
+}
+
 /* Responsive adjustments */
 @media (max-width: 600px) {
   .profileCard {
