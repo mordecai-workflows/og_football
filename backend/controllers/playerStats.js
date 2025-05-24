@@ -186,3 +186,31 @@ export const getTeamPlayersStatsSummary = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
+
+export const getPlayerAnalytics = async (req, res) => {
+  try {
+    // Find the player's ID from the logged-in user
+    const player = await Player.findOne({ where: { userId: req.userId } });
+    if (!player) return res.status(404).json({ message: "Player not found" });
+
+    // Aggregate stats by match date
+    const stats = await PlayerStats.findAll({
+      where: { playerId: player.id },
+      attributes: [
+        [sequelize.fn("DATE", sequelize.col("createdAt")), "date"],
+        [sequelize.fn("SUM", sequelize.col("goalsScored")), "goals"],
+        [sequelize.fn("SUM", sequelize.col("assists")), "assists"],
+        [sequelize.fn("SUM", sequelize.col("minutesPlayed")), "minutes"],
+        [sequelize.fn("AVG", sequelize.col("rating")), "avgRating"],
+      ],
+      group: [sequelize.fn("DATE", sequelize.col("createdAt"))],
+      order: [[sequelize.fn("DATE", sequelize.col("createdAt")), "ASC"]],
+      raw: true,
+    });
+
+    res.json(stats);
+  } catch (err) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
