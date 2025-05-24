@@ -68,9 +68,6 @@ export default function Sidebar({ active }) {
             <Link to="/player/media">{!minimized && "Media Library"}</Link>
           </li>
           
-          <li className={active === "messaging" ? styles.active : ""}>
-            <Link to="/player/message">{!minimized && "Messaging"}</Link>
-          </li>
           <li className={active === "profile" ? styles.active : ""}>
             <Link to="/player/profile">{!minimized && "Profile"}</Link>
           </li>

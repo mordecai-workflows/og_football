@@ -230,6 +230,7 @@ export default function Stats() {
     const m = matches.find((x) => x.id === matchId);
     return m ? `${m.homeTeam.name} vs ${m.awayTeam.name}` : `Match ${matchId}`;
   };
+
   return (
     <div className={styles.container}>
       <div className={styles.sidebarWrapper}>
@@ -294,97 +295,101 @@ export default function Stats() {
         )}
 
         {selectedPlayer && (
-          <div className={styles.formWrapper}>
-            <h3>
-              {editIndex !== null ? "Edit" : "Add"} Stats for{" "}
-              {selectedPlayer.User.first_name}
-            </h3>
-
-            <div className={styles.formGroup}>
-              <label className={styles.label}>Match</label>
-              <select
-                name="matchId"
-                value={formData.matchId}
-                onChange={handleInputChange}
-                className={styles.select}
-              >
-                <option value="">-- Select Match --</option>
-                {matches.map((m) => (
-                  <option key={m.id} value={m.id}>
-                    {m.homeTeam.name} vs {m.awayTeam.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {FIELDS.map(({ name, label, type }) => (
-              <div className={styles.formGroup} key={name}>
-                <label className={styles.label}>{label}</label>
-                <input
-                  type={type}
-                  name={name}
-                  className={styles.input}
-                  value={formData[name]}
-                  onChange={handleInputChange}
-                />
+          <>
+            {/* Stat History FIRST */}
+            {statHistory.length > 0 && (
+              <div className={styles.historySection}>
+                <h2>Stat History</h2>
+                <table className={styles.statTable}>
+                  <thead>
+                    <tr>
+                      <th>Match</th>
+                      <th>Minutes</th>
+                      <th>Goals</th>
+                      <th>Assists</th>
+                      <th>Rating</th>
+                      <th>Yellows</th>
+                      <th>Reds</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {statHistory.map((stat, i) => (
+                      <tr key={stat.id}>
+                        <td>{getMatchName(stat.matchId)}</td>
+                        <td>{stat.minutesPlayed}</td>
+                        <td>{stat.goalsScored}</td>
+                        <td>{stat.assists}</td>
+                        <td>{stat.rating}</td>
+                        <td>{stat.yellowCards}</td>
+                        <td>{stat.redCards}</td>
+                        <td className={styles.actions}>
+                          <button onClick={() => handleEdit(i)}>Edit</button>
+                          <button
+                            onClick={() => handleDelete(i)}
+                            className={styles.deleteButton}
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
-            ))}
+            )}
 
-            <div className={styles.buttonGroup}>
-              <button
-                onClick={handleSave}
-                className={styles.saveButton}
-                disabled={loading}
-              >
-                {editIndex !== null ? "Update" : "Save"}
-              </button>
-              <button onClick={handleCancel} className={styles.cancelButton}>
-                Cancel
-              </button>
+            {/* Add/Edit Stats Form SECOND */}
+            <div className={styles.formWrapper}>
+              <h3>
+                {editIndex !== null ? "Edit" : "Add"} Stats for{" "}
+                {selectedPlayer.User.first_name}
+              </h3>
+
+              <div className={styles.formGroup}>
+                <label className={styles.label}>Match</label>
+                <select
+                  name="matchId"
+                  value={formData.matchId}
+                  onChange={handleInputChange}
+                  className={styles.select}
+                >
+                  <option value="">-- Select Match --</option>
+                  {matches.map((m) => (
+                    <option key={m.id} value={m.id}>
+                      {m.homeTeam.name} vs {m.awayTeam.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {FIELDS.map(({ name, label, type }) => (
+                <div className={styles.formGroup} key={name}>
+                  <label className={styles.label}>{label}</label>
+                  <input
+                    type={type}
+                    name={name}
+                    className={styles.input}
+                    value={formData[name]}
+                    onChange={handleInputChange}
+                  />
+                </div>
+              ))}
+
+              <div className={styles.buttonGroup}>
+                <button
+                  onClick={handleSave}
+                  className={styles.saveButton}
+                  disabled={loading}
+                >
+                  {editIndex !== null ? "Update" : "Save"}
+                </button>
+                <button onClick={handleCancel} className={styles.cancelButton}>
+                  Cancel
+                </button>
+              </div>
             </div>
-          </div>
-        )}
-
-        {statHistory.length > 0 && (
-          <div className={styles.historySection}>
-            <h2>Stat History</h2>
-            <table className={styles.statTable}>
-              <thead>
-                <tr>
-                  <th>Match</th>
-                  <th>Minutes</th>
-                  <th>Goals</th>
-                  <th>Assists</th>
-                  <th>Rating</th>
-                  <th>Yellows</th>
-                  <th>Reds</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {statHistory.map((stat, i) => (
-                  <tr key={stat.id}>
-                    <td>{getMatchName(stat.matchId)}</td>
-                    <td>{stat.minutesPlayed}</td>
-                    <td>{stat.goalsScored}</td>
-                    <td>{stat.assists}</td>
-                    <td>{stat.rating}</td>
-                    <td>{stat.yellowCards}</td>
-                    <td>{stat.redCards}</td>
-                    <td className={styles.actions}>
-                      <button onClick={() => handleEdit(i)}>Edit</button>
-                      <button
-                        onClick={() => handleDelete(i)}
-                        className={styles.deleteButton}
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          </>
         )}
 
         {!selectedPlayer && (

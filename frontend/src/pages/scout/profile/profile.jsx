@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import styles from "./profile.module.css"; // Corrected file name casing
+import styles from "./profile.module.css";
 import Spinner from "../../../components/spinner/Spinner";
 import profilesvg from "../../../assets/profile.svg";
 import Sidebar from "../components/Sidebar";
@@ -11,7 +11,6 @@ export default function ScoutProfilePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Format date helper
   const formatDate = (isoDate) =>
     isoDate ? new Date(isoDate).toLocaleDateString("en-GB") : "";
 
@@ -22,7 +21,7 @@ export default function ScoutProfilePage() {
         setError(null);
 
         const res = await fetch(`${API_URL}/api/scout/profile`, {
-          credentials: "include", // include cookies if needed
+          credentials: "include",
         });
         if (!res.ok) {
           throw new Error(`Failed to fetch profile: ${res.statusText}`);
@@ -73,10 +72,6 @@ export default function ScoutProfilePage() {
               <div>
                 <span className={styles.label}>User Type:</span>
                 <span>{scout.user_type}</span>
-              </div>
-              <div>
-                <span className={styles.label}>Date of Birth:</span>
-                <span>{formatDate(scout.yob)}</span>
               </div>
               <div>
                 <span className={styles.label}>Associated Team:</span>

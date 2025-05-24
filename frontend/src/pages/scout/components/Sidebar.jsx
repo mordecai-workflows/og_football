@@ -61,11 +61,6 @@ export default function Sidebar({ active }) {
       <div className={styles.logo}>{!minimized && <PlatformName />}</div>
       <nav className={styles.nav}>
         <ul>
-          <li className={active === "dashboard" ? styles.active : ""}>
-            <Link to="/scout/home">
-              {!minimized ? "Dashboard" : <span title="Dashboard">🏠</span>}
-            </Link>
-          </li>
           <li className={active === "search" ? styles.active : ""}>
             <Link to="/scout/playerSearch">
               {!minimized ? "Player Search" : <span title="Player Search">🔍</span>}
