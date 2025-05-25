@@ -125,12 +125,12 @@ export default function Stats() {
     setEditIndex(index);
   };
 
-  const handleDelete = async (index) => {
+  const handleDelete = async (matchId, playerId) => {
     if (!window.confirm("Delete this stat record?")) return;
-    const stat = statHistory[index];
+    // const stat = statHistory[index];
     try {
       setLoading(true);
-      const res = await fetch(`${API_URL}/api/stats/${stat.id}`, {
+      const res = await fetch(`${API_URL}/api/stats/${playerId}/${matchId}`, {
         method: "DELETE",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
@@ -315,7 +315,7 @@ export default function Stats() {
                   </thead>
                   <tbody>
                     {statHistory.map((stat, i) => (
-                      <tr key={stat.id}>
+                      <tr key={stat.id || i}>
                         <td>{getMatchName(stat.matchId)}</td>
                         <td>{stat.minutesPlayed}</td>
                         <td>{stat.goalsScored}</td>
@@ -326,7 +326,9 @@ export default function Stats() {
                         <td className={styles.actions}>
                           <button onClick={() => handleEdit(i)}>Edit</button>
                           <button
-                            onClick={() => handleDelete(i)}
+                            onClick={() =>
+                              handleDelete(stat.matchId, stat.playerId)
+                            }
                             className={styles.deleteButton}
                           >
                             Delete
