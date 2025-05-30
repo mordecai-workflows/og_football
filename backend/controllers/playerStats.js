@@ -189,11 +189,14 @@ export const getTeamPlayersStatsSummary = async (req, res) => {
 
 
 export const getPlayerAnalytics = async (req, res) => {
+  const userId = req.userId;
+  console.log("Looking for Player with userId:", userId);
   try {
-    // Find the player's ID from the logged-in user
-    const player = await Player.findOne({ where: { userId: req.userId } });
-    if (!player) return res.status(404).json({ message: "Player not found" });
-
+    const player = await Player.findOne({ where: { userId } });
+    if (!player) {
+      console.log("No Player found for userId:", userId);
+      return res.status(404).json({ message: "Player not found" });
+    }
     // Aggregate stats by match date
     const stats = await PlayerStats.findAll({
       where: { playerId: player.id },

@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 
 //middware to extract user id from token
 export const extractUserId = (req, res, next) => {
+  console.log("extractUserId middleware called");
   const token = req.cookies.accessToken;
 
   if (!token) {

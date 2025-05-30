@@ -37,7 +37,8 @@ import {
   getPlayerStats,
   getTeamPlayersStatsSummary,
   deletePlayerStats,
-  getPlayerAnalytics,
+  getPlayerAnalytics
+
 } from "../controllers/playerStats.js";
 
 import User from "../models/user.js";
@@ -79,7 +80,7 @@ router.delete("/stats/:playerId/:matchId", extractUserId, deletePlayerStats);
 //get stat summary for players in a team
 router.get("/stats/team/summary", extractUserId, getTeamPlayersStatsSummary);
 
-router.get("/player/analytics", extractUserId, getPlayerAnalytics);
+router.get("/playerana", extractUserId, getPlayerAnalytics);
 
 
 
