@@ -25,6 +25,7 @@ export default function Matches() {
   useEffect(() => {
     fetchMatches();
     fetchOpponents();
+    fetchRoster();
   }, []);
 
   const fetchMatches = async () => {
@@ -45,21 +46,21 @@ export default function Matches() {
     }
   };
 
-  // const fetchRoster = async () => {
-  //   try {
-  //     const res = await fetch(`${API_URL}/api/players/stats`, {
-  //       credentials: "include",
-  //       headers: { "Content-Type": "application/json" },
-  //     });
+  const fetchRoster = async () => {
+    try {
+      const res = await fetch(`${API_URL}/api/stats/team/summary`, {
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+      });
 
-  //     if (!res.ok) throw new Error(`Failed to fetch roster: ${res.statusText}`);
+      if (!res.ok) throw new Error(`Failed to fetch roster: ${res.statusText}`);
 
-  //     const data = await res.json();
-  //     setRoster(data);
-  //   } catch (err) {
-  //     console.error("Error fetching roster:", err);
-  //   }
-  // };
+      const data = await res.json();
+      setRoster(data);
+    } catch (err) {
+      console.error("Error fetching roster:", err);
+    }
+  };
 
   const fetchOpponents = async () => {
     try {
@@ -395,9 +396,9 @@ export default function Matches() {
                   roster.map((player, index) => (
                     <tr key={player.id || index}>
                       <td>{player.name}</td>
-                      <td>{player.rating || "N/A"}</td>
-                      <td>{player.goals || 0}</td>
-                      <td>{player.assists || 0}</td>
+                      <td>{player.averageRating || "N/A"}</td>
+                      <td>{player.totalGoals || 0}</td>
+                      <td>{player.totalAssists || 0}</td>
                     </tr>
                   ))
                 ) : (
