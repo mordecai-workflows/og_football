@@ -43,11 +43,11 @@ export const registerSchema = Yup.object().shape({
     then: (schema) => schema.required("Preferred Foot is required"),
     otherwise: (schema) => schema.notRequired(),
   }),
-  club_team: Yup.string().when("user_type", {
-    is: "player",
-    then: (schema) => schema.required("Football Club is required"),
-    otherwise: (schema) => schema.notRequired(),
-  }),
+  // club_team: Yup.string().when("user_type", {
+  //   is: "player",
+  //   then: (schema) => schema.required("Football Club is required"),
+  //   otherwise: (schema) => schema.notRequired(),
+  // }),
   position: Yup.string().when("user_type", {
     is: "player",
     then: (schema) => schema.required("Position is required"),

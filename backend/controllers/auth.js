@@ -25,7 +25,6 @@ export async function registerUser(req, res) {
     weight,
     preferred_foot,
     position,
-    club_team,
     county,
     // Scout details
     years_of_experience,
@@ -48,7 +47,6 @@ export async function registerUser(req, res) {
       !weight ||
       !preferred_foot ||
       !position ||
-      !club_team ||
       !county
     ) {
       return res.status(400).json({ message: "Player details are incomplete" });
@@ -99,7 +97,7 @@ export async function registerUser(req, res) {
           weight,
           preferred_foot,
           position,
-          club_team,
+          club_team: "Not Assigned", // Always set as "Not Assigned" on registration
           county,
           userId: newUser.id, // associate the Player with the User
         },

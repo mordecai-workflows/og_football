@@ -32,19 +32,10 @@ export const getAllOpponentTeams = async (req, res) => {
  * Get all players in the database
  */
 export const getAllPlayers = async (req, res) => {
-  const userId = req.userId; // Extract userId from the request (e.g., from a token)
-
   try {
-    // Find the team associated with the logged-in user
-    const team = await Team.findOne({ where: { userId } });
-
-    if (!team) {
-      return res.status(404).json({ message: "Team not found" });
-    }
-
-    // Fetch all players NOT in the user's team
+    // Fetch all players whose club_team is "Not Assigned"
     const players = await Player.findAll({
-      where: { club_team: { [Op.ne]: team.name } }, // Not equal to the user's team name
+      where: { club_team: "Not Assigned" },
       include: [
         { model: User, attributes: ["first_name", "last_name"] }, // Include user details
       ],

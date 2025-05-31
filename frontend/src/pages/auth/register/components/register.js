@@ -102,12 +102,6 @@ const playerFields = [
     placeholder: "Enter Preferred Foot",
   },
   {
-    id: "club_team",
-    label: "Football Club",
-    type: "text",
-    placeholder: "Enter Club Name",
-  },
-  {
     id: "position",
     label: "Position",
     type: "text",
