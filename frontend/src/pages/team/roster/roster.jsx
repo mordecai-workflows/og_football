@@ -320,7 +320,6 @@ const Roster = () => {
           {roster.length > 0 ? (
             roster.map((player) => (
               <Link
-                to={`/stats/${player.id || player.name}`}
                 key={player.id || player.name}
                 className={styles.playerCard}
               >
